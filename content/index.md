@@ -1,5 +1,3 @@
 ---
-title: Home
-publish: true
+title: "DevOps and Unity"
 ---
-# Welcome
