@@ -1,5 +1,0 @@
----
-title: rien
-tags:
-  - component
----
