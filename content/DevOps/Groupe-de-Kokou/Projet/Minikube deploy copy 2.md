@@ -1,5 +1,5 @@
 ---
-title: Minikude deploy
+title: 2-Minikude deploy
 ---
 
 # Guide de Déploiement Minikube

@@ -1,5 +1,5 @@
 ---
-title: EKS deploy
+title: 3-EKS deploy
 ---
 
 # Guide de Déploiement EKS (Production)
