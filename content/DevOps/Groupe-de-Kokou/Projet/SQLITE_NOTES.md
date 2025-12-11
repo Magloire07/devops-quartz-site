@@ -75,7 +75,7 @@ Pour permettre le scaling horizontal (plusieurs replicas), vous devriez migrer v
 
 ## Guide de migration vers PostgreSQL
 
-Si vous souhaitez passer à PostgreSQL, voici les modifications nécessaires :
+Pour passer à PostgreSQL, voici les modifications nécessaires :
 
 ### 1. Mettre à jour requirements.txt
 
@@ -228,7 +228,7 @@ env:
 
 ## Stratégie de backup avec SQLite
 
-En attendant une éventuelle migration, voici comment sauvegarder SQLite :
+Voici comment sauvegarder SQLite :
 
 ### Backup manuel
 
@@ -281,21 +281,6 @@ spec:
               claimName: backup-pvc
 ```
 
----
-
-## Résumé des recommandations
-
-### Pour le développement (Minikube)
-
-**Garder SQLite** : Simple et suffisant pour le développement local.
-
-### Pour la production (EKS)
-
-| Charge de travail | Recommandation |
-|-------------------|----------------|
-| Faible trafic | SQLite acceptable (1 replica) |
-| Trafic moyen | Migrer vers PostgreSQL (RDS ou pod) |
-| Trafic élevé | Utiliser Amazon RDS avec Multi-AZ |
 
 ### Checklist de migration
 

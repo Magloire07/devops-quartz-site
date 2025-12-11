@@ -28,9 +28,7 @@ Framework: [https://vite.dev/guide/](https://vite.dev/guide/)
 
 ### Partie Back: (AISSATOU & ALOIS)
 
-Langage:
-
-### Partie Container: (KOKOU)
+### Partie  déploiement: (KOKOU)
 
 ## Répartition des TDs
 
@@ -282,12 +280,3 @@ En cas de problème :
 
 ---
 
-## Auteur
-
-DevOps Team - ESIEE 2025/2026
-
----
-
-## Licence
-
-Projet éducatif
