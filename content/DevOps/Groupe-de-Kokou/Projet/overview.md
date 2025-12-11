@@ -171,7 +171,7 @@ msg_devops/
 |----------|-------------|
 | **ONECLICK_GUIDE.md** | Guide complet des scripts de déploiement |
 | **DEPLOYMENT_MINIKUBE.md** | Guide détaillé Minikube |
-| **DEPLOYMENT.md** | Guide détaillé EKS |
+| **DEPLOYMENT_EKS.md** | Guide détaillé EKS |
 | **DEPLOYMENT_COMPARISON.md** | Comparaison Minikube vs EKS |
 | **SYSTEM_REQUIREMENTS.md** | Prérequis système détaillés |
 | **SQLITE_NOTES.md** | Notes sur SQLite et migration |
