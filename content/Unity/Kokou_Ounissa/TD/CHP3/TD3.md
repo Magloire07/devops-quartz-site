@@ -1,10 +1,12 @@
 ---
-title: TD3 - Génération Procédurale de Villes
+title: TD3 
 ---
+
+
 
 ![city proc gen](images/procGen.png)
 
-# Partie Théorique : Principes de Base
+# Génération Procédurale de Villes partie théorique : Principes de Base
 
 ## 1. Définition
 
