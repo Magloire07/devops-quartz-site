@@ -1,6 +1,7 @@
 ---
 title: Système Météorologique Dynamique
 ---
+
 # Système Météorologique Dynamique - Documentation Technique
 
 ## Table des matières
@@ -31,12 +32,12 @@ Le système météorologique dynamique (`DynamicWeatherSystem.cs`) offre un cont
 
 ### Paramètres globaux
 
-| Paramètre | Type | Plage | Description |
-|-----------|------|-------|-------------|
-| `weatherIntensity` | float | 0.0 - 1.0 | Intensité globale de la météo |
-| `windDirection` | float | 0° - 360° | Direction du vent (0=Nord) |
-| `fogDistance` | float | 200 - 2000m | Distance de visibilité |
-| `sunIntensity` | float | 0.0 - 3.0 | Intensité de la lumière directionnelle |
+| Paramètre          | Type  | Plage       | Description                            |
+| ------------------ | ----- | ----------- | -------------------------------------- |
+| `weatherIntensity` | float | 0.0 - 1.0   | Intensité globale de la météo          |
+| `windDirection`    | float | 0° - 360°   | Direction du vent (0=Nord)             |
+| `fogDistance`      | float | 200 - 2000m | Distance de visibilité                 |
+| `sunIntensity`     | float | 0.0 - 3.0   | Intensité de la lumière directionnelle |
 
 ## Architecture du système
 
@@ -50,17 +51,17 @@ graph TB
     DWS --> Wind[Système Vent]
     DWS --> Audio[Système Audio]
     DWS --> Lighting[Système Éclairage]
-    
+
     Rain --> RainParticles[ParticleSystem]
     Rain --> RainAudio[AudioSource]
-    
+
     Storm --> StormParticles[ParticleSystem]
     Storm --> Thunder[AudioSource]
     Storm --> Lightning[Éclairs Visuels]
-    
+
     Wind --> Turbulence[AtmosphericTurbulence]
     Wind --> PlaneForces[Forces sur Avion]
-    
+
     DWS --> MM[MissionManager]
     DWS --> Camera[Caméra Principale]
     DWS --> CloudMaster[Système Nuages]
@@ -77,15 +78,15 @@ sequenceDiagram
     participant Particles
     participant Audio
     participant Lighting
-    
+
     Unity->>DWS: Awake()
     DWS->>DWS: Initialiser références
-    
+
     Unity->>DWS: Start()
     DWS->>Particles: CreateRainParticles()
     DWS->>Particles: CreateStormParticles()
     DWS->>DWS: ActivateMissionManagerDelayed()
-    
+
     loop Chaque Frame
         Unity->>DWS: Update()
         DWS->>DWS: UpdateWeather()
@@ -94,7 +95,7 @@ sequenceDiagram
         DWS->>Audio: UpdateAudioLevels()
         DWS->>DWS: UpdateLightning()
     end
-    
+
     Unity->>DWS: OnDestroy()
     DWS->>Particles: Cleanup()
 ```
@@ -109,17 +110,17 @@ void Start()
     {
         originalSunIntensity = sunLight.intensity;
     }
-    
+
     // Créer les systèmes de particules
     CreateRainParticles();
     CreateStormParticles();
-    
+
     // Initialiser l'émission
     if (rainParticles != null)
     {
         rainEmission = rainParticles.emission;
     }
-    
+
     // Activer le brouillard
     if (useFog)
     {
@@ -127,10 +128,10 @@ void Start()
         RenderSettings.fogColor = fogColor;
         RenderSettings.fogMode = FogMode.Linear;
     }
-    
+
     // Activer le MissionManager avec délai
     StartCoroutine(ActivateMissionManagerDelayed());
-    
+
     // Mise à jour initiale
     UpdateWeather();
 }
@@ -149,10 +150,10 @@ void CreateRainParticles()
     {
         GameObject rainObj = new GameObject("RainParticles");
         rainParticles = rainObj.AddComponent<ParticleSystem>();
-        
+
         // Position initiale
         rainParticles.transform.position = mainCamera.transform.position + Vector3.up * 50f;
-        
+
         var main = rainParticles.main;
         main.simulationSpace = ParticleSystemSimulationSpace.World;
         main.startLifetime = 2f;
@@ -160,21 +161,21 @@ void CreateRainParticles()
         main.startSize = 0.1f;
         main.startColor = new Color(0.7f, 0.7f, 0.8f, 0.5f);
         main.maxParticles = 1000;
-        
+
         // Forme d'émission
         var shape = rainParticles.shape;
         shape.shapeType = ParticleSystemShapeType.Box;
         shape.scale = new Vector3(100f, 1f, 100f);
-        
+
         // Gravité
         var velocityOverLifetime = rainParticles.velocityOverLifetime;
         velocityOverLifetime.enabled = true;
         velocityOverLifetime.y = -20f;
-        
+
         // Émission
         var emission = rainParticles.emission;
         emission.rateOverTime = 0f;  // Contrôlé dynamiquement
-        
+
         rainParticles.Play();
     }
 }
@@ -196,6 +197,7 @@ void CreateRainParticles()
 Les particules de pluie ne suivaient pas l'avion après le décollage.
 
 **Solution**:
+
 ```csharp
 void UpdateWeather()
 {
@@ -204,18 +206,19 @@ void UpdateWeather()
     {
         mainCamera = Camera.main;
     }
-    
+
     // Repositionner la pluie
     if (rainParticles != null && mainCamera != null)
     {
         rainParticles.transform.position = mainCamera.transform.position + Vector3.up * 50f;
     }
-    
+
     // ... autres mises à jour
 }
 ```
 
 **Offset vertical (+50m)**:
+
 - Les particules apparaissent au-dessus du joueur
 - Temps de chute visible avant d'atteindre l'avion
 - Évite les particules qui "pop" dans le champ de vision
@@ -250,24 +253,25 @@ void CreateStormParticles()
     {
         GameObject stormObj = new GameObject("StormParticles");
         stormParticles = stormObj.AddComponent<ParticleSystem>();
-        
+
         // Configuration similaire à la pluie mais avec:
         // - Particules plus grandes
         // - Vitesse plus élevée
         // - Émission sporadique
-        
+
         var main = stormParticles.main;
         main.startSize = 0.3f;  // Plus gros que la pluie
         main.startSpeed = 15f;   // Plus rapide
         main.startColor = Color.white;  // Éclairs blancs
         main.maxParticles = 100;  // Moins de particules
-        
+
         stormParticles.Stop();  // Démarré manuellement
     }
 }
 ```
 
 **Différences avec la pluie**:
+
 - Particules plus visibles (blanches, plus grandes)
 - Émission contrôlée manuellement
 - Apparitions sporadiques synchronisées avec tonnerre
@@ -275,6 +279,7 @@ void CreateStormParticles()
 #### Système d'éclairs
 
 **Configuration**:
+
 ```csharp
 [Header("Éclairs")]
 [Tooltip("Activer les éclairs visuels")]
@@ -291,6 +296,7 @@ private float lightningTimer = 0f;
 ```
 
 **Logique de déclenchement**:
+
 ```csharp
 void Update()
 {
@@ -300,18 +306,18 @@ void Update()
         if (Time.time > nextThunderTime)
         {
             StartCoroutine(TriggerLightning());
-            
+
             // Planifier prochain éclair
             float interval = Random.Range(minThunderInterval, maxThunderInterval);
             nextThunderTime = Time.time + interval;
         }
     }
-    
+
     // Mettre à jour l'éclair actif
     if (isLightningActive)
     {
         lightningTimer += Time.deltaTime;
-        
+
         if (lightningTimer >= lightningDuration)
         {
             // Retour à la normale
@@ -326,32 +332,34 @@ void Update()
 ```
 
 **Effet visuel de l'éclair**:
+
 ```csharp
 IEnumerator TriggerLightning()
 {
     isLightningActive = true;
     lightningTimer = 0f;
-    
+
     // Augmenter brusquement l'intensité du soleil
     if (sunLight != null)
     {
         sunLight.intensity = originalSunIntensity * lightningIntensity;
     }
-    
+
     // Jouer le son du tonnerre
     if (thunderAudioSource != null && thunderSounds.Length > 0)
     {
         AudioClip clip = thunderSounds[Random.Range(0, thunderSounds.Length)];
         thunderAudioSource.PlayOneShot(clip);
     }
-    
+
     yield return new WaitForSeconds(lightningDuration);
-    
+
     // Le retour à la normale est géré dans Update()
 }
 ```
 
 **Paramètres recommandés**:
+
 - `lightningIntensity`: 3.0 (300% de l'intensité normale)
 - `lightningDuration`: 0.1s (flash très court)
 - `minThunderInterval`: 3s (minimum entre éclairs)
@@ -360,6 +368,7 @@ IEnumerator TriggerLightning()
 #### Sons de tonnerre
 
 **Configuration**:
+
 ```csharp
 [Header("Effets Audio")]
 [Tooltip("Source audio pour le tonnerre")]
@@ -376,6 +385,7 @@ public float maxThunderInterval = 10f;
 ```
 
 **Sélection aléatoire**:
+
 ```csharp
 if (thunderSounds.Length > 0)
 {
@@ -386,6 +396,7 @@ if (thunderSounds.Length > 0)
 ```
 
 **Recommandations**:
+
 - Utiliser 3-5 variations de sons de tonnerre
 - Durée des clips: 2-5 secondes
 - Format: WAV ou OGG compressé
@@ -417,14 +428,14 @@ void UpdateWeather()
         // Interpoler la distance de brouillard
         float targetFogStart = Mathf.Lerp(minFogDistance, maxFogDistance, weatherIntensity);
         float targetFogEnd = targetFogStart + 500f;
-        
+
         // Smooth transition
         RenderSettings.fogStartDistance = Mathf.Lerp(
             RenderSettings.fogStartDistance,
             targetFogStart,
             Time.deltaTime * 0.5f
         );
-        
+
         RenderSettings.fogEndDistance = Mathf.Lerp(
             RenderSettings.fogEndDistance,
             targetFogEnd,
@@ -443,6 +454,7 @@ void UpdateWeather()
 | 1.0 | 200 | 700 | Très réduite |
 
 **Couleur du brouillard**:
+
 ```csharp
 public Color fogColor = new Color(0.7f, 0.75f, 0.8f);  // Gris-bleu
 ```
@@ -462,20 +474,20 @@ void UpdateWeather()
             originalSunIntensity * 0.3f,
             weatherIntensity
         );
-        
+
         sunLight.intensity = Mathf.Lerp(
             sunLight.intensity,
             targetIntensity,
             Time.deltaTime
         );
-        
+
         // Ajuster la couleur (plus gris en tempête)
         Color targetColor = Color.Lerp(
             Color.white,
             new Color(0.6f, 0.6f, 0.7f),
             weatherIntensity
         );
-        
+
         sunLight.color = Color.Lerp(
             sunLight.color,
             targetColor,
@@ -486,6 +498,7 @@ void UpdateWeather()
 ```
 
 **Impact visuel**:
+
 - Beau temps: Lumière blanche brillante
 - Tempête: Lumière grise atténuée (30% de l'intensité)
 - Transition douce pour éviter les changements brusques
@@ -495,12 +508,14 @@ void UpdateWeather()
 ### Optimisations
 
 **Culling**:
+
 ```csharp
 var main = particleSystem.main;
 main.cullingMode = ParticleSystemCullingMode.Automatic;
 ```
 
 **Max Particles**:
+
 ```csharp
 // Pluie: 1000 particules
 // Orage: 100 particules
@@ -508,9 +523,11 @@ main.cullingMode = ParticleSystemCullingMode.Automatic;
 ```
 
 **Simulation Space**:
+
 ```csharp
 main.simulationSpace = ParticleSystemSimulationSpace.World;
 ```
+
 Les particules sont dans l'espace monde, pas liées au parent.
 
 ### Performance
@@ -524,6 +541,7 @@ Les particules sont dans l'espace monde, pas liées au parent.
 | Total max | ~600 | -6 FPS | Acceptable |
 
 **Optimisations possibles**:
+
 ```csharp
 // Réduire maxParticles selon performance
 int maxParticles = QualitySettings.GetQualityLevel() > 2 ? 1000 : 500;
@@ -547,10 +565,10 @@ else
 graph LR
     DWS[DynamicWeatherSystem] --> RainAS[Rain AudioSource]
     DWS --> ThunderAS[Thunder AudioSource]
-    
+
     RainAS --> LightRain[Light Rain Clip]
     RainAS --> HeavyRain[Heavy Rain Clip]
-    
+
     ThunderAS --> Thunder1[Thunder Clip 1]
     ThunderAS --> Thunder2[Thunder Clip 2]
     ThunderAS --> ThunderN[Thunder Clip N]
@@ -559,6 +577,7 @@ graph LR
 ### AudioSource pluie
 
 **Configuration**:
+
 ```csharp
 [Header("Effets Audio")]
 [Tooltip("Source audio pour le son de pluie")]
@@ -572,6 +591,7 @@ public AudioClip heavyRainSound;
 ```
 
 **Mise à jour volume**:
+
 ```csharp
 void UpdateWeather()
 {
@@ -584,7 +604,7 @@ void UpdateWeather()
             targetVolume,
             Time.deltaTime * 2f
         );
-        
+
         // Changer le clip selon l'intensité
         if (weatherIntensity > 0.5f && rainAudioSource.clip != heavyRainSound)
         {
@@ -601,6 +621,7 @@ void UpdateWeather()
 ```
 
 **Paramètres AudioSource**:
+
 ```csharp
 rainAudioSource.loop = true;
 rainAudioSource.spatialBlend = 0f;  // 2D
@@ -611,6 +632,7 @@ rainAudioSource.playOnAwake = false;
 ### AudioSource tonnerre
 
 **Configuration**:
+
 ```csharp
 thunderAudioSource.loop = false;  // One-shot
 thunderAudioSource.spatialBlend = 0.5f;  // Partiellement spatialisé
@@ -620,13 +642,14 @@ thunderAudioSource.rolloffMode = AudioRolloffMode.Linear;
 ```
 
 **Déclenchement**:
+
 ```csharp
 if (Time.time > nextThunderTime && weatherIntensity > 0.7f)
 {
     // Jouer son aléatoire
     int index = Random.Range(0, thunderSounds.Length);
     thunderAudioSource.PlayOneShot(thunderSounds[index]);
-    
+
     // Prochain tonnerre
     nextThunderTime = Time.time + Random.Range(minThunderInterval, maxThunderInterval);
 }
@@ -639,6 +662,7 @@ if (Time.time > nextThunderTime && weatherIntensity > 0.7f)
 **À vérifier**: Implémentation exacte du CloudMaster
 
 **Interface supposée**:
+
 ```csharp
 [Tooltip("CloudMaster pour ajuster les nuages")]
 public CloudMaster cloudMaster;
@@ -649,7 +673,7 @@ void UpdateWeather()
     {
         // Ajuster la densité des nuages
         cloudMaster.SetCloudDensity(weatherIntensity);
-        
+
         // Ajuster la vitesse
         cloudMaster.SetCloudSpeed(weatherIntensity * 2f);
     }
@@ -659,6 +683,7 @@ void UpdateWeather()
 ### Nuages volumétriques
 
 **Intégration**:
+
 ```csharp
 [Tooltip("Rendu volumétrique des nuages (Ray Marching)")]
 public VolumetricCloudsRenderer volumetricClouds;
@@ -699,6 +724,7 @@ private Vector3 currentWindDirection = Vector3.zero;
 ```
 
 **Mise à jour du vent**:
+
 ```csharp
 void UpdateWind()
 {
@@ -709,11 +735,11 @@ void UpdateWind()
         targetWindForce,
         Time.deltaTime * windChangeFrequency
     );
-    
+
     // Direction avec variation
     float angleVariation = Mathf.PerlinNoise(Time.time * 0.1f, 0f) * windVariation;
     float finalAngle = (windDirection + angleVariation) * Mathf.Deg2Rad;
-    
+
     currentWindDirection = new Vector3(
         Mathf.Sin(finalAngle),
         0f,
@@ -747,6 +773,7 @@ public float GetWindIntensity()
 **À vérifier**: Implémentation exacte de AtmosphericTurbulence.cs
 
 **Utilisation supposée**:
+
 ```csharp
 // Dans Plane.cs ou système de vol
 void FixedUpdate()
@@ -754,7 +781,7 @@ void FixedUpdate()
     // Appliquer le vent
     Vector3 windForce = weatherSystem.GetWindForce();
     rigidbody.AddForce(windForce, ForceMode.Force);
-    
+
     // Appliquer turbulences
     if (turbulenceSystem != null)
     {
@@ -774,19 +801,19 @@ IEnumerator ActivateMissionManagerDelayed()
     // Attendre fin de chargement
     yield return new WaitForEndOfFrame();
     yield return new WaitForSeconds(0.1f);
-    
+
     int fromMainMenu = PlayerPrefs.GetInt("FromMainMenu", 0);
-    
+
     if (fromMainMenu == 1)
     {
         // Effacer le flag
         PlayerPrefs.DeleteKey("FromMainMenu");
         PlayerPrefs.Save();
-        
+
         // Vérifier mission sélectionnée
         int selectedMission = PlayerPrefs.GetInt("SelectedMission", -1);
         string selectedMissionName = PlayerPrefs.GetString("SelectedMissionName", "");
-        
+
         if (selectedMission >= 0 && !string.IsNullOrEmpty(selectedMissionName))
         {
             // Activer le MissionManager
@@ -802,6 +829,7 @@ IEnumerator ActivateMissionManagerDelayed()
 ### Contrôle par MissionManager
 
 **Interface publique**:
+
 ```csharp
 /// <summary>
 /// Définir l'intensité météo
@@ -837,6 +865,7 @@ public string GetWeatherDescription()
 ```
 
 **Utilisation par MissionManager**:
+
 ```csharp
 // Mission 3: Appliquer tempête
 weatherSystem.SetWeatherIntensity(1.0f);
@@ -864,28 +893,33 @@ weatherSystem.SetWeatherIntensity(0.0f);
 ### Optimisations implémentées
 
 **1. Vérification caméra conditionnelle**:
+
 ```csharp
 if (mainCamera == null || !mainCamera.enabled)
 {
     mainCamera = Camera.main;
 }
 ```
+
 Évite les appels `Camera.main` coûteux à chaque frame.
 
 **2. Interpolation smooth**:
+
 ```csharp
 float target = CalculateTarget();
 current = Mathf.Lerp(current, target, Time.deltaTime * speed);
 ```
+
 Évite les changements brusques et calculs excessifs.
 
 **3. Arrêt des systèmes inactifs**:
+
 ```csharp
 if (weatherIntensity < 0.1f)
 {
     if (rainParticles.isPlaying)
         rainParticles.Stop();
-    
+
     if (rainAudioSource.isPlaying)
         rainAudioSource.Stop();
 }
@@ -894,18 +928,21 @@ if (weatherIntensity < 0.1f)
 ### Optimisations possibles
 
 **1. Object Pooling pour particules**:
+
 ```csharp
 // Au lieu de créer/détruire
 Pool<Particle> particlePool = new Pool<Particle>(100);
 ```
 
 **2. LOD pour particules selon distance**:
+
 ```csharp
 float distance = Vector3.Distance(mainCamera.transform.position, targetPoint);
 int maxParticles = distance < 500f ? 1000 : 500;
 ```
 
 **3. Désactivation basée sur qualité**:
+
 ```csharp
 if (QualitySettings.GetQualityLevel() < 2)
 {
@@ -916,6 +953,7 @@ if (QualitySettings.GetQualityLevel() < 2)
 ```
 
 **4. Batching audio**:
+
 ```csharp
 // Grouper les mises à jour audio
 if (Time.frameCount % 5 == 0)  // Tous les 5 frames
@@ -927,6 +965,7 @@ if (Time.frameCount % 5 == 0)  // Tous les 5 frames
 ### Recommandations de paramétrage
 
 **Configuration basse**:
+
 ```csharp
 maxRainEmission = 300;
 maxParticles = 500;
@@ -935,6 +974,7 @@ useFog = false;
 ```
 
 **Configuration moyenne**:
+
 ```csharp
 maxRainEmission = 500;
 maxParticles = 1000;
@@ -944,6 +984,7 @@ minFogDistance = 1000f;
 ```
 
 **Configuration haute**:
+
 ```csharp
 maxRainEmission = 1000;
 maxParticles = 2000;
@@ -995,12 +1036,14 @@ weatherSystem.OnWeatherIntensityChanged += (intensity) => {
 Le système météorologique dynamique offre un contrôle complet et réactif des conditions atmosphériques. L'intégration avec le système de missions permet de créer des expériences immersives et variées.
 
 **Forces du système**:
+
 - Transitions fluides et réalistes
 - Synchronisation audio-visuelle
 - Performance acceptable
 - Extensibilité
 
 **Points à améliorer**:
+
 - Système de temps/cycle jour-nuit complet
 - Système d'événements pour notifications
 - Optimisations avancées (pooling, LOD)
@@ -1009,4 +1052,4 @@ Le système météorologique dynamique offre un contrôle complet et réactif de
 
 ---
 
-*Document mis à jour: Décembre 2025*
+_Document mis à jour: Décembre 2025_

@@ -1,6 +1,7 @@
 ---
 title: Systèmes de Rendu Avancés
 ---
+
 # Systèmes de Rendu Avancés - Documentation Technique
 
 ## Table des matières
@@ -30,20 +31,20 @@ Le système de rendu avancé implémente des techniques de rendu volumétrique p
 graph TB
     Camera[Caméra Principale] --> Render[Rendu Scène 3D]
     Render --> PostProcess[Post-Processing Pipeline]
-    
+
     PostProcess --> VCR[VolumetricCloudsRenderer]
     VCR --> Shader[VolumetricClouds.shader]
-    
+
     Shader --> RayGen[Génération Rayons]
     RayGen --> RayMarch[Ray Marching]
     RayMarch --> Density[Calcul Densité]
     Density --> FBM[Bruit FBM]
     RayMarch --> Lighting[Calcul Éclairage]
     Lighting --> LightSampling[Échantillonnage Lumière]
-    
+
     RayMarch --> Accumulation[Accumulation Couleur]
     Accumulation --> FinalImage[Image Finale]
-    
+
     Weather[DynamicWeatherSystem] --> VCR
     Weather --> |weatherIntensity| Density
 ```
@@ -55,6 +56,7 @@ graph TB
 ### Principe du Ray Marching
 
 Le Ray Marching est une technique de rendu volumétrique qui consiste à:
+
 1. Lancer un rayon depuis la caméra pour chaque pixel
 2. Avancer le long du rayon par pas (steps)
 3. À chaque pas, échantillonner la densité du volume
@@ -67,29 +69,31 @@ graph LR
     Step1 -->|Avancer| Step2[Pas 2]
     Step2 -->|Avancer| Step3[Pas 3]
     Step3 -->|Avancer| StepN[Pas N]
-    
+
     Step1 --> Density1[Densité 1]
     Step2 --> Density2[Densité 2]
     Step3 --> Density3[Densité 3]
     StepN --> DensityN[Densité N]
-    
+
     Density1 --> Accumulate[Accumulation]
     Density2 --> Accumulate
     Density3 --> Accumulate
     DensityN --> Accumulate
-    
+
     Accumulate --> FinalColor[Couleur Finale]
 ```
 
 ### Avantages et inconvénients
 
 **Avantages**:
+
 - Nuages réalistes et volumétriques
 - Éclairage physiquement correct
 - Animation fluide
 - Contrôle précis de la densité
 
 **Inconvénients**:
+
 - Coût GPU élevé
 - Dépendant du nombre de pas (raySteps)
 - Peut causer des baisses de FPS
@@ -134,6 +138,7 @@ Properties
 #### Fonctions de bruit
 
 **Hash 3D**:
+
 ```hlsl
 float hash(float3 p)
 {
@@ -142,16 +147,18 @@ float hash(float3 p)
     return frac(p.x * p.y * p.z * (p.x + p.y + p.z));
 }
 ```
+
 Génère une valeur pseudo-aléatoire basée sur une position 3D.
 
 **Noise 3D**:
+
 ```hlsl
 float noise3D(float3 p)
 {
     float3 i = floor(p);
     float3 f = frac(p);
     f = f * f * (3.0 - 2.0 * f);  // Smooth interpolation
-    
+
     // Interpolation trilinéaire entre 8 coins du cube
     return lerp(
         lerp(lerp(hash(i + float3(0,0,0)), hash(i + float3(1,0,0)), f.x),
@@ -163,13 +170,14 @@ float noise3D(float3 p)
 ```
 
 **FBM (Fractional Brownian Motion)**:
+
 ```hlsl
 float fbm(float3 p)
 {
     float value = 0.0;
     float amplitude = 0.5;
     float frequency = 1.0;
-    
+
     // 4 octaves de bruit
     for(int i = 0; i < 4; i++)
     {
@@ -177,12 +185,13 @@ float fbm(float3 p)
         frequency *= 2.0;  // Double la fréquence
         amplitude *= 0.5;  // Réduit l'amplitude
     }
-    
+
     return value;
 }
 ```
 
 **Justification FBM**:
+
 - Combine plusieurs octaves de bruit
 - Produit des détails à différentes échelles
 - Résultat plus naturel et organique
@@ -195,22 +204,23 @@ float cloudDensity(float3 p)
 {
     // Animation dans le temps
     p.xz += _Time.y * _CloudSpeed * 10.0;
-    
+
     // Limitation verticale (couche de nuages)
     float heightFactor = 1.0 - abs(p.y - _CloudHeight) / (_CloudThickness * 0.5);
     heightFactor = saturate(heightFactor);
-    
+
     if(heightFactor <= 0.0) return 0.0;
-    
+
     // Génération nuages avec FBM
     float density = fbm(p * _CloudScale * 0.001);
     density = smoothstep(0.3, 0.7, density);  // Contraste
-    
+
     return density * heightFactor * _CloudDensity;
 }
 ```
 
 **Composants**:
+
 1. **Animation**: Déplacement XZ basé sur temps
 2. **Height Factor**: Atténuation gaussienne selon altitude
 3. **FBM**: Génération procédurale
@@ -224,16 +234,17 @@ v2f vert (appdata v)
     v2f o;
     o.vertex = UnityObjectToClipPos(v.vertex);
     o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-    
+
     // Calculer vecteur de vue pour ray marching
     float4 viewPos = mul(unity_CameraInvProjection, float4(v.uv * 2 - 1, 0, -1));
     o.viewVector = mul(unity_CameraToWorld, float4(viewPos.xyz, 0)).xyz;
-    
+
     return o;
 }
 ```
 
 **Calcul du viewVector**:
+
 1. UV (0-1) transformé en NDC (-1 à 1)
 2. Inverse de la projection caméra
 3. Transformation dans l'espace monde
@@ -242,15 +253,16 @@ v2f vert (appdata v)
 #### Fragment Shader - Ray Marching
 
 **Initialisation**:
+
 ```hlsl
 float4 frag (v2f i) : SV_Target
 {
     float4 col = tex2D(_MainTex, i.uv);  // Scène de fond
-    
+
     // Direction du rayon
     float3 rayDir = normalize(i.viewVector);
     float3 rayOrigin = _CameraPos;
-    
+
     // Paramètres ray marching
     float stepSize = _CloudThickness / _RaySteps;
     float totalDensity = 0.0;
@@ -259,10 +271,11 @@ float4 frag (v2f i) : SV_Target
 ```
 
 **Intersection avec couche de nuages**:
+
 ```hlsl
     float startHeight = _CloudHeight - _CloudThickness * 0.5;
     float endHeight = _CloudHeight + _CloudThickness * 0.5;
-    
+
     // Calculer point d'entrée dans la couche
     float t = 0.0;
     if(rayOrigin.y < startHeight && rayDir.y > 0)
@@ -284,69 +297,76 @@ float4 frag (v2f i) : SV_Target
 ```
 
 **Boucle de marching**:
+
 ```hlsl
     float3 currentPos = rayOrigin + rayDir * t;
-    
+
     for(int step = 0; step < (int)_RaySteps; step++)
     {
         float density = cloudDensity(currentPos);
-        
+
         if(density > 0.01)
         {
             // Échantillonner éclairage
             float lightSample = cloudDensity(currentPos + _SunDirection * 50.0);
             float lighting = exp(-lightSample * _LightAbsorption);
-            
+
             // Accumulation
             float3 sampleColor = lerp(_CloudColor.rgb, _SunColor.rgb, lighting);
             cloudCol += sampleColor * density * transmittance * stepSize;
             transmittance *= exp(-density * stepSize * _LightAbsorption);
-            
+
             if(transmittance < 0.01) break;  // Sortie anticipée
         }
-        
+
         currentPos += rayDir * stepSize;
-        
+
         // Sortir si hors de la couche
         if(currentPos.y < startHeight || currentPos.y > endHeight)
             break;
     }
-    
+
     // Mélanger avec le ciel
     float alpha = 1.0 - transmittance;
     col.rgb = lerp(col.rgb, cloudCol, alpha);
-    
+
     return col;
 }
 ```
 
 **Équation d'accumulation**:
+
 ```
 cloudColor += sampleColor * density * transmittance * stepSize
 transmittance *= exp(-density * stepSize * absorption)
 ```
 
 **Sortie anticipée**:
+
 - `if(transmittance < 0.01) break;` - Stop si opaque
 - `if(currentPos.y < startHeight || currentPos.y > endHeight) break;` - Hors couche
 
 ### Calcul d'éclairage
 
 **Light Sampling**:
+
 ```hlsl
 float lightSample = cloudDensity(currentPos + _SunDirection * 50.0);
 float lighting = exp(-lightSample * _LightAbsorption);
 ```
 
 **Principe**:
+
 1. Échantillonner la densité dans la direction du soleil
 2. Plus la densité est élevée, moins de lumière passe
 3. Utiliser exponentielle pour atténuation réaliste
 
 **Couleur finale**:
+
 ```hlsl
 float3 sampleColor = lerp(_CloudColor.rgb, _SunColor.rgb, lighting);
 ```
+
 Interpolation entre couleur de base des nuages et couleur du soleil selon l'éclairage.
 
 ## Composant VolumetricCloudsRenderer
@@ -364,22 +384,22 @@ public class VolumetricCloudsRenderer : MonoBehaviour
     public Shader volumetricCloudsShader;
     private Material cloudMaterial;
     private Camera cam;
-    
+
     // Paramètres des nuages
     public float cloudDensity = 0.5f;
     public float cloudScale = 1.0f;
     public float cloudSpeed = 0.5f;
     public float cloudHeight = 1000f;
     public float cloudThickness = 500f;
-    
+
     // Qualité
     public int raySteps = 50;
     public float lightAbsorption = 0.3f;
-    
+
     // Couleurs
     public Color sunColor = new Color(1f, 0.95f, 0.8f);
     public Color cloudColor = new Color(0.9f, 0.9f, 0.95f);
-    
+
     // Intégration météo
     public DynamicWeatherSystem weatherSystem;
     public bool useWeatherIntensity = true;
@@ -393,16 +413,16 @@ public class VolumetricCloudsRenderer : MonoBehaviour
 void Start()
 {
     cam = GetComponent<Camera>();
-    
+
     if (volumetricCloudsShader == null)
     {
         Debug.LogError("VolumetricCloudsRenderer: Shader non assigné!");
         enabled = false;
         return;
     }
-    
+
     cloudMaterial = new Material(volumetricCloudsShader);
-    
+
     // Trouver le système météo si non assigné
     if (weatherSystem == null)
     {
@@ -421,7 +441,7 @@ void OnRenderImage(RenderTexture src, RenderTexture dest)
         Graphics.Blit(src, dest);
         return;
     }
-    
+
     // Calculer densité avec météo
     float finalDensity = cloudDensity;
     if (useWeatherIntensity && weatherSystem != null)
@@ -429,7 +449,7 @@ void OnRenderImage(RenderTexture src, RenderTexture dest)
         float weatherIntensity = weatherSystem.weatherIntensity;
         finalDensity = cloudDensity * Mathf.Lerp(0.3f, stormDensityMultiplier, weatherIntensity);
     }
-    
+
     // Passer paramètres au shader
     cloudMaterial.SetFloat("_CloudDensity", finalDensity);
     cloudMaterial.SetFloat("_CloudScale", cloudScale);
@@ -440,23 +460,24 @@ void OnRenderImage(RenderTexture src, RenderTexture dest)
     cloudMaterial.SetFloat("_LightAbsorption", lightAbsorption);
     cloudMaterial.SetColor("_SunColor", sunColor);
     cloudMaterial.SetColor("_CloudColor", cloudColor);
-    
+
     // Position caméra et direction soleil
     cloudMaterial.SetVector("_CameraPos", cam.transform.position);
-    
+
     Vector3 sunDir = Vector3.down;
     if (weatherSystem != null && weatherSystem.sunLight != null)
     {
         sunDir = -weatherSystem.sunLight.transform.forward;
     }
     cloudMaterial.SetVector("_SunDirection", sunDir);
-    
+
     // Appliquer l'effet
     Graphics.Blit(src, dest, cloudMaterial);
 }
 ```
 
 **Pipeline**:
+
 1. **OnRenderImage** appelé après rendu de la scène
 2. `src` = Image de la scène rendue
 3. Application du shader volumétrique
@@ -501,6 +522,7 @@ public void SetCloudDensity(float density)
 ### Configuration dans Unity
 
 **Hiérarchie**:
+
 ```
 MainCamera
 ├── Camera (Component)
@@ -514,6 +536,7 @@ MainCamera
 ### Adaptation dynamique
 
 **Formule de densité**:
+
 ```csharp
 float finalDensity = cloudDensity * Mathf.Lerp(0.3f, stormDensityMultiplier, weatherIntensity);
 ```
@@ -526,6 +549,7 @@ float finalDensity = cloudDensity * Mathf.Lerp(0.3f, stormDensityMultiplier, wea
 | 1.0 | 2.0 | 1.0 (nuages denses) |
 
 **Justification**:
+
 - Beau temps (0.0): Nuages légers et dispersés
 - Tempête (1.0): Nuages denses et opaques
 - Transition fluide entre les deux
@@ -533,6 +557,7 @@ float finalDensity = cloudDensity * Mathf.Lerp(0.3f, stormDensityMultiplier, wea
 ### Synchronisation avec DynamicWeatherSystem
 
 **Dans DynamicWeatherSystem.cs** (ajouté):
+
 ```csharp
 [Tooltip("Rendu volumétrique des nuages (Ray Marching)")]
 public VolumetricCloudsRenderer volumetricClouds;
@@ -540,7 +565,7 @@ public VolumetricCloudsRenderer volumetricClouds;
 void UpdateWeather()
 {
     // ... autres mises à jour
-    
+
     // Les nuages s'adaptent automatiquement via weatherIntensity
     // Pas de code supplémentaire nécessaire
 }
@@ -554,6 +579,7 @@ Le `VolumetricCloudsRenderer` lit directement `weatherIntensity` à chaque frame
 ### Coût de rendu
 
 **Facteurs de performance**:
+
 1. **Nombre de pixels** - Résolution d'écran
 2. **raySteps** - Nombre de pas (linéaire)
 3. **Densité de nuages** - Zones opaques terminent plus tôt
@@ -567,6 +593,7 @@ Le `VolumetricCloudsRenderer` lit directement `weatherIntensity` à chaque frame
 | 100 | 20-30 | 15-20 | 8-12 |
 
 **Configuration GPU**:
+
 - GTX 1060: 30-40 FPS @ 1080p (raySteps=50)
 - RTX 2060: 45-55 FPS @ 1080p (raySteps=50)
 - RTX 3070: 55-60 FPS @ 1080p (raySteps=50)
@@ -576,18 +603,21 @@ Le `VolumetricCloudsRenderer` lit directement `weatherIntensity` à chaque frame
 ### Optimisations implémentées
 
 **1. Sortie anticipée**:
+
 ```hlsl
 if(transmittance < 0.01) break;  // Opacité complète
 if(density < 0.01) continue;      // Zone vide
 ```
 
 **2. Limitation verticale**:
+
 ```hlsl
 if(currentPos.y < startHeight || currentPos.y > endHeight)
     break;  // Hors de la couche
 ```
 
 **3. Calcul hébergement**:
+
 ```hlsl
 float heightFactor = 1.0 - abs(p.y - _CloudHeight) / (_CloudThickness * 0.5);
 if(heightFactor <= 0.0) return 0.0;  // Pas de calcul FBM inutile
@@ -596,6 +626,7 @@ if(heightFactor <= 0.0) return 0.0;  // Pas de calcul FBM inutile
 ### Optimisations possibles
 
 **1. Adaptive Sampling**:
+
 ```hlsl
 // Ajuster stepSize selon distance
 float distance = length(currentPos - rayOrigin);
@@ -603,12 +634,14 @@ float adaptiveStepSize = stepSize * (1.0 + distance * 0.001);
 ```
 
 **2. LOD based on distance**:
+
 ```csharp
 float distance = Vector3.Distance(cam.transform.position, cloudLayerCenter);
 int adaptiveRaySteps = distance < 2000f ? raySteps : raySteps / 2;
 ```
 
 **3. Compute Shader**:
+
 ```csharp
 // Déplacer le ray marching vers compute shader
 // Parallélisation massive sur GPU
@@ -616,12 +649,14 @@ ComputeShader cloudComputeShader;
 ```
 
 **4. Temporal Reprojection**:
+
 ```hlsl
 // Réutiliser les résultats des frames précédentes
 // Calculer seulement 1/4 des pixels par frame
 ```
 
 **5. Blue Noise Sampling**:
+
 ```hlsl
 // Utiliser blue noise pour offset aléatoire du ray
 // Réduit les artefacts de banding
@@ -630,6 +665,7 @@ ComputeShader cloudComputeShader;
 ### Paramètres de qualité
 
 **Qualité faible**:
+
 ```csharp
 raySteps = 20;
 cloudScale = 2.0f;  // Nuages plus gros = moins de détails
@@ -637,6 +673,7 @@ lightAbsorption = 0.5f;  // Simplification éclairage
 ```
 
 **Qualité moyenne**:
+
 ```csharp
 raySteps = 50;
 cloudScale = 1.0f;
@@ -644,6 +681,7 @@ lightAbsorption = 0.3f;
 ```
 
 **Qualité élevée**:
+
 ```csharp
 raySteps = 100;
 cloudScale = 0.5f;  // Plus de détails
@@ -655,6 +693,7 @@ lightAbsorption = 0.2f;  // Éclairage plus subtil
 ### Paramètres artistiques
 
 **Nuages légers et dispersés**:
+
 ```csharp
 cloudDensity = 0.3f;
 cloudScale = 1.5f;
@@ -663,6 +702,7 @@ lightAbsorption = 0.2f;
 ```
 
 **Nuages d'orage denses**:
+
 ```csharp
 cloudDensity = 1.5f;
 cloudScale = 0.8f;
@@ -671,6 +711,7 @@ lightAbsorption = 0.5f;
 ```
 
 **Nuages de coucher de soleil**:
+
 ```csharp
 cloudDensity = 0.6f;
 cloudScale = 1.0f;
@@ -682,18 +723,21 @@ lightAbsorption = 0.3f;
 ### Altitude et épaisseur
 
 **Nuages bas (stratus)**:
+
 ```csharp
 cloudHeight = 500f;
 cloudThickness = 300f;
 ```
 
 **Nuages moyens (cumulus)**:
+
 ```csharp
 cloudHeight = 1500f;
 cloudThickness = 800f;
 ```
 
 **Nuages hauts (cirrus)**:
+
 ```csharp
 cloudHeight = 4000f;
 cloudThickness = 500f;
@@ -703,21 +747,25 @@ cloudDensity = 0.2f;  // Plus légers
 ### Animation
 
 **Statique**:
+
 ```csharp
 cloudSpeed = 0f;
 ```
 
 **Vent léger**:
+
 ```csharp
 cloudSpeed = 0.5f;
 ```
 
 **Vent fort**:
+
 ```csharp
 cloudSpeed = 2.0f;
 ```
 
 **Tempête**:
+
 ```csharp
 cloudSpeed = 5.0f;
 ```
@@ -733,7 +781,7 @@ sequenceDiagram
     participant VCR as VolumetricCloudsRenderer
     participant Shader
     participant GPU
-    
+
     Unity->>Camera: Render Scene
     Camera->>Camera: Rendu 3D complet
     Camera->>VCR: OnRenderImage(src, dest)
@@ -741,7 +789,7 @@ sequenceDiagram
     VCR->>Shader: SetFloat/SetVector
     VCR->>GPU: Graphics.Blit(src, dest, material)
     GPU->>Shader: Fragment pour chaque pixel
-    
+
     loop Pour chaque pixel
         Shader->>Shader: Calculer viewVector
         Shader->>Shader: Ray Marching Loop
@@ -751,7 +799,7 @@ sequenceDiagram
         end
         Shader->>GPU: Pixel final
     end
-    
+
     GPU->>Camera: Image finale
     Camera->>Unity: Affichage
 ```
@@ -763,24 +811,24 @@ graph TD
     Start[Début Ray Marching] --> CheckIntersection{Intersection?}
     CheckIntersection -->|Non| ReturnBackground[Retour fond]
     CheckIntersection -->|Oui| InitVariables[Init variables]
-    
+
     InitVariables --> LoopStart{step < raySteps?}
     LoopStart -->|Non| Finish[Finaliser]
     LoopStart -->|Oui| SampleDensity[Échantillonner densité]
-    
+
     SampleDensity --> CheckDensity{density > 0.01?}
     CheckDensity -->|Non| Advance[Avancer]
     CheckDensity -->|Oui| CalcLighting[Calculer éclairage]
-    
+
     CalcLighting --> Accumulate[Accumuler couleur]
     Accumulate --> CheckTransmittance{transmittance < 0.01?}
     CheckTransmittance -->|Oui| Finish
     CheckTransmittance -->|Non| Advance
-    
+
     Advance --> CheckBounds{Hors limites?}
     CheckBounds -->|Oui| Finish
     CheckBounds -->|Non| LoopStart
-    
+
     Finish --> Blend[Mélanger avec fond]
     Blend --> Return[Retour pixel final]
     ReturnBackground --> Return
@@ -791,12 +839,14 @@ graph TD
 Le système de rendu volumétrique implémente des nuages réalistes via Ray Marching avec intégration au système météo. Bien que coûteux en performance, les optimisations et paramètres de qualité permettent d'adapter le rendu à différentes configurations matérielles.
 
 **Points forts**:
+
 - Réalisme visuel élevé
 - Intégration météo automatique
 - Paramétrage artistique flexible
 - Animation fluide
 
 **Points à améliorer**:
+
 - Optimisation performance (compute shader, temporal reprojection)
 - Paramètres de qualité exposés dans UI
 - LOD automatique selon distance/performance
@@ -804,6 +854,7 @@ Le système de rendu volumétrique implémente des nuages réalistes via Ray Mar
 - Support multi-couches de nuages
 
 **Recommandations d'usage**:
+
 - Activer uniquement sur configurations moyennes/hautes
 - Réduire raySteps pour performance
 - Utiliser comme effet "premium" optionnel
@@ -811,4 +862,4 @@ Le système de rendu volumétrique implémente des nuages réalistes via Ray Mar
 
 ---
 
-*Document mis à jour: Décembre 2025*
+_Document mis à jour: Décembre 2025_

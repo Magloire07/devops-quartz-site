@@ -15,6 +15,7 @@ L'application utilise **SQLite** comme base de données. Voici les points import
 SQLite ne supporte pas les accès concurrents multiples. Le backend est donc configuré avec `replicas: 1`.
 
 **Fichiers concernés** :
+
 - `k8s/backend-deployment.yaml` : `replicas: 1`
 - `k8s-minikube/backend-deployment.yaml` : `replicas: 1`
 
@@ -24,10 +25,10 @@ La base de données SQLite est stockée dans un PersistentVolume pour persister 
 
 **Configuration** :
 
-| Environnement | Taille | Mode d'accès |
-|--------------|---------|--------------|
-| EKS | 1Gi | ReadWriteOnce |
-| Minikube | 500Mi | ReadWriteOnce |
+| Environnement | Taille | Mode d'accès  |
+| ------------- | ------ | ------------- |
+| EKS           | 1Gi    | ReadWriteOnce |
+| Minikube      | 500Mi  | ReadWriteOnce |
 
 #### 3. Mode ReadWriteOnce
 
@@ -41,21 +42,21 @@ Le volume est en mode `ReadWriteOnce`, ce qui signifie qu'il ne peut être mont�
 
 ### Avantages de SQLite
 
-| Avantage | Description |
-|----------|-------------|
-| Simplicité | Pas de serveur de base de données séparé à gérer |
-| Légèreté | Faible empreinte mémoire |
-| Zéro configuration | Aucune configuration de connexion requise |
-| Portable | Fichier unique facilement sauvegardable |
+| Avantage           | Description                                      |
+| ------------------ | ------------------------------------------------ |
+| Simplicité         | Pas de serveur de base de données séparé à gérer |
+| Légèreté           | Faible empreinte mémoire                         |
+| Zéro configuration | Aucune configuration de connexion requise        |
+| Portable           | Fichier unique facilement sauvegardable          |
 
 ### Inconvénients de SQLite sur Kubernetes
 
-| Inconvénient | Impact |
-|--------------|--------|
-| Pas de scaling horizontal | Limité à 1 replica |
-| Point de défaillance unique | Pas de haute disponibilité |
-| Performances limitées | Moins performant sous charge élevée |
-| Pas de réplication | Pas de backup automatique |
+| Inconvénient                | Impact                              |
+| --------------------------- | ----------------------------------- |
+| Pas de scaling horizontal   | Limité à 1 replica                  |
+| Point de défaillance unique | Pas de haute disponibilité          |
+| Performances limitées       | Moins performant sous charge élevée |
+| Pas de réplication          | Pas de backup automatique           |
 
 ---
 
@@ -65,11 +66,11 @@ Pour permettre le scaling horizontal (plusieurs replicas), vous devriez migrer v
 
 ### Options recommandées
 
-| Base de données | Avantages | Inconvénients |
-|----------------|-----------|---------------|
-| **PostgreSQL** | Open-source, robuste, features avancées | Configuration requise |
-| **MySQL** | Populaire, bien documenté | Moins de features que PostgreSQL |
-| **Amazon RDS** | Managé par AWS, backups automatiques | Coût supplémentaire |
+| Base de données | Avantages                               | Inconvénients                    |
+| --------------- | --------------------------------------- | -------------------------------- |
+| **PostgreSQL**  | Open-source, robuste, features avancées | Configuration requise            |
+| **MySQL**       | Populaire, bien documenté               | Moins de features que PostgreSQL |
+| **Amazon RDS**  | Managé par AWS, backups automatiques    | Coût supplémentaire              |
 
 ---
 
@@ -106,6 +107,7 @@ def get_connection():
 ### 3. Déployer PostgreSQL sur Kubernetes
 
 Décommenter les fichiers suivants :
+
 - `k8s/db-deployment.yaml`
 - `k8s/db-service.yaml`
 
@@ -143,7 +145,7 @@ Après migration vers PostgreSQL, vous pouvez augmenter les replicas :
 
 ```yaml
 spec:
-  replicas: 3  # Au lieu de 1
+  replicas: 3 # Au lieu de 1
 ```
 
 ---
@@ -174,17 +176,17 @@ resource "aws_db_instance" "postgres" {
   instance_class      = "db.t3.micro"
   allocated_storage   = 20
   storage_type        = "gp2"
-  
+
   db_name  = "quiz"
   username = "admin"
   password = var.db_password
-  
+
   vpc_security_group_ids = [aws_security_group.rds.id]
   db_subnet_group_name   = aws_db_subnet_group.main.name
-  
+
   skip_final_snapshot = true
   publicly_accessible = false
-  
+
   tags = {
     Name = "msg-devops-postgres"
   }
@@ -202,7 +204,7 @@ Mettre à jour les variables d'environnement dans `k8s/backend-deployment.yaml` 
 ```yaml
 env:
   - name: DB_HOST
-    value: "RDS_ENDPOINT"  # Remplacer par l'output Terraform
+    value: "RDS_ENDPOINT" # Remplacer par l'output Terraform
   - name: DB_NAME
     value: "quiz"
   - name: DB_USER
@@ -216,11 +218,11 @@ env:
 
 #### 3. Estimer les coûts RDS
 
-| Instance | Coût mensuel (EUR) |
-|----------|-------------------|
-| db.t3.micro | ~15 EUR |
-| db.t3.small | ~30 EUR |
-| db.t3.medium | ~60 EUR |
+| Instance     | Coût mensuel (EUR) |
+| ------------ | ------------------ |
+| db.t3.micro  | ~15 EUR            |
+| db.t3.small  | ~30 EUR            |
+| db.t3.medium | ~60 EUR            |
 
 **Total avec EKS** : ~205-250 EUR/mois (au lieu de ~190 EUR/mois)
 
@@ -254,33 +256,32 @@ kind: CronJob
 metadata:
   name: sqlite-backup
 spec:
-  schedule: "0 2 * * *"  # Tous les jours à 2h du matin
+  schedule: "0 2 * * *" # Tous les jours à 2h du matin
   jobTemplate:
     spec:
       template:
         spec:
           containers:
-          - name: backup
-            image: busybox
-            command:
-            - /bin/sh
-            - -c
-            - cp /data/quiz.db /backup/quiz-$(date +%Y%m%d).db
-            volumeMounts:
-            - name: sqlite-storage
-              mountPath: /data
-            - name: backup-storage
-              mountPath: /backup
+            - name: backup
+              image: busybox
+              command:
+                - /bin/sh
+                - -c
+                - cp /data/quiz.db /backup/quiz-$(date +%Y%m%d).db
+              volumeMounts:
+                - name: sqlite-storage
+                  mountPath: /data
+                - name: backup-storage
+                  mountPath: /backup
           restartPolicy: OnFailure
           volumes:
-          - name: sqlite-storage
-            persistentVolumeClaim:
-              claimName: sqlite-pvc
-          - name: backup-storage
-            persistentVolumeClaim:
-              claimName: backup-pvc
+            - name: sqlite-storage
+              persistentVolumeClaim:
+                claimName: sqlite-pvc
+            - name: backup-storage
+              persistentVolumeClaim:
+                claimName: backup-pvc
 ```
-
 
 ### Checklist de migration
 

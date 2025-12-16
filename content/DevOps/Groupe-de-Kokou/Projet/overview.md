@@ -2,7 +2,6 @@
 title: 1-Project overview
 ---
 
-
 # PROJET DEVOPS
 
 **Repos**
@@ -15,12 +14,9 @@ title: 1-Project overview
 
 <aside>
 
-
 # Résumé du service
 
 </aside>
-
-
 
 ### Partie Front: (OUNISSA)
 
@@ -28,7 +24,7 @@ Framework: [https://vite.dev/guide/](https://vite.dev/guide/)
 
 ### Partie Back: (AISSATOU & ALOIS)
 
-### Partie  déploiement: (KOKOU)
+### Partie déploiement: (KOKOU)
 
 ## Répartition des TDs
 
@@ -42,11 +38,13 @@ Framework: [https://vite.dev/guide/](https://vite.dev/guide/)
 # MSG DevOps - Déploiement Kubernetes
 
 ## Vue d'ensemble
+
 Mini jeu de quiz , avec scoreboard intégré qui se reset tout les 24h.
 
 Chaque participant qui complète le jeu peut ajouter son temps au scoreboard en ajoutant son username.
 
 **Stack technique** :
+
 - Backend : Python (Flask) avec SQLite
 - Frontend : Vue.js
 - Infrastructure : Kubernetes (Minikube ou EKS)
@@ -98,6 +96,7 @@ sudo ./deploy-minikube-oneclick.sh
 ```
 
 Le script gère automatiquement :
+
 - Installation de Docker, kubectl, Minikube
 - Build des images localement
 - Déploiement complet
@@ -115,6 +114,7 @@ export AWS_SECRET_ACCESS_KEY="votre_secret"
 ```
 
 Le script gère automatiquement :
+
 - Installation des outils AWS (CLI, Terraform, kubectl)
 - Provisionnement de l'infrastructure
 - Build et push vers ECR
@@ -167,14 +167,14 @@ msg_devops/
 
 ## Documentation complète
 
-| Document | Description |
-|----------|-------------|
-| **ONECLICK_GUIDE.md** | Guide complet des scripts de déploiement |
-| **DEPLOYMENT_MINIKUBE.md** | Guide détaillé Minikube |
-| **DEPLOYMENT_EKS.md** | Guide détaillé EKS |
-| **DEPLOYMENT_COMPARISON.md** | Comparaison Minikube vs EKS |
-| **SYSTEM_REQUIREMENTS.md** | Prérequis système détaillés |
-| **SQLITE_NOTES.md** | Notes sur SQLite et migration |
+| Document                     | Description                              |
+| ---------------------------- | ---------------------------------------- |
+| **ONECLICK_GUIDE.md**        | Guide complet des scripts de déploiement |
+| **DEPLOYMENT_MINIKUBE.md**   | Guide détaillé Minikube                  |
+| **DEPLOYMENT_EKS.md**        | Guide détaillé EKS                       |
+| **DEPLOYMENT_COMPARISON.md** | Comparaison Minikube vs EKS              |
+| **SYSTEM_REQUIREMENTS.md**   | Prérequis système détaillés              |
+| **SQLITE_NOTES.md**          | Notes sur SQLite et migration            |
 
 ---
 
@@ -200,10 +200,10 @@ msg_devops/
 
 ## Limitations actuelles
 
-| Limitation | Raison | Solution |
-|------------|--------|----------|
+| Limitation                 | Raison                                       | Solution                   |
+| -------------------------- | -------------------------------------------- | -------------------------- |
 | Backend limité à 1 replica | SQLite ne supporte pas les accès concurrents | Migrer vers PostgreSQL/RDS |
-| Pas de HTTPS sur Minikube | Environnement local | Normal pour dev |
+| Pas de HTTPS sur Minikube  | Environnement local                          | Normal pour dev            |
 
 Consultez **SQLITE_NOTES.md** pour les détails sur la migration vers PostgreSQL.
 
@@ -214,6 +214,7 @@ Consultez **SQLITE_NOTES.md** pour les détails sur la migration vers PostgreSQL
 Le workflow GitHub Actions est configuré pour déployer automatiquement sur EKS à chaque push sur `main`.
 
 **Configuration** :
+
 1. Ajouter les secrets GitHub :
    - `AWS_ACCESS_KEY_ID`
    - `AWS_SECRET_ACCESS_KEY`
@@ -279,4 +280,3 @@ En cas de problème :
 4. Pour EKS : Vérifier les credentials AWS
 
 ---
-

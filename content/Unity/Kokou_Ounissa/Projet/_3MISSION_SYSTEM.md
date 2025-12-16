@@ -1,6 +1,7 @@
 ---
 title: Système de Missions
 ---
+
 # Système de Missions - Documentation Technique
 
 ## Table des matières
@@ -27,13 +28,13 @@ Le système de missions de Tiny Flight Simulator permet de créer des expérienc
 
 ### Composants principaux
 
-| Composant | Responsabilité |
-|-----------|----------------|
-| `MissionManager.cs` | Gestionnaire central des missions |
-| `DynamicWeatherSystem.cs` | Activation et paramètres météo |
-| `GameMenuController.cs` | Interface et contrôles in-game |
-| `MainMenuController.cs` | Sélection et lancement |
-| `PlayerPrefs` | Persistance des choix utilisateur |
+| Composant                 | Responsabilité                    |
+| ------------------------- | --------------------------------- |
+| `MissionManager.cs`       | Gestionnaire central des missions |
+| `DynamicWeatherSystem.cs` | Activation et paramètres météo    |
+| `GameMenuController.cs`   | Interface et contrôles in-game    |
+| `MainMenuController.cs`   | Sélection et lancement            |
+| `PlayerPrefs`             | Persistance des choix utilisateur |
 
 ## Architecture du système
 
@@ -45,30 +46,30 @@ graph TB
     MainMenu --> SelectMission[Sélection Mission]
     SelectMission --> SelectAircraft[Sélection Avion]
     SelectAircraft --> SavePrefs[Sauvegarde PlayerPrefs]
-    
+
     SavePrefs --> |FromMainMenu=1| LoadScene[Chargement Scène]
     LoadScene --> InitWeather[Init DynamicWeatherSystem]
     InitWeather --> DelayedActivation[Activation Différée]
-    
+
     DelayedActivation --> CheckFlag{FromMainMenu=1?}
     CheckFlag --> |Oui| ActivateMM[Activer MissionManager]
     CheckFlag --> |Non| SkipMM[MM reste désactivé]
-    
+
     ActivateMM --> ReadMission[Lire Mission Sélectionnée]
     ReadMission --> ApplySettings[Appliquer Paramètres]
-    
+
     ApplySettings --> Mission3{Mission 3?}
     Mission3 --> |Oui| Horror[Mode Horrifique]
     Mission3 --> |Non| FreeRide[Mode Libre]
-    
+
     Horror --> StartTimer[Timer 10 min]
     Horror --> StartAudio[Sons Halloween]
     Horror --> StartVisual[Image Effrayante]
-    
+
     StartTimer --> EndMission[Fin Mission 3]
     EndMission --> StopEffects[Arrêt Effets]
     StopEffects --> Reveal[Révélation]
-    
+
     FreeRide --> Gameplay[Vol Libre]
     Reveal --> Gameplay
     SkipMM --> Gameplay
@@ -83,23 +84,23 @@ stateDiagram-v2
     [*] --> Idle: Game Start
     Idle --> MissionSelection: User Input
     MissionSelection --> MissionActive: Start Game
-    
+
     state MissionActive {
         [*] --> Mission3
         [*] --> FreeRide
-        
+
         state Mission3 {
             [*] --> HorrorPhase
             HorrorPhase --> Revelation: 10 minutes
             Revelation --> [*]
         }
-        
+
         state FreeRide {
             [*] --> Exploration
             Exploration --> Exploration
         }
     }
-    
+
     MissionActive --> MainMenu: Return
     MainMenu --> [*]
 ```
@@ -109,6 +110,7 @@ stateDiagram-v2
 Le `MissionManager` n'est actif que lorsque lancé depuis le menu principal.
 
 **Mécanisme**:
+
 ```csharp
 // MainMenuController.cs
 public void StartGame()
@@ -123,14 +125,14 @@ IEnumerator ActivateMissionManagerDelayed()
 {
     yield return new WaitForEndOfFrame();
     yield return new WaitForSeconds(0.1f);
-    
+
     int fromMainMenu = PlayerPrefs.GetInt("FromMainMenu", 0);
-    
+
     if (fromMainMenu == 1)
     {
         PlayerPrefs.DeleteKey("FromMainMenu");
         PlayerPrefs.Save();
-        
+
         // Activer le MissionManager
         if (missionManager != null)
         {
@@ -141,6 +143,7 @@ IEnumerator ActivateMissionManagerDelayed()
 ```
 
 **Raison du délai**:
+
 - Attendre la fin du chargement de la scène
 - Éviter les erreurs de références nulles
 - Garantir l'initialisation complète des systèmes
@@ -153,6 +156,7 @@ IEnumerator ActivateMissionManagerDelayed()
 Mission immersive plaçant le joueur dans des conditions extrêmes pour tester sa capacité à maintenir le calme et le contrôle. La "révélation" après 10 minutes symbolise la récompense de la persévérance face à l'adversité.
 
 **Expérience visée**:
+
 - Tension psychologique via effets sonores et visuels
 - Défi technique avec conditions météo difficiles
 - Satisfaction du dépassement de soi
@@ -162,56 +166,57 @@ Mission immersive plaçant le joueur dans des conditions extrêmes pour tester s
 
 #### Configuration initiale
 
-| Paramètre | Valeur | Justification |
-|-----------|--------|---------------|
-| `weatherIntensity` | 1.0 | Tempête maximale pour difficulté |
-| `timeOfDay` | 24.0 (minuit) | Obscurité pour atmosphère horrifique |
-| `lockWeatherSlider` | true | Empêche la triche |
-| `lockTimeSlider` | true | Maintient l'immersion |
-| `duration` | 600s | Équilibre entre défi et jouabilité |
+| Paramètre           | Valeur        | Justification                        |
+| ------------------- | ------------- | ------------------------------------ |
+| `weatherIntensity`  | 1.0           | Tempête maximale pour difficulté     |
+| `timeOfDay`         | 24.0 (minuit) | Obscurité pour atmosphère horrifique |
+| `lockWeatherSlider` | true          | Empêche la triche                    |
+| `lockTimeSlider`    | true          | Maintient l'immersion                |
+| `duration`          | 600s          | Équilibre entre défi et jouabilité   |
 
 **Code d'application**:
+
 ```csharp
 void ApplyMissionSettings()
 {
     int selectedMissionIndex = PlayerPrefs.GetInt("SelectedMission", -1);
     string selectedMissionName = PlayerPrefs.GetString("SelectedMissionName", "");
-    
+
     bool isMission3Selected = false;
-    if (selectedMissionName.Contains("mission3") || 
+    if (selectedMissionName.Contains("mission3") ||
         selectedMissionName.Contains("Mission3"))
     {
         isMission3Selected = true;
     }
-    
+
     if (isMission3Selected && selectedMissionIndex >= 0)
     {
         isMission3Active = true;
-        
+
         // Appliquer météo
         if (weatherSystem != null)
         {
             weatherSystem.SetWeatherIntensity(mission3WeatherIntensity);
         }
-        
+
         // Verrouiller les contrôles
         isMissionLocked = true;
-        
+
         // Lancer les effets avec délai
         StartCoroutine(ApplyMission3SettingsDelayed());
-        
+
         // Démarrer audio et visuel
         if (halloweenSound1 != null || halloweenSound2 != null)
         {
             halloweenSoundsCoroutine = StartCoroutine(PlayHalloweenSoundsRoutine());
         }
-        
+
         if (scaryImage != null)
         {
             CreateScaryImageCanvas();
             scaryImageCoroutine = StartCoroutine(ShowScaryImageRoutine());
         }
-        
+
         // Timer de fin
         StartCoroutine(EndMission3After10Minutes());
     }
@@ -254,7 +259,7 @@ void Start()
     halloweenAudioSource1.spatialBlend = 0f;  // 2D
     halloweenAudioSource1.volume = halloweenSoundVolume;
     halloweenAudioSource1.priority = 128;
-    
+
     // AudioSource 2 pour second son (permet chevauchement)
     halloweenAudioSource2 = gameObject.AddComponent<AudioSource>();
     halloweenAudioSource2.loop = false;
@@ -262,7 +267,7 @@ void Start()
     halloweenAudioSource2.spatialBlend = 0f;  // 2D
     halloweenAudioSource2.volume = halloweenSoundVolume;
     halloweenAudioSource2.priority = 128;
-    
+
     // AudioSource pour applaudissement
     applauseAudioSource = gameObject.AddComponent<AudioSource>();
     applauseAudioSource.loop = false;
@@ -272,6 +277,7 @@ void Start()
 ```
 
 **Justification des deux AudioSources**:
+
 - Permettre le chevauchement de sons
 - Éviter la coupure brutale d'un son en cours
 - Créer une atmosphère plus dense
@@ -286,10 +292,10 @@ IEnumerator PlayHalloweenSoundsRoutine()
         // Intervalle aléatoire entre 30 et 60 secondes
         float waitTime = Random.Range(minSoundInterval, maxSoundInterval);
         yield return new WaitForSeconds(waitTime);
-        
+
         // Choix aléatoire du son
         bool useSound1 = Random.value > 0.5f;
-        
+
         if (useSound1 && halloweenSound1 != null && halloweenAudioSource1 != null)
         {
             halloweenAudioSource1.volume = halloweenSoundVolume;
@@ -305,11 +311,13 @@ IEnumerator PlayHalloweenSoundsRoutine()
 ```
 
 **Paramètres recommandés**:
+
 - `minSoundInterval`: 30s (évite la saturation)
 - `maxSoundInterval`: 60s (maintient la tension)
 - `halloweenSoundVolume`: 0.5 (audible mais pas écrasant)
 
 **Sélection des sons**:
+
 - Sons courts (2-5 secondes)
 - Thématique horrifique (cris, gémissements, ambiances)
 - Format: WAV ou OGG (compression)
@@ -328,27 +336,27 @@ void CreateScaryImageCanvas()
     scaryImageCanvas = canvasObject.AddComponent<Canvas>();
     scaryImageCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
     scaryImageCanvas.sortingOrder = 1000;  // Priorité maximale
-    
+
     // CanvasScaler pour adaptation écran
     CanvasScaler scaler = canvasObject.AddComponent<CanvasScaler>();
     scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
     scaler.referenceResolution = new Vector2(1920, 1080);
-    
+
     // GraphicRaycaster (standard Unity UI)
     canvasObject.AddComponent<GraphicRaycaster>();
-    
+
     // Objet Image
     scaryImageObject = new GameObject("ScaryImage");
     scaryImageObject.transform.SetParent(canvasObject.transform, false);
-    
+
     Image imageComponent = scaryImageObject.AddComponent<Image>();
     imageComponent.sprite = scaryImage;
     imageComponent.preserveAspect = true;
-    
+
     // Taille et position
     RectTransform rectTransform = scaryImageObject.GetComponent<RectTransform>();
     rectTransform.sizeDelta = new Vector2(scaryImageSize, scaryImageSize);
-    
+
     // Cachée au départ
     scaryImageObject.SetActive(false);
 }
@@ -357,26 +365,28 @@ void CreateScaryImageCanvas()
 #### Système de défilement
 
 **Directions possibles**:
+
 1. Bas vers Haut
 2. Gauche vers Droite
 3. Haut vers Bas
 4. Droite vers Gauche
 
 **Implémentation**:
+
 ```csharp
 IEnumerator ScrollScaryImage()
 {
     RectTransform rectTransform = scaryImageObject.GetComponent<RectTransform>();
-    
+
     // Choix direction aléatoire
     int direction = Random.Range(0, 4);
-    
+
     Vector2 startPos = Vector2.zero;
     Vector2 endPos = Vector2.zero;
-    
+
     float screenWidth = Screen.width;
     float screenHeight = Screen.height;
-    
+
     switch (direction)
     {
         case 0: // Bas vers Haut
@@ -389,7 +399,7 @@ IEnumerator ScrollScaryImage()
                 screenHeight/2 + scaryImageSize
             );
             break;
-            
+
         case 1: // Gauche vers Droite
             startPos = new Vector2(
                 -screenWidth/2 - scaryImageSize,
@@ -400,7 +410,7 @@ IEnumerator ScrollScaryImage()
                 startPos.y
             );
             break;
-            
+
         case 2: // Haut vers Bas
             startPos = new Vector2(
                 Random.Range(-screenWidth/2, screenWidth/2),
@@ -411,7 +421,7 @@ IEnumerator ScrollScaryImage()
                 -screenHeight/2 - scaryImageSize
             );
             break;
-            
+
         case 3: // Droite vers Gauche
             startPos = new Vector2(
                 screenWidth/2 + scaryImageSize,
@@ -423,15 +433,15 @@ IEnumerator ScrollScaryImage()
             );
             break;
     }
-    
+
     // Afficher l'image
     scaryImageObject.SetActive(true);
     rectTransform.anchoredPosition = startPos;
-    
+
     // Calculer durée du défilement
     float distance = Vector2.Distance(startPos, endPos);
     float duration = distance / scaryImageSpeed;
-    
+
     // Défilement progressif
     float elapsed = 0f;
     while (elapsed < duration)
@@ -441,13 +451,14 @@ IEnumerator ScrollScaryImage()
         rectTransform.anchoredPosition = Vector2.Lerp(startPos, endPos, t);
         yield return null;
     }
-    
+
     // Cacher à la fin
     scaryImageObject.SetActive(false);
 }
 ```
 
 **Routine d'affichage répété**:
+
 ```csharp
 IEnumerator ShowScaryImageRoutine()
 {
@@ -456,7 +467,7 @@ IEnumerator ShowScaryImageRoutine()
         // Intervalle aléatoire entre 10 et 120 secondes
         float waitTime = Random.Range(minImageInterval, maxImageInterval);
         yield return new WaitForSeconds(waitTime);
-        
+
         // Faire défiler l'image
         if (scaryImageObject != null)
         {
@@ -467,12 +478,14 @@ IEnumerator ShowScaryImageRoutine()
 ```
 
 **Paramètres recommandés**:
+
 - `scaryImageSize`: 200-300 pixels
 - `scaryImageSpeed`: 500 px/s (visible mais rapide)
 - `minImageInterval`: 10s (peut apparaître rapidement)
 - `maxImageInterval`: 120s (max 2 minutes sans image)
 
 **Sélection de l'image**:
+
 - Format PNG avec transparence
 - Résolution: 512x512 minimum
 - Thématique horrifique cohérente avec les sons
@@ -489,60 +502,60 @@ IEnumerator EndMission3After10Minutes()
 {
     // Attendre 10 minutes
     yield return new WaitForSeconds(mission3Duration);
-    
+
     // Phase 1: Arrêt des effets
     isMission3Active = false;
-    
+
     // Arrêter les sons
     if (halloweenSoundsCoroutine != null)
     {
         StopCoroutine(halloweenSoundsCoroutine);
         halloweenSoundsCoroutine = null;
     }
-    
+
     if (halloweenAudioSource1 != null && halloweenAudioSource1.isPlaying)
         halloweenAudioSource1.Stop();
-    
+
     if (halloweenAudioSource2 != null && halloweenAudioSource2.isPlaying)
         halloweenAudioSource2.Stop();
-    
+
     // Arrêter l'image
     if (scaryImageCoroutine != null)
     {
         StopCoroutine(scaryImageCoroutine);
         scaryImageCoroutine = null;
     }
-    
+
     if (scaryImageObject != null && scaryImageObject.activeSelf)
         scaryImageObject.SetActive(false);
-    
+
     // Phase 2: Transition météo et heure
     if (weatherSystem != null)
     {
         weatherSystem.SetWeatherIntensity(mission3EndWeather);  // 0.0
     }
-    
+
     if (gameMenuController != null)
     {
         gameMenuController.SetTimeValue(mission3EndTime);  // 12.0
     }
-    
+
     // Phase 3: Déverrouillage UI
     if (gameMenuController != null)
     {
         gameMenuController.SetWeatherSliderLocked(false);
         gameMenuController.SetTimeSliderLocked(false);
     }
-    
+
     // Phase 4: Applaudissement
     yield return new WaitForSeconds(1f);
-    
+
     if (applauseSound != null && applauseAudioSource != null)
     {
         applauseAudioSource.volume = applauseSoundVolume;
         applauseAudioSource.PlayOneShot(applauseSound);
     }
-    
+
     isMissionLocked = false;
 }
 ```
@@ -557,6 +570,7 @@ IEnumerator EndMission3After10Minutes()
 | Durée applaudissement | 3-5s | Célébration satisfaisante |
 
 **Paramètres de fin**:
+
 - `mission3EndWeather`: 0.0 (ciel clair)
 - `mission3EndTime`: 12.0 (midi, contraste maximal avec minuit)
 - `applauseSoundVolume`: 0.7 (volume élevé pour récompense)
@@ -568,18 +582,18 @@ stateDiagram-v2
     [*] --> Initialisation
     Initialisation --> VerrouillageUI: Appliquer paramètres
     VerrouillageUI --> PhaseHorreur: Démarrer effets
-    
+
     state PhaseHorreur {
         [*] --> AttenteSon
         AttenteSon --> LectureSon: 30-60s
         LectureSon --> AttenteSon
-        
+
         [*] --> AttenteImage
         AttenteImage --> AffichageImage: 10-120s
         AffichageImage --> DefilementImage
         DefilementImage --> AttenteImage
     }
-    
+
     PhaseHorreur --> ArretEffets: Timer 600s
     ArretEffets --> TransitionMeteo
     TransitionMeteo --> DeveorrouilageUI
@@ -593,6 +607,7 @@ stateDiagram-v2
 ### Concept
 
 Mode sandbox sans contraintes permettant:
+
 - Exploration libre du monde procédural
 - Apprentissage des contrôles
 - Tests de différentes conditions météo
@@ -601,11 +616,12 @@ Mode sandbox sans contraintes permettant:
 ### Configuration
 
 **Paramètres par défaut**:
+
 ```csharp
 else  // Free Ride ou autre mission
 {
     isMissionLocked = false;
-    
+
     if (gameMenuController != null)
     {
         gameMenuController.SetWeatherSliderLocked(false);
@@ -615,6 +631,7 @@ else  // Free Ride ou autre mission
 ```
 
 **Caractéristiques**:
+
 - Aucun verrouillage de paramètres
 - Pas d'effets audio/visuels forcés
 - Pas de limite de temps
@@ -624,18 +641,21 @@ else  // Free Ride ou autre mission
 ### Utilisation recommandée
 
 **Pour débutants**:
+
 1. Démarrer avec météo à 0.0
 2. Heure de jour (10h-14h)
 3. Pratiquer décollage/atterrissage
 4. Augmenter progressivement la difficulté
 
 **Pour avancés**:
+
 - Tester limites de vol (décrochage, vitesse max)
 - Explorer les effets météo extrêmes
 - Découvrir la génération procédurale
 - Pratiquer le vol de nuit
 
 **Pour créatifs**:
+
 - Créer des scénarios personnalisés
 - Capturer des screenshots/vidéos
 - Tester des techniques de vol
@@ -645,13 +665,13 @@ else  // Free Ride ou autre mission
 
 ### PlayerPrefs utilisées
 
-| Clé | Type | Description | Valeurs |
-|-----|------|-------------|---------|
-| `FromMainMenu` | int | Flag d'activation MissionManager | 0=non, 1=oui |
-| `SelectedMission` | int | Index mission sélectionnée | 0-N |
-| `SelectedMissionName` | string | Nom de la mission | "mission3", "freeride" |
-| `SelectedAircraft` | int | Index avion sélectionné | 0-N |
-| `AircraftColorCode` | string | Code couleur avion | Hex color |
+| Clé                   | Type   | Description                      | Valeurs                |
+| --------------------- | ------ | -------------------------------- | ---------------------- |
+| `FromMainMenu`        | int    | Flag d'activation MissionManager | 0=non, 1=oui           |
+| `SelectedMission`     | int    | Index mission sélectionnée       | 0-N                    |
+| `SelectedMissionName` | string | Nom de la mission                | "mission3", "freeride" |
+| `SelectedAircraft`    | int    | Index avion sélectionné          | 0-N                    |
+| `AircraftColorCode`   | string | Code couleur avion               | Hex color              |
 
 ### Cycle de vie des PlayerPrefs
 
@@ -661,15 +681,15 @@ sequenceDiagram
     participant Prefs as PlayerPrefs
     participant Scene as Flight Demo
     participant MM as MissionManager
-    
+
     Menu->>Prefs: SetInt("FromMainMenu", 1)
     Menu->>Prefs: SetInt("SelectedMission", index)
     Menu->>Prefs: SetString("SelectedMissionName", name)
     Menu->>Prefs: Save()
-    
+
     Menu->>Scene: LoadScene()
     Scene->>Prefs: GetInt("FromMainMenu")
-    
+
     alt FromMainMenu == 1
         Scene->>MM: Activate()
         MM->>Prefs: GetInt("SelectedMission")
@@ -678,7 +698,7 @@ sequenceDiagram
         MM->>Prefs: DeleteKey("FromMainMenu")
         MM->>Prefs: Save()
     end
-    
+
     Scene->>Scene: Gameplay
     Scene->>Menu: Return to Menu
     Menu->>Prefs: DeleteKey("FromMainMenu")
@@ -687,6 +707,7 @@ sequenceDiagram
 ### Interface GameMenuController
 
 **Méthodes de contrôle**:
+
 ```csharp
 // Verrouillage des sliders
 public void SetWeatherSliderLocked(bool locked)
@@ -694,7 +715,7 @@ public void SetWeatherSliderLocked(bool locked)
     if (weatherSlider != null)
     {
         weatherSlider.interactable = !locked;
-        
+
         // Visual feedback (optionnel)
         ColorBlock colors = weatherSlider.colors;
         colors.disabledColor = locked ? Color.gray : Color.white;
@@ -717,7 +738,7 @@ public void SetWeatherValue(float value)
     {
         weatherSlider.value = value;
     }
-    
+
     if (weatherSystem != null)
     {
         weatherSystem.SetWeatherIntensity(value);
@@ -730,7 +751,7 @@ public void SetTimeValue(float value)
     {
         timeSlider.value = value;
     }
-    
+
     if (timeOfDaySystem != null)  // À vérifier
     {
         timeOfDaySystem.SetHour(value);
@@ -749,11 +770,11 @@ graph TB
     MM[MissionManager] --> AS1[AudioSource 1]
     MM --> AS2[AudioSource 2]
     MM --> AS3[AudioSource Applause]
-    
+
     AS1 --> H1[Halloween Sound 1]
     AS2 --> H2[Halloween Sound 2]
     AS3 --> AP[Applause Sound]
-    
+
     MM --> Routine[PlayHalloweenSoundsRoutine]
     Routine --> Random[Random Selection]
     Random --> AS1
@@ -763,6 +784,7 @@ graph TB
 ### Configuration AudioSource
 
 **Paramètres importants**:
+
 ```csharp
 audioSource.loop = false;              // One-shot
 audioSource.playOnAwake = false;       // Contrôle manuel
@@ -772,6 +794,7 @@ audioSource.priority = 128;            // Priorité moyenne
 ```
 
 **Justification spatialBlend = 0**:
+
 - Sons d'ambiance/UI, pas liés à une position 3D
 - Volume constant quelle que soit la position du joueur
 - Évite les calculs de spatialisation inutiles
@@ -783,11 +806,13 @@ Si un seul AudioSource est utilisé, un nouveau son coupe le précédent.
 
 **Solution**:
 Utiliser deux AudioSources permet:
+
 - Chevauchement de deux sons
 - Atmosphère plus dense
 - Pas de coupure brutale
 
 **Exemple de timeline**:
+
 ```
 0s    [AudioSource1] Son 1 ─────────────┐
                                         │
@@ -801,11 +826,13 @@ Utiliser deux AudioSources permet:
 ### Sélection aléatoire
 
 **Algorithme**:
+
 ```csharp
 bool useSound1 = Random.value > 0.5f;  // 50% chaque son
 ```
 
 **Alternatives possibles**:
+
 ```csharp
 // Alternance garantie
 int soundIndex = (lastSoundIndex + 1) % 2;
@@ -819,6 +846,7 @@ bool useSound1 = Random.value > 0.3f;  // 70% son1, 30% son2
 ### Architecture Canvas
 
 **Hiérarchie**:
+
 ```
 ScaryImageCanvas (Canvas)
 ├── CanvasScaler
@@ -828,11 +856,13 @@ ScaryImageCanvas (Canvas)
 ```
 
 **RenderMode**: `ScreenSpaceOverlay`
+
 - Toujours au-dessus du rendu 3D
 - Pas affecté par les caméras
 - Adapté pour l'UI globale
 
 **SortingOrder**: 1000
+
 - Garantit l'affichage au-dessus de tous les autres Canvas
 - UI de jeu typiquement à 0-100
 - Mission 3 image à 1000 = priorité absolue
@@ -840,11 +870,13 @@ ScaryImageCanvas (Canvas)
 ### Calcul des positions
 
 **Système de coordonnées**:
+
 - Centre de l'écran: (0, 0)
 - Ancrage: Centre
 - Pivot: Centre
 
 **Positions de départ**:
+
 ```csharp
 // Bas: X aléatoire, Y sous l'écran
 startPos = new Vector2(
@@ -877,12 +909,14 @@ L'image démarre complètement hors écran grâce à `- scaryImageSize`, garanti
 ### Animation de défilement
 
 **Interpolation linéaire**:
+
 ```csharp
 float t = elapsed / duration;  // 0.0 à 1.0
 rectTransform.anchoredPosition = Vector2.Lerp(startPos, endPos, t);
 ```
 
 **Vitesse constante**:
+
 ```csharp
 float distance = Vector2.Distance(startPos, endPos);
 float duration = distance / scaryImageSpeed;
@@ -891,6 +925,7 @@ float duration = distance / scaryImageSpeed;
 Cette approche garantit que l'image se déplace à la même vitesse quelle que soit la direction ou la résolution de l'écran.
 
 **Alternatives**:
+
 ```csharp
 // Animation par courbe
 float t = Mathf.SmoothStep(0, 1, elapsed / duration);  // Ease in/out
@@ -902,20 +937,24 @@ float t = Mathf.Sin(elapsed / duration * Mathf.PI * 0.5f);  // Ease out
 ### Optimisations visuelles
 
 **Désactivation quand invisible**:
+
 ```csharp
 scaryImageObject.SetActive(false);  // Pas de rendu
 ```
 
 **PreserveAspect**:
+
 ```csharp
 imageComponent.preserveAspect = true;  // Pas de déformation
 ```
 
 **CanvasScaler**:
+
 ```csharp
 scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
 scaler.referenceResolution = new Vector2(1920, 1080);
 ```
+
 Adaptation automatique à différentes résolutions d'écran.
 
 ## Extension du système
@@ -923,6 +962,7 @@ Adaptation automatique à différentes résolutions d'écran.
 ### Ajouter une nouvelle mission
 
 **Étape 1: Définir les paramètres**
+
 ```csharp
 [Header("Mission 4 - Paramètres")]
 public float mission4WeatherIntensity = 0.5f;
@@ -932,12 +972,13 @@ public AudioClip mission4Music;
 ```
 
 **Étape 2: Détecter la mission**
+
 ```csharp
 void ApplyMissionSettings()
 {
     int selectedMissionIndex = PlayerPrefs.GetInt("SelectedMission", -1);
     string selectedMissionName = PlayerPrefs.GetString("SelectedMissionName", "");
-    
+
     if (selectedMissionName.Contains("mission4"))
     {
         ApplyMission4Settings();
@@ -951,6 +992,7 @@ void ApplyMissionSettings()
 ```
 
 **Étape 3: Implémenter la logique**
+
 ```csharp
 void ApplyMission4Settings()
 {
@@ -959,7 +1001,7 @@ void ApplyMission4Settings()
     {
         weatherSystem.SetWeatherIntensity(mission4WeatherIntensity);
     }
-    
+
     // Démarrer effets spécifiques
     StartCoroutine(Mission4Routine());
 }
@@ -972,6 +1014,7 @@ IEnumerator Mission4Routine()
 ```
 
 **Étape 4: Ajouter à l'UI**
+
 - Créer bouton dans MainMenu
 - Assigner index et nom de mission
 - Configurer la sélection
@@ -979,6 +1022,7 @@ IEnumerator Mission4Routine()
 ### Ajouter des effets
 
 **Nouvel effet visuel**:
+
 ```csharp
 [Header("Effet Visuel Custom")]
 public Sprite customSprite;
@@ -990,7 +1034,7 @@ IEnumerator ShowCustomEffect()
     GameObject effectObject = new GameObject("CustomEffect");
     Image img = effectObject.AddComponent<Image>();
     img.sprite = customSprite;
-    
+
     // Animation
     float elapsed = 0f;
     while (elapsed < customEffectDuration)
@@ -999,12 +1043,13 @@ IEnumerator ShowCustomEffect()
         // Animation logic
         yield return null;
     }
-    
+
     Destroy(effectObject);
 }
 ```
 
 **Nouvel effet audio**:
+
 ```csharp
 [Header("Effet Audio Custom")]
 public AudioClip customSound;
@@ -1015,7 +1060,7 @@ IEnumerator PlayCustomSoundRoutine()
     while (isEffectActive)
     {
         yield return new WaitForSeconds(customSoundInterval);
-        
+
         AudioSource.PlayClipAtPoint(customSound, Camera.main.transform.position);
     }
 }
@@ -1024,6 +1069,7 @@ IEnumerator PlayCustomSoundRoutine()
 ### Système d'objectifs
 
 **Structure de base**:
+
 ```csharp
 [System.Serializable]
 public class MissionObjective
@@ -1071,6 +1117,7 @@ public void CheckObjectives()
 ### Système de scoring
 
 **Structure proposée**:
+
 ```csharp
 public class MissionScore
 {
@@ -1078,7 +1125,7 @@ public class MissionScore
     public int difficultyMultiplier;
     public int completionBonus;
     public int totalScore;
-    
+
     public void CalculateScore(float completionTime, float missionDuration)
     {
         timeBonus = Mathf.Max(0, (int)((missionDuration - completionTime) * 10));
@@ -1092,12 +1139,14 @@ public class MissionScore
 Le système de missions de Tiny Flight Simulator offre une base solide pour créer des expériences de vol variées. La mission "Escape the Hell" démontre la capacité du système à créer des scénarios immersifs avec synchronisation audio-visuelle et contrôle précis des paramètres environnementaux.
 
 **Forces du système**:
+
 - Architecture modulaire et extensible
 - Synchronisation précise des effets
 - Contrôle granulaire des paramètres
 - Séparation claire mission/free ride
 
 **Pistes d'amélioration**:
+
 - Système d'objectifs structuré
 - Scoring et récompenses
 - Missions multiples enchaînées
@@ -1106,4 +1155,4 @@ Le système de missions de Tiny Flight Simulator offre une base solide pour cré
 
 ---
 
-*Document mis à jour: Décembre 2025*
+_Document mis à jour: Décembre 2025_
