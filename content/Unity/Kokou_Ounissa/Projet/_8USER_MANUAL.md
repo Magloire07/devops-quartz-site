@@ -1,5 +1,5 @@
 ---
-title: Manuel Utilisateur
+title: 8 - Manuel Utilisateur
 ---
 
 # Manuel Utilisateur - Tiny Flight Simulator

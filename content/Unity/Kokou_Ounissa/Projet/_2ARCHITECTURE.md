@@ -1,5 +1,5 @@
 ---
-title: Archecture Technique
+title: 2 - Archecture Technique
 ---
 
 # Architecture Technique - Tiny Flight Simulator
