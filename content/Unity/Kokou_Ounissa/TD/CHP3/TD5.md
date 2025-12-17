@@ -12,9 +12,11 @@ title: TD5
 To use your skybox material:
 
 **Go to:**
+
 - Window → Rendering → Lighting → Environment
 
 **Then set:**
+
 - Skybox Material → (select one of your AllSky skybox materials)
 
 Your sky changes immediately ✨
@@ -28,20 +30,26 @@ Then you need a Skydome mesh prefab (a sphere), and you must apply your material
 **How to do that:**
 
 **Create a big sphere:**
+
 - GameObject → 3D Object → Sphere
 
 **Rename it:**
+
 - SkyDome
 
 **Scale it very large:**
+
 - e.g., Scale = 500, 500, 500
 
 **Invert its normals (this is important!):**
+
 - Otherwise you see the sphere from the outside, not from the inside
 
 **Simplest method:**
+
 - Select the sphere
 - In Inspector, set Scale to -500 on X: Scale = (-500, 500, 500)
 
 **Apply your skybox material to the sphere's Mesh Renderer:**
+
 - Drag your .mat onto the sphere

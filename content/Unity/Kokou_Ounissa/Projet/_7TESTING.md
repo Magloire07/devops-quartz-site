@@ -1,6 +1,7 @@
 ---
-title: Tests et Validation
+title: 7 - Tests et Validation
 ---
+
 # Tests et Validation - Tiny Flight Simulator
 
 ## Table des matières
@@ -26,30 +27,33 @@ title: Tests et Validation
 
 ### Types de tests
 
-| Type | Description | Fréquence |
-|------|-------------|-----------|
-| **Unitaires** | Test de fonctions individuelles | Continu |
-| **Intégration** | Test de systèmes combinés | Par fonctionnalité |
-| **Fonctionnels** | Test de scénarios utilisateur | Avant release |
-| **Performance** | Mesure FPS, temps de chargement | Régulier |
-| **Compatibilité** | Test sur différentes configs | Avant release |
-| **Régression** | Vérification des bugs corrigés | Après fix |
+| Type              | Description                     | Fréquence          |
+| ----------------- | ------------------------------- | ------------------ |
+| **Unitaires**     | Test de fonctions individuelles | Continu            |
+| **Intégration**   | Test de systèmes combinés       | Par fonctionnalité |
+| **Fonctionnels**  | Test de scénarios utilisateur   | Avant release      |
+| **Performance**   | Mesure FPS, temps de chargement | Régulier           |
+| **Compatibilité** | Test sur différentes configs    | Avant release      |
+| **Régression**    | Vérification des bugs corrigés  | Après fix          |
 
 ### Environnements de test
 
 **Configuration minimale**:
+
 - OS: Windows 10 64-bit
 - CPU: Intel Core i5-6600K
 - RAM: 8 GB
 - GPU: NVIDIA GTX 1060
 
 **Configuration moyenne**:
+
 - OS: Windows 10/11 64-bit
 - CPU: Intel Core i7-8700K
 - RAM: 16 GB
 - GPU: NVIDIA RTX 2060
 
 **Configuration haute**:
+
 - OS: Windows 11 64-bit
 - CPU: Intel Core i9-10900K
 - RAM: 32 GB
@@ -67,11 +71,13 @@ title: Tests et Validation
 **Prérequis**: Aucun
 
 **Étapes**:
+
 1. Lancer tiny-flight-simulator.exe
 2. Observer l'écran de chargement
 3. Vérifier l'affichage du menu principal
 
 **Résultat attendu**:
+
 - Temps de chargement < 10 secondes
 - Menu principal affiché correctement
 - Aucune erreur console
@@ -84,11 +90,13 @@ title: Tests et Validation
 **Prérequis**: Menu principal affiché
 
 **Étapes**:
+
 1. Cliquer sur "Start Game"
 2. Sélectionner "Escape the Hell"
 3. Vérifier affichage du panneau de sélection d'avion
 
 **Résultat attendu**:
+
 - Panneau de sélection d'avion affiché
 - Informations de la mission visibles
 - Prévisualisation 3D fonctionnelle
@@ -101,12 +109,14 @@ title: Tests et Validation
 **Prérequis**: Panneau de sélection d'avion affiché
 
 **Étapes**:
+
 1. Sélectionner un avion
 2. Choisir une couleur
 3. Observer la prévisualisation
 4. Cliquer "Start Game"
 
 **Résultat attendu**:
+
 - Prévisualisation met à jour la couleur
 - Transition vers scène de vol fluide
 - Avion sélectionné spawne avec la couleur choisie
@@ -123,11 +133,13 @@ title: Tests et Validation
 **Prérequis**: Mission et avion sélectionnés
 
 **Étapes**:
+
 1. Observer l'écran de chargement
 2. Attendre le chargement complet
 3. Vérifier l'état initial
 
 **Résultat attendu**:
+
 - Temps de chargement < 15 secondes
 - Avion spawne sur le sol
 - Caméra positionnée correctement
@@ -141,6 +153,7 @@ title: Tests et Validation
 **Prérequis**: Scène de vol chargée
 
 **Étapes**:
+
 1. Augmenter puissance (W)
 2. Observer accélération
 3. Mouvoir souris pour contrôler assiette
@@ -148,6 +161,7 @@ title: Tests et Validation
 5. Réduire puissance (S)
 
 **Résultat attendu**:
+
 - Augmentation de puissance visible et audible
 - Avion répond aux mouvements de souris
 - Assiette change selon input
@@ -163,6 +177,7 @@ title: Tests et Validation
 **Prérequis**: Avion au sol
 
 **Étapes**:
+
 1. Puissance à 100% (maintenir W)
 2. Attendre vitesse 30-35 km/h
 3. Tirer doucement sur la souris
@@ -170,6 +185,7 @@ title: Tests et Validation
 5. Stabiliser à 500m
 
 **Résultat attendu**:
+
 - Avion accélère progressivement
 - Décollage autour de 30-35 km/h
 - Montée stable sans décrochage
@@ -186,12 +202,14 @@ title: Tests et Validation
 **Prérequis**: Avion en vol à 500m
 
 **Étapes**:
+
 1. Stabiliser à 500m d'altitude
 2. Puissance à 70%
 3. Voler pendant 2 minutes
 4. Observer la stabilité
 
 **Résultat attendu**:
+
 - Avion maintient l'altitude
 - Pas de perte de contrôle
 - Turbulences gérables
@@ -206,6 +224,7 @@ title: Tests et Validation
 **Prérequis**: Avion en vol
 
 **Étapes**:
+
 1. Approcher l'aéroport
 2. Réduire puissance progressivement
 3. Descendre à 2-3° vers le sol
@@ -213,6 +232,7 @@ title: Tests et Validation
 5. Toucher le sol
 
 **Résultat attendu**:
+
 - Descente contrôlée
 - Atterrissage sur les roues
 - Pas de rebond excessif
@@ -229,6 +249,7 @@ title: Tests et Validation
 **Prérequis**: Avion en vol
 
 **Étapes**:
+
 1. Réduire puissance à 30%
 2. Cabrer fortement (angle > 15°)
 3. Observer perte de vitesse
@@ -236,6 +257,7 @@ title: Tests et Validation
 5. Récupérer (pousser manche, puissance 100%)
 
 **Résultat attendu**:
+
 - Décrochage se produit à faible vitesse + angle élevé
 - Perte de contrôle perceptible
 - Récupération possible
@@ -250,6 +272,7 @@ title: Tests et Validation
 **Prérequis**: Avion en vol
 
 **Étapes**:
+
 1. Appuyer sur V
 2. Observer transition vers vue externe
 3. Appuyer à nouveau sur V
@@ -257,6 +280,7 @@ title: Tests et Validation
 5. Tester le free look (bouger souris en cockpit)
 
 **Résultat attendu**:
+
 - Transition instantanée
 - Pas de double déclenchement
 - Free look fonctionne en cockpit
@@ -275,6 +299,7 @@ title: Tests et Validation
 **Prérequis**: Mode Free Ride actif
 
 **Étapes**:
+
 1. Appuyer sur Échap (menu in-game)
 2. Déplacer slider météo à 0.0
 3. Observer changements
@@ -282,6 +307,7 @@ title: Tests et Validation
 5. Observer changements
 
 **Résultat attendu**:
+
 - Météo 0.0: Ciel clair, pas de pluie, vent nul
 - Météo 1.0: Tempête, pluie intense, éclairs, vent fort
 - Transitions fluides (pas de changement brusque)
@@ -298,6 +324,7 @@ title: Tests et Validation
 **Prérequis**: Météo > 0.5, avion en vol
 
 **Étapes**:
+
 1. Décollage
 2. Voler à 1000m
 3. Observer particules de pluie
@@ -305,6 +332,7 @@ title: Tests et Validation
 5. Vérifier suivi
 
 **Résultat attendu**:
+
 - Particules toujours visibles autour de l'avion
 - Pas de "trou" dans la pluie
 - Position mise à jour chaque frame
@@ -318,12 +346,14 @@ title: Tests et Validation
 **Prérequis**: Météo > 0.7
 
 **Étapes**:
+
 1. Régler météo à 1.0
 2. Observer pendant 1 minute
 3. Compter les éclairs
 4. Vérifier synchronisation son
 
 **Résultat attendu**:
+
 - Éclairs visuels (flash lumineux)
 - Tonnerre synchronisé avec éclairs
 - Intervalle 3-10 secondes
@@ -340,11 +370,13 @@ title: Tests et Validation
 **Prérequis**: Brouillard activé (useFog = true)
 
 **Étapes**:
+
 1. Météo à 0.0 - Observer visibilité
 2. Météo à 0.5 - Observer visibilité
 3. Météo à 1.0 - Observer visibilité
 
 **Résultat attendu**:
+
 - Météo 0.0: Visibilité 2000m
 - Météo 0.5: Visibilité ~1000m
 - Météo 1.0: Visibilité 200m
@@ -361,12 +393,14 @@ title: Tests et Validation
 **Prérequis**: Mission 3 sélectionnée, scène chargée
 
 **Étapes**:
+
 1. Observer météo au spawn
 2. Observer heure (minuit)
 3. Tenter d'ajuster météo/heure
 4. Vérifier verrouillage
 
 **Résultat attendu**:
+
 - Météo à 1.0 (tempête)
 - Heure à 24h (minuit)
 - Sliders météo/heure désactivés (grisés)
@@ -381,12 +415,14 @@ title: Tests et Validation
 **Prérequis**: Mission 3 active, en vol
 
 **Étapes**:
+
 1. Voler pendant 5 minutes
 2. Compter apparitions sons (attendu: 5-10)
 3. Compter apparitions images (attendu: 2-30)
 4. Vérifier directions de défilement
 
 **Résultat attendu**:
+
 - Sons Halloween joués aléatoirement (30-60s)
 - Image effrayante défile (10-120s)
 - 4 directions possibles (haut, bas, gauche, droite)
@@ -403,6 +439,7 @@ title: Tests et Validation
 **Prérequis**: Mission 3 active
 
 **Étapes**:
+
 1. Démarrer timer externe
 2. Voler pendant 10 minutes
 3. Observer changements à 10:00
@@ -410,6 +447,7 @@ title: Tests et Validation
 5. Vérifier déverrouillage UI
 
 **Résultat attendu**:
+
 - À 10:00 exactement:
   - Arrêt sons Halloween
   - Arrêt image effrayante
@@ -432,12 +470,14 @@ title: Tests et Validation
 **Prérequis**: En vol
 
 **Étapes**:
+
 1. Appuyer sur Échap
 2. Vérifier affichage menu
 3. Tester chaque bouton
 4. Reprendre le jeu
 
 **Résultat attendu**:
+
 - Menu s'affiche au-dessus du jeu
 - Jeu en pause
 - Tous les boutons fonctionnels
@@ -452,12 +492,14 @@ title: Tests et Validation
 **Prérequis**: En vol
 
 **Étapes**:
+
 1. Observer HUD
 2. Vérifier vitesse
 3. Vérifier altitude
 4. Vérifier puissance moteur
 
 **Résultat attendu**:
+
 - Informations visibles et lisibles
 - Valeurs cohérentes
 - Mise à jour en temps réel
@@ -473,12 +515,14 @@ title: Tests et Validation
 **Prérequis**: Scène de vol chargée
 
 **Étapes**:
+
 1. Observer terrain au spawn
 2. Voler 5 km dans une direction
 3. Observer nouveaux chunks
 4. Vérifier absence de trous
 
 **Résultat attendu**:
+
 - Terrain généré autour du joueur
 - Pas de trous dans le mesh
 - Pas de pics de latence majeurs
@@ -495,11 +539,13 @@ title: Tests et Validation
 **Prérequis**: Scène de vol chargée
 
 **Étapes**:
+
 1. Localiser un aéroport
 2. Atterrir dessus
 3. Observer collision/interaction
 
 **Résultat attendu**:
+
 - Aéroports visibles
 - Pistes plates
 - Collision correcte
@@ -515,35 +561,39 @@ title: Tests et Validation
 **Configuration**: Toutes
 
 **Conditions**:
+
 - Mode: Free Ride
 - Météo: 0.0
 - Nuages volumétriques: Désactivés
 - Résolution: 1920x1080
 
 **Procédure**:
+
 1. Lancer le jeu
 2. Voler pendant 5 minutes
 3. Noter FPS min/moyen/max
 4. Utiliser Unity Profiler si disponible
 
 **Cible**:
+
 - Config minimale: 30 FPS minimum
 - Config moyenne: 45 FPS minimum
 - Config haute: 60 FPS stable
 
 **Résultats**:
 
-| Config | FPS Min | FPS Moyen | FPS Max |
-|--------|---------|-----------|---------|
-| Minimale | À tester | À tester | À tester |
-| Moyenne | À tester | À tester | À tester |
-| Haute | À tester | À tester | À tester |
+| Config   | FPS Min  | FPS Moyen | FPS Max  |
+| -------- | -------- | --------- | -------- |
+| Minimale | À tester | À tester  | À tester |
+| Moyenne  | À tester | À tester  | À tester |
+| Haute    | À tester | À tester  | À tester |
 
 #### PERF-002: FPS avec météo maximale
 
 **Configuration**: Toutes
 
 **Conditions**:
+
 - Mode: Free Ride
 - Météo: 1.0
 - Nuages volumétriques: Désactivés
@@ -552,6 +602,7 @@ title: Tests et Validation
 **Procédure**: Identique PERF-001
 
 **Cible**:
+
 - Impact: < 10 FPS de perte vs conditions normales
 
 **Résultats**: À tester
@@ -561,6 +612,7 @@ title: Tests et Validation
 **Configuration**: Moyenne et haute uniquement
 
 **Conditions**:
+
 - Mode: Free Ride
 - Météo: 0.5
 - Nuages volumétriques: Activés (raySteps=50)
@@ -569,15 +621,16 @@ title: Tests et Validation
 **Procédure**: Identique PERF-001
 
 **Cible**:
+
 - Config moyenne: 30 FPS minimum
 - Config haute: 45 FPS minimum
 
 **Résultats**:
 
-| Config | FPS Min | FPS Moyen | FPS Max | Impact |
-|--------|---------|-----------|---------|--------|
-| Moyenne | À tester | À tester | À tester | À tester |
-| Haute | À tester | À tester | À tester | À tester |
+| Config  | FPS Min  | FPS Moyen | FPS Max  | Impact   |
+| ------- | -------- | --------- | -------- | -------- |
+| Moyenne | À tester | À tester  | À tester | À tester |
+| Haute   | À tester | À tester  | À tester | À tester |
 
 **Note**: Impact élevé signalé (30-45 FPS)
 
@@ -586,6 +639,7 @@ title: Tests et Validation
 #### PERF-004: Temps de chargement initial
 
 **Procédure**:
+
 1. Lancer l'exécutable
 2. Chronométrer jusqu'à menu principal
 
@@ -596,6 +650,7 @@ title: Tests et Validation
 #### PERF-005: Temps de chargement scène de vol
 
 **Procédure**:
+
 1. Depuis menu, cliquer Start Game
 2. Sélectionner mission/avion
 3. Chronométrer jusqu'à contrôle disponible
@@ -609,6 +664,7 @@ title: Tests et Validation
 #### PERF-006: Utilisation RAM
 
 **Procédure**:
+
 1. Lancer le jeu
 2. Noter RAM initiale (Task Manager)
 3. Jouer 15 minutes
@@ -616,6 +672,7 @@ title: Tests et Validation
 5. Vérifier stabilité
 
 **Cible**:
+
 - < 4 GB utilisés
 - Pas de fuite mémoire (croissance continue)
 
@@ -636,18 +693,21 @@ title: Tests et Validation
 #### COMPAT-001: Différentes résolutions
 
 **Résolutions à tester**:
+
 - 1280x720 (720p)
 - 1920x1080 (1080p)
 - 2560x1440 (1440p)
 - 3840x2160 (4K)
 
 **Procédure**:
+
 1. Changer résolution dans settings
 2. Vérifier affichage UI
 3. Vérifier performance
 4. Vérifier lisibilité
 
 **Résultat attendu**:
+
 - UI s'adapte correctement
 - Texte lisible
 - Boutons accessibles
@@ -660,6 +720,7 @@ title: Tests et Validation
 #### COMPAT-002: Fullscreen vs Windowed
 
 **Modes**:
+
 - Fullscreen
 - Fullscreen Windowed
 - Windowed
@@ -667,6 +728,7 @@ title: Tests et Validation
 **Procédure**: Tester chaque mode
 
 **Résultat attendu**:
+
 - Tous les modes fonctionnels
 - Performance optimale en Fullscreen
 - Alt+Tab fonctionne
@@ -678,6 +740,7 @@ title: Tests et Validation
 #### COMPAT-003: Souris différentes
 
 **Types**:
+
 - Souris optique standard
 - Souris gaming (DPI élevé)
 - Trackpad laptop
@@ -685,6 +748,7 @@ title: Tests et Validation
 **Procédure**: Tester contrôles avec chaque type
 
 **Résultat attendu**:
+
 - Contrôles fonctionnels avec tous
 - Sensibilité acceptable
 - Pas de comportement erratique
@@ -696,11 +760,13 @@ title: Tests et Validation
 #### COMPAT-004: Windows 10 vs Windows 11
 
 **Procédure**:
+
 1. Installer sur Windows 10
 2. Tester toutes fonctionnalités
 3. Répéter sur Windows 11
 
 **Résultat attendu**:
+
 - Fonctionnement identique
 - Aucune erreur spécifique à l'OS
 
@@ -717,6 +783,7 @@ title: Tests et Validation
 **Correction**: Ajout de vérification Camera.main à chaque frame.
 
 **Test de régression**:
+
 1. Régler météo à 1.0
 2. Décoller
 3. Voler à 1000m
@@ -733,6 +800,7 @@ title: Tests et Validation
 **Correction**: Ajout de RemoveAllListeners() avant AddListener().
 
 **Test de régression**:
+
 1. En vol, ouvrir menu (Échap)
 2. Cliquer une fois sur "Toggle View"
 3. Vérifier changement de vue (une seule fois)
@@ -748,6 +816,7 @@ title: Tests et Validation
 **Correction**: Désactivation placement par WorldManager, position de scène Unity conservée.
 
 **Test de régression**:
+
 1. Relancer la scène 10 fois
 2. Vérifier orientation de l'avion
 
@@ -762,6 +831,7 @@ title: Tests et Validation
 **Correction**: Suppression de la condition Cursor.visible.
 
 **Test de régression**:
+
 1. En vol, appuyer sur V
 2. Vérifier changement de vue
 
@@ -791,6 +861,7 @@ title: Tests et Validation
 ### Validation post-release
 
 **Suivi**:
+
 1. Collecter feedback utilisateurs
 2. Surveiller rapports de bugs
 3. Analyser métriques (si télémétrie)
@@ -802,18 +873,22 @@ title: Tests et Validation
 
 ```markdown
 ### Titre du bug
+
 [Brève description en une phrase]
 
 ### Description
+
 [Description détaillée du problème]
 
 ### Sévérité
+
 - [ ] Critique (crash, bloquant)
 - [ ] Majeure (fonctionnalité importante cassée)
 - [ ] Mineure (inconvénient mais contournable)
 - [ ] Cosmétique (visuel uniquement)
 
 ### Environnement
+
 - OS: Windows 10/11
 - CPU: [modèle]
 - GPU: [modèle]
@@ -821,43 +896,52 @@ title: Tests et Validation
 - Version du jeu: [version]
 
 ### Étapes de reproduction
+
 1. [Étape 1]
 2. [Étape 2]
 3. [...]
 
 ### Résultat attendu
+
 [Ce qui devrait se passer]
 
 ### Résultat actuel
+
 [Ce qui se passe réellement]
 
 ### Fichiers joints
+
 - Player.log
 - Screenshot.png (si applicable)
 - Video.mp4 (si applicable)
 
 ### Informations supplémentaires
+
 [Tout détail pertinent]
 ```
 
 ### Classification de bugs
 
 **Critique**:
+
 - Crash au démarrage
 - Corruption de données
 - Impossible de jouer
 
 **Majeure**:
+
 - Fonctionnalité principale cassée
 - Performance très dégradée
 - Contrôles ne répondent pas
 
 **Mineure**:
+
 - Bug visuel mineur
 - Son manquant
 - Traduction incorrecte
 
 **Cosmétique**:
+
 - Texture mal alignée
 - Couleur incorrecte
 - Typo dans UI
@@ -912,6 +996,7 @@ title: Tests et Validation
 **À implémenter**: Tests unitaires automatisés
 
 **Exemple**:
+
 ```csharp
 using NUnit.Framework;
 using UnityEngine;
@@ -922,10 +1007,10 @@ public class WeatherSystemTests
     public void SetWeatherIntensity_ClampsValue()
     {
         var weatherSystem = new GameObject().AddComponent<DynamicWeatherSystem>();
-        
+
         weatherSystem.SetWeatherIntensity(1.5f);
         Assert.AreEqual(1.0f, weatherSystem.weatherIntensity);
-        
+
         weatherSystem.SetWeatherIntensity(-0.5f);
         Assert.AreEqual(0.0f, weatherSystem.weatherIntensity);
     }
@@ -937,6 +1022,7 @@ public class WeatherSystemTests
 **À implémenter**: Tests de performance automatisés
 
 **Exemple**:
+
 ```csharp
 using Unity.PerformanceTesting;
 
@@ -958,19 +1044,20 @@ public class PerformanceTests
 
 ### Objectifs
 
-| Métrique | Cible | Actuel |
-|----------|-------|--------|
-| Bugs critiques | 0 | À mesurer |
-| Bugs majeurs | < 5 | À mesurer |
-| FPS moyen (config min) | > 30 | À mesurer |
-| FPS moyen (config haute) | > 60 | 50-60 |
-| Temps de chargement | < 15s | À mesurer |
-| Utilisation RAM | < 4 GB | 2-3 GB |
-| Couverture de tests | > 50% | 0% (à implémenter) |
+| Métrique                 | Cible  | Actuel             |
+| ------------------------ | ------ | ------------------ |
+| Bugs critiques           | 0      | À mesurer          |
+| Bugs majeurs             | < 5    | À mesurer          |
+| FPS moyen (config min)   | > 30   | À mesurer          |
+| FPS moyen (config haute) | > 60   | 50-60              |
+| Temps de chargement      | < 15s  | À mesurer          |
+| Utilisation RAM          | < 4 GB | 2-3 GB             |
+| Couverture de tests      | > 50%  | 0% (à implémenter) |
 
 ### Suivi de la qualité
 
 **Dashboard** (à créer):
+
 - Nombre de bugs ouverts par sévérité
 - Tendance FPS sur différentes configs
 - Temps de résolution moyen des bugs
@@ -981,6 +1068,7 @@ public class PerformanceTests
 Ce document établit les procédures de test et validation pour Tiny Flight Simulator. L'implémentation complète des tests automatisés et le suivi rigoureux des métriques permettront d'améliorer continuellement la qualité du simulateur.
 
 **Prochaines étapes**:
+
 1. Exécuter tous les tests fonctionnels
 2. Mesurer la performance sur toutes configs
 3. Implémenter tests automatisés Unity
@@ -989,4 +1077,4 @@ Ce document établit les procédures de test et validation pour Tiny Flight Simu
 
 ---
 
-*Document mis à jour: Décembre 2025*
+_Document mis à jour: Décembre 2025_

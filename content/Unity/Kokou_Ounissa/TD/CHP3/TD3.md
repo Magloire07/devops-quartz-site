@@ -1,8 +1,6 @@
 ---
-title: TD3 
+title: TD3
 ---
-
-
 
 ![city proc gen](images/procGen.png)
 
@@ -18,13 +16,17 @@ Cette approche permet d’obtenir des environnements variés et crédibles sans 
 Une ville procédurale repose sur **trois couches principales** :
 
 ### Structure globale (layout)
+
 → Création du réseau routier et des zones (résidentielles, commerciales, industrielles).
+
 - **Techniques** : L-systems, Voronoï, grilles fractales, agents simulant la croissance urbaine
 
 ### Placement des bâtiments
+
 → Selon la topographie, le type de zone, et des critères aléatoires contrôlés (densité, taille, hauteur).
 
 ### Détails visuels et vie urbaine
+
 → Ajout d'éléments comme les lampadaires, arbres, véhicules, PNJ, circulation, etc., pour renforcer la crédibilité et la vivacité du monde.
 
 ## 3. Techniques Courantes pour la Crédibilité
@@ -36,6 +38,7 @@ Une ville procédurale repose sur **trois couches principales** :
 | **Subdivision récursive** | Division d'un grand bloc en lots plus petits | Quartiers bien structurés |
 | **Grammaires procédurales (CGA)** | Règles décrivant comment les bâtiments sont extrudés ou décorés | Bâtiments variés et cohérents |
 | **Agents basés sur la simulation** | Routes et structures placées selon des comportements simulés | Expansion organique, réaliste |
+
 ## 4. Crédibilité et Immersion
 
 La **crédibilité** vient de la cohérence des règles (zones logiques, routes continues, bâtiments alignés) et de la variabilité contrôlée (pas de répétition stricte).
@@ -45,11 +48,11 @@ Une ville crédible donne au joueur le sentiment d'un monde vivant, logique et h
 ### Paramètres à ajuster
 
 | Paramètre | Effet |
-noiseScale	Influence la taille des quartiers (plus petit → variations rapides, plus grand → zones homogènes)
-densityThreshold	Contrôle la densité des bâtiments (valeur haute = zones clairsemées)
-seed	Change totalement la disposition tout en restant reproductible
-spacing	Définit la distance entre bâtiments
-type de prefab	Crée de la variété architecturale
+noiseScale Influence la taille des quartiers (plus petit → variations rapides, plus grand → zones homogènes)
+densityThreshold Contrôle la densité des bâtiments (valeur haute = zones clairsemées)
+seed Change totalement la disposition tout en restant reproductible
+spacing Définit la distance entre bâtiments
+type de prefab Crée de la variété architecturale
 
 ## 5. Avantages
 
@@ -67,11 +70,11 @@ type de prefab	Crée de la variété architecturale
 
 ### Bénéfices dans le développement de jeu
 
-| Aspect | Bénéfice |
-|--------|----------|
-| Conception du monde | Monde immense généré à la volée |
-| Rejouabilité | Chaque partie est unique |
-| Performance | Génération progressive (streaming procédural) |
+| Aspect               | Bénéfice                                        |
+| -------------------- | ----------------------------------------------- |
+| Conception du monde  | Monde immense généré à la volée                 |
+| Rejouabilité         | Chaque partie est unique                        |
+| Performance          | Génération progressive (streaming procédural)   |
 | Créativité du joueur | Possibilité d'interagir avec un monde dynamique |
 
 ---
@@ -91,15 +94,17 @@ Contrairement à une conception manuelle, un algorithme ne "comprend" pas intuit
 - ni la **cohérence visuelle** (alignement, matériaux, style architectural)
 
 > Un moteur procédural doit donc intégrer des règles d'urbanisme simulées pour éviter des incohérences flagrantes.
+
 ### 2. Défis Majeurs à Surmonter
 
-| Défi | Description | Solution potentielle |
-|------|-------------|---------------------|
-| **Cohérence spatiale** | Routes qui ne mènent nulle part, bâtiments qui se superposent | Utiliser des graphes routiers contraints et une validation géométrique |
-| **Variation contrôlée** | Trop d'aléatoire rend le monde incohérent | Utiliser du bruit cohérent (Perlin, Simplex) et des règles de zonage |
-| **Hiérarchie urbaine** | Absence de structure (centre-ville, banlieue, zone industrielle) | Définir des niveaux de densité selon la distance au centre |
-| **Style architectural** | Mélange incohérent de styles | Grouper les bâtiments par thème ou période |
-| **Éléments humains** | Villes vides ou statiques | Ajouter des PNJ, circulation, bruit, végétation dynamique |
+| Défi                    | Description                                                      | Solution potentielle                                                   |
+| ----------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| **Cohérence spatiale**  | Routes qui ne mènent nulle part, bâtiments qui se superposent    | Utiliser des graphes routiers contraints et une validation géométrique |
+| **Variation contrôlée** | Trop d'aléatoire rend le monde incohérent                        | Utiliser du bruit cohérent (Perlin, Simplex) et des règles de zonage   |
+| **Hiérarchie urbaine**  | Absence de structure (centre-ville, banlieue, zone industrielle) | Définir des niveaux de densité selon la distance au centre             |
+| **Style architectural** | Mélange incohérent de styles                                     | Grouper les bâtiments par thème ou période                             |
+| **Éléments humains**    | Villes vides ou statiques                                        | Ajouter des PNJ, circulation, bruit, végétation dynamique              |
+
 ### 3. Limite Fondamentale
 
 Le réalisme procédural **n'égale pas encore la créativité humaine**, mais il peut s'en approcher grâce à :
@@ -124,13 +129,13 @@ if (densityValue < 0.4f) // zone résidentielle
 
 ### Paramètres Clés
 
-| Paramètre | Rôle |
-|-----------|------|
-| `densityValue` | Contrôle le type de zone (résidentielle, commerciale, etc.) |
-| `blockSize` | Nombre de maisons par quartier |
-| `spacing` | Distance entre les habitations |
-| `vegetationDensity` | Quantité de verdure autour |
-| `seed` | Garantit la reproductibilité du même quartier |
+| Paramètre           | Rôle                                                        |
+| ------------------- | ----------------------------------------------------------- |
+| `densityValue`      | Contrôle le type de zone (résidentielle, commerciale, etc.) |
+| `blockSize`         | Nombre de maisons par quartier                              |
+| `spacing`           | Distance entre les habitations                              |
+| `vegetationDensity` | Quantité de verdure autour                                  |
+| `seed`              | Garantit la reproductibilité du même quartier               |
 
 ---
 
@@ -140,22 +145,23 @@ if (densityValue < 0.4f) // zone résidentielle
 
 ### 1. Exemples de Jeux Utilisant la Génération Procédurale de Villeslles
 
-| Jeu | Caractéristiques | Type de génération |
-|-----|------------------|-------------------|
-| **Watch Dogs: Legion** | Londres procédurale avec PNJ uniques | Génération hybride (préfabriqué + procédural) |
-| **No Man's Sky** | Planètes avec structures urbaines générées | Procédural complet |
-| **Minecraft** | Villages et structures créés dynamiquement | Procédural basé sur seed |
-| **Cities: Skylines II** | Gestion urbaine à grande échelle | Génération semi-procédurale |
-| **Cyberpunk 2077** (partiel) | Certains quartiers utilisent des procédés procéduraux pour le décor | Procédural partiel |
+| Jeu                          | Caractéristiques                                                    | Type de génération                            |
+| ---------------------------- | ------------------------------------------------------------------- | --------------------------------------------- |
+| **Watch Dogs: Legion**       | Londres procédurale avec PNJ uniques                                | Génération hybride (préfabriqué + procédural) |
+| **No Man's Sky**             | Planètes avec structures urbaines générées                          | Procédural complet                            |
+| **Minecraft**                | Villages et structures créés dynamiquement                          | Procédural basé sur seed                      |
+| **Cities: Skylines II**      | Gestion urbaine à grande échelle                                    | Génération semi-procédurale                   |
+| **Cyberpunk 2077** (partiel) | Certains quartiers utilisent des procédés procéduraux pour le décor | Procédural partiel                            |
+
 ### 2. Défis de Latence
 
 Les environnements urbains denses posent **trois grands défis de performance** :
 
-| Défi | Description | Conséquence |
-|------|-------------|-------------|
-| **Nombre élevé d'objets** | Bâtiments, routes, véhicules, PNJ | Temps de rendu élevé |
-| **Streaming de données** | Le monde doit se charger dynamiquement | Risque de "freeze" ou popping |
-| **IA et physique multiples** | Circulation, piétons, collisions | Charge CPU importante |
+| Défi                         | Description                            | Conséquence                   |
+| ---------------------------- | -------------------------------------- | ----------------------------- |
+| **Nombre élevé d'objets**    | Bâtiments, routes, véhicules, PNJ      | Temps de rendu élevé          |
+| **Streaming de données**     | Le monde doit se charger dynamiquement | Risque de "freeze" ou popping |
+| **IA et physique multiples** | Circulation, piétons, collisions       | Charge CPU importante         |
 
 > Ces contraintes entraînent une latence accrue et des pertes de FPS si le moteur n'est pas optimisé.
 
@@ -224,13 +230,13 @@ Utiliser le **Job System de Unity** ou **Burst Compiler** pour paralléliser la 
 
 ### Résumé des Stratégies
 
-| Technique | Impact principal |
-|-----------|------------------|
-| Chunks dynamiques | Moins de mémoire utilisée |
-| LOD / Culling | Moins de polygones rendus |
+| Technique          | Impact principal                 |
+| ------------------ | -------------------------------- |
+| Chunks dynamiques  | Moins de mémoire utilisée        |
+| LOD / Culling      | Moins de polygones rendus        |
 | Coroutines / Async | Moins de blocage à la génération |
-| Pooling d'objets | Réduction du coût CPU |
-| Job System | Calculs de bruit plus rapides |
+| Pooling d'objets   | Réduction du coût CPU            |
+| Job System         | Calculs de bruit plus rapides    |
 
 ### Résultat Attenduu
 
@@ -240,12 +246,12 @@ Utiliser le **Job System de Unity** ou **Burst Compiler** pour paralléliser la 
 
 ## Synthèse Globale
 
-| Aspect | Objectif | Solution clé |
-|--------|----------|--------------|
-| **Réalisme procédural** | Créer des villes crédibles | Règles urbaines, zonage, densité cohérente |
+| Aspect                     | Objectif                                     | Solution clé                                        |
+| -------------------------- | -------------------------------------------- | --------------------------------------------------- |
+| **Réalisme procédural**    | Créer des villes crédibles                   | Règles urbaines, zonage, densité cohérente          |
 | **Quartiers résidentiels** | Donner une impression d'organisation humaine | Groupes de maisons, végétation, règles de placement |
-| **Latence et performance** | Maintenir la fluidité | Génération par chunks, LOD, multithreading |
-| **Bruit de Perlin** | Créer des variations naturelles et continues | Densité, altitude, types de bâtiments |
+| **Latence et performance** | Maintenir la fluidité                        | Génération par chunks, LOD, multithreading          |
+| **Bruit de Perlin**        | Créer des variations naturelles et continues | Densité, altitude, types de bâtiments               |
 
 ---
 

@@ -23,6 +23,7 @@ sudo ./deploy-minikube-oneclick.sh
 ```
 
 Le script gère automatiquement :
+
 - Installation de Docker, kubectl, Minikube
 - Démarrage du cluster Minikube
 - Build des images Docker localement
@@ -53,24 +54,24 @@ Pour plus de détails, consultez **ONECLICK_GUIDE.md**.
 
 ### Composants déployés
 
-| Composant | Type | Replicas | Port |
-|-----------|------|----------|------|
-| Backend | Deployment | 1 | 5000 |
-| Frontend | Deployment | 2 | 8080 |
-| SQLite PVC | PersistentVolume | - | - |
+| Composant  | Type             | Replicas | Port |
+| ---------- | ---------------- | -------- | ---- |
+| Backend    | Deployment       | 1        | 5000 |
+| Frontend   | Deployment       | 2        | 8080 |
+| SQLite PVC | PersistentVolume | -        | -    |
 
 ### Services exposés
 
-| Service | Type | Port externe | Port interne |
-|---------|------|--------------|--------------|
-| backend | NodePort | 30500 | 5000 |
-| frontend | NodePort | 30080 | 8080 |
+| Service  | Type     | Port externe | Port interne |
+| -------- | -------- | ------------ | ------------ |
+| backend  | NodePort | 30500        | 5000         |
+| frontend | NodePort | 30080        | 8080         |
 
 ### Images Docker
 
-| Image | Tag | Source |
-|-------|-----|--------|
-| msg-devops-backend | latest | Build local |
+| Image               | Tag    | Source      |
+| ------------------- | ------ | ----------- |
+| msg-devops-backend  | latest | Build local |
 | msg-devops-frontend | latest | Build local |
 
 **Note** : Les images sont buildées localement avec `imagePullPolicy: Never` (pas de Docker Hub).
@@ -86,15 +87,16 @@ Pour plus de détails, consultez **ONECLICK_GUIDE.md**.
 
 ### Ressources matérielles
 
-| Ressource | Minimum | Recommandé |
-|-----------|---------|------------|
-| RAM | 4 GB | 8 GB |
-| CPUs | 2 | 4 |
-| Disque | 20 GB libre | 40 GB libre |
+| Ressource | Minimum     | Recommandé  |
+| --------- | ----------- | ----------- |
+| RAM       | 4 GB        | 8 GB        |
+| CPUs      | 2           | 4           |
+| Disque    | 20 GB libre | 40 GB libre |
 
 ### Logiciels
 
 Les outils suivants seront installés automatiquement par le script si manquants :
+
 - Docker
 - kubectl
 - Minikube
@@ -231,6 +233,7 @@ kubectl rollout status deployment/backend
 Fichier : `k8s-minikube/backend-deployment.yaml`
 
 **Points clés** :
+
 - `replicas: 1` (limitation SQLite)
 - `imagePullPolicy: Never` (image locale)
 - PersistentVolumeClaim de 500Mi pour SQLite
@@ -251,18 +254,18 @@ spec:
         app: backend
     spec:
       containers:
-      - name: backend
-        image: msg-devops-backend:latest
-        imagePullPolicy: Never
-        ports:
-        - containerPort: 5000
-        volumeMounts:
-        - name: sqlite-storage
-          mountPath: /app/data
+        - name: backend
+          image: msg-devops-backend:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - name: sqlite-storage
+              mountPath: /app/data
       volumes:
-      - name: sqlite-storage
-        persistentVolumeClaim:
-          claimName: sqlite-pvc
+        - name: sqlite-storage
+          persistentVolumeClaim:
+            claimName: sqlite-pvc
 ```
 
 ### frontend-deployment.yaml
@@ -270,6 +273,7 @@ spec:
 Fichier : `k8s-minikube/frontend-deployment.yaml`
 
 **Points clés** :
+
 - `replicas: 2` (scalable)
 - `imagePullPolicy: Never` (image locale)
 - Variable d'environnement `VUE_APP_API_URL`
@@ -290,14 +294,14 @@ spec:
         app: frontend
     spec:
       containers:
-      - name: frontend
-        image: msg-devops-frontend:latest
-        imagePullPolicy: Never
-        ports:
-        - containerPort: 8080
-        env:
-        - name: VUE_APP_API_URL
-          value: "http://backend:5000"
+        - name: frontend
+          image: msg-devops-frontend:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: VUE_APP_API_URL
+              value: "http://backend:5000"
 ```
 
 ---

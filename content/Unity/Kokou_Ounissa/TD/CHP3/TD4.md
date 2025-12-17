@@ -30,7 +30,7 @@ Voici les bonnes pratiques d'optimisation :
 - **Profiler régulièrement** avec l'outil Unity Profiler ou Frame Debugger pour détecter les goulots d'étranglement
 
 3. Application pratique spécifique : Effet de flou de mouvement (Motion Blur)
-🧩 Étapes d’installation dans Unity :
+   🧩 Étapes d’installation dans Unity :
 
 Installer le Post-Processing Package :
 

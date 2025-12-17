@@ -1,5 +1,5 @@
 ---
-title: Archecture Technique
+title: 2 - Archecture Technique
 ---
 
 # Architecture Technique - Tiny Flight Simulator
@@ -30,26 +30,26 @@ Le projet suit une architecture modulaire basée sur les principes suivants:
 graph TB
     MainMenu[Menu Principal] --> |LoadScene| FlightScene[Scène de Vol]
     FlightScene --> GameLoop[Boucle de Jeu]
-    
+
     GameLoop --> InputSystem[Système d'Entrée]
     GameLoop --> PhysicsSystem[Système Physique]
     GameLoop --> RenderSystem[Système de Rendu]
     GameLoop --> AudioSystem[Système Audio]
-    
+
     PhysicsSystem --> PlaneController[Contrôleur Avion]
     PhysicsSystem --> Turbulence[Turbulences]
     PhysicsSystem --> Wind[Vent]
-    
+
     RenderSystem --> Camera[Caméra]
     RenderSystem --> Weather[Météo]
     RenderSystem --> Clouds[Nuages Volumétriques]
     RenderSystem --> Particles[Particules]
-    
+
     GameLoop --> MissionManager[Gestionnaire de Missions]
     MissionManager --> Weather
     MissionManager --> AudioSystem
     MissionManager --> UI[Interface Utilisateur]
-    
+
     GameLoop --> WorldGen[Génération Monde]
     WorldGen --> Terrain[Terrain Procédural]
     WorldGen --> Airports[Aéroports]
@@ -144,20 +144,24 @@ Assets/
 ### 1. Système de vol (Aircraft)
 
 #### Plane.cs
+
 Contrôleur principal de l'avion avec physique réaliste.
 
 **Responsabilités**:
+
 - Calcul des forces aérodynamiques (portance, traînée)
 - Gestion du décrochage
 - Effets de sol
 - Intégration avec le Rigidbody
 
 **Dépendances**:
+
 - `Rigidbody` (Unity Physics)
 - `AtmosphericTurbulence`
 - `DynamicWeatherSystem` (pour le vent)
 
 **Paramètres clés**:
+
 ```csharp
 public float liftForce = 5000f;          // Force de portance
 public float dragCoefficient = 0.02f;    // Coefficient de traînée
@@ -168,14 +172,17 @@ public float takeoffMinSpeed = 30f;      // Vitesse minimale de décollage
 **À vérifier**: Valeurs exactes des paramètres de vol qui peuvent varié selon le besoin
 
 #### PlaneGroundStability.cs
+
 Gère la stabilité de l'avion au sol.
 
 **Fonctionnalités**:
+
 - Capture de l'assiette initiale
 - Stabilisation au sol
 - Prévention du basculement
 
 **Approche technique**:
+
 - Utilise la réflexion pour accéder aux champs privés
 - Recapture le pitch après placement
 - Coroutine de réactivation du Rigidbody
@@ -185,7 +192,7 @@ IEnumerator RecapturePitchAfterPlacement()
 {
     yield return new WaitForFixedUpdate();
     yield return new WaitForFixedUpdate();
-    
+
     // Réinitialiser le flag via réflexion
     var field = planeGroundStability.GetType()
         .GetField("initialPitchCaptured", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -196,9 +203,11 @@ IEnumerator RecapturePitchAfterPlacement()
 ### 2. Système météorologique (Weather)
 
 #### DynamicWeatherSystem.cs
+
 Système central de gestion de la météo.
 
 **Architecture**:
+
 ```mermaid
 graph LR
     DWS[DynamicWeatherSystem] --> Rain[Pluie]
@@ -219,10 +228,12 @@ graph LR
 | `sunIntensity` | float | 0.0 - 3.0 | Intensité de la lumière |
 
 **Systèmes de particules**:
+
 - **Pluie**: Suit la caméra avec offset vertical de +50m
 - **Orage**: Émission sporadique liée à l'intensité
 
 **Méthode de mise à jour dynamique**:
+
 ```csharp
 void UpdateWeather()
 {
@@ -231,14 +242,14 @@ void UpdateWeather()
     {
         mainCamera = Camera.main;
     }
-    
+
     // Repositionner la pluie
     if (rainParticles != null && mainCamera != null)
     {
-        rainParticles.transform.position = 
+        rainParticles.transform.position =
             mainCamera.transform.position + Vector3.up * 50f;
     }
-    
+
     // Ajuster l'émission
     float emissionRate = Mathf.Lerp(0f, maxRainEmission, weatherIntensity);
     rainEmission.rateOverTime = emissionRate;
@@ -246,19 +257,22 @@ void UpdateWeather()
 ```
 
 #### AtmosphericTurbulence.cs
+
 Simule les turbulences atmosphériques.
 
 **Modèle physique**:
+
 - Turbulences basées sur l'altitude et la densité de l'air
 - Variations aléatoires de direction et d'intensité
 - Intégration avec le système de vent
 
 **Calcul**:
+
 ```csharp
-Vector3 turbulence = 
-    Random.insideUnitSphere * 
-    turbulenceStrength * 
-    densityFactor * 
+Vector3 turbulence =
+    Random.insideUnitSphere *
+    turbulenceStrength *
+    densityFactor *
     weatherIntensity;
 ```
 
@@ -267,24 +281,26 @@ Vector3 turbulence =
 ### 3. Système de missions (Mission)
 
 #### MissionManager.cs
+
 Gère la logique et les paramètres des missions.
 
 **Flux d'activation**:
+
 ```mermaid
 sequenceDiagram
     participant Menu as MainMenu
     participant Prefs as PlayerPrefs
     participant Weather as DynamicWeatherSystem
     participant MM as MissionManager
-    
+
     Menu->>Prefs: SetInt("FromMainMenu", 1)
     Menu->>Prefs: SetInt("SelectedMission", index)
     Menu->>Weather: LoadScene("Flight Demo")
-    
+
     Weather->>Weather: Start()
     Weather->>Weather: ActivateMissionManagerDelayed()
     Weather->>Prefs: GetInt("FromMainMenu")
-    
+
     alt FromMainMenu == 1
         Weather->>MM: gameObject.SetActive(true)
         MM->>MM: Start()
@@ -304,19 +320,19 @@ graph TB
     ApplySettings --> |Météo=1.0| Storm[Tempête]
     ApplySettings --> |Heure=24h| Midnight[Minuit]
     ApplySettings --> LockUI[Verrouiller UI]
-    
+
     LockUI --> StartEffects[Démarrer Effets]
     StartEffects --> Halloween[Sons Halloween]
     StartEffects --> ScaryImage[Image Effrayante]
     StartEffects --> Timer[Timer 10 min]
-    
+
     Halloween --> |30-60s| RandomSound[Son Aléatoire]
     RandomSound --> Halloween
-    
+
     ScaryImage --> |10-120s| ShowImage[Afficher Image]
     ShowImage --> |Direction aléatoire| Scroll[Défilement]
     Scroll --> ScaryImage
-    
+
     Timer --> |600s| EndMission[Fin Mission]
     EndMission --> StopEffects[Arrêter Effets]
     StopEffects --> |Météo=0| ClearSky[Ciel Clair]
@@ -339,6 +355,7 @@ graph TB
 | `maxImageInterval` | 120s | Intervalle max entre images |
 
 **Système audio Halloween**:
+
 ```csharp
 // Deux AudioSource pour permettre le chevauchement
 AudioSource halloweenAudioSource1;
@@ -353,6 +370,7 @@ else
 ```
 
 **Système d'image effrayante**:
+
 - Canvas en `ScreenSpaceOverlay` avec `sortingOrder = 1000`
 - 4 directions de défilement (haut, bas, gauche, droite)
 - Position de départ et d'arrivée hors écran
@@ -361,20 +379,24 @@ else
 ### 4. Génération procédurale (World)
 
 #### ProceduralWorldManager.cs
+
 Gère la génération et l'optimisation du monde.
 
 **Responsabilités**:
+
 - Génération de chunks de terrain
 - Placement des aéroports
 - Optimisation de la distance de rendu
 - Protection de la zone de départ
 
 **État actuel**:
+
 - Placement automatique de l'avion DÉSACTIVÉ
 - L'avion conserve sa position de la scène Unity
 - Zone de protection autour de l'avion initial
 
 **Code de protection**:
+
 ```csharp
 // Dans ReactivateRigidbodyAfterDelay()
 yield return null;
@@ -388,9 +410,11 @@ StartCoroutine(RecapturePitchAfterPlacement());
 ```
 
 #### TerrainGenerator.cs
+
 Génère le terrain par algorithmes procéduraux.
 
 **Pipeline de génération**:
+
 1. **Génération de heightmap** - Bruit de Perlin multi-octaves
 2. **Érosion hydraulique** - Simulation d'écoulement d'eau
 3. **Construction du mesh** - Conversion heightmap vers mesh 3D
@@ -410,9 +434,11 @@ Génère le terrain par algorithmes procéduraux.
 ### 5. Interface utilisateur (UI)
 
 #### MainMenuController.cs
+
 Contrôle le menu principal.
 
 **Flux de navigation**:
+
 ```mermaid
 stateDiagram-v2
     [*] --> MainMenu
@@ -423,13 +449,14 @@ stateDiagram-v2
 ```
 
 **Gestion du flag FromMainMenu**:
+
 ```csharp
 public void StartGame()
 {
     // Définir le flag pour activer le MissionManager
     PlayerPrefs.SetInt("FromMainMenu", 1);
     PlayerPrefs.Save();
-    
+
     // Charger la scène
     SceneManager.LoadScene("Flight Demo");
 }
@@ -439,15 +466,17 @@ public void ReturnToMainMenu()
     // Nettoyer le flag
     PlayerPrefs.DeleteKey("FromMainMenu");
     PlayerPrefs.Save();
-    
+
     SceneManager.LoadScene("MainMenu");
 }
 ```
 
 #### GameMenuController.cs
+
 Gère l'interface in-game.
 
 **Fonctionnalités**:
+
 - Pause / Resume
 - Ajustement météo (slider)
 - Ajustement heure (slider)
@@ -455,6 +484,7 @@ Gère l'interface in-game.
 - Retour au menu
 
 **Verrouillage des contrôles**:
+
 ```csharp
 public void SetWeatherSliderLocked(bool locked)
 {
@@ -474,6 +504,7 @@ public void SetTimeSliderLocked(bool locked)
 ```
 
 **Fix du double-clic**:
+
 ```csharp
 void Start()
 {
@@ -486,43 +517,49 @@ void Start()
 ### 6. Système de caméra (Camera)
 
 #### CameraViewSwitcher.cs
+
 Gère les transitions entre vues.
 
 **Modes de vue**:
+
 - **Cockpit** - Vue interne avec free look
 - **External** - Vue externe en suivant l'avion
 
 **Implémentation du free look**:
+
 ```csharp
 void HandleCockpitFreeLook()
 {
     if (!enableCockpitFreeLook) return;
-    
+
     // Toujours actif en vue cockpit
     float mouseX = Input.GetAxis("Mouse X") * freeLookSensitivity;
     float mouseY = Input.GetAxis("Mouse Y") * freeLookSensitivity;
-    
+
     currentYaw += mouseX;
     currentPitch -= mouseY;
-    
+
     currentPitch = Mathf.Clamp(currentPitch, -freeLookAngleLimit, freeLookAngleLimit);
     currentYaw = Mathf.Clamp(currentYaw, -freeLookAngleLimit, freeLookAngleLimit);
-    
-    cockpitCamera.transform.localRotation = 
+
+    cockpitCamera.transform.localRotation =
         Quaternion.Euler(currentPitch, currentYaw, 0);
 }
 ```
 
 **Raccourci clavier**:
+
 - Touche `V` pour basculer entre vues
 - Pas de restriction par état du curseur
 
 ### 7. Rendu avancé (Rendering)
 
 #### VolumetricCloudsRenderer.cs
+
 Post-processing pour nuages volumétriques.
 
 **Pipeline**:
+
 ```mermaid
 graph LR
     Camera[Caméra] --> Render[Rendu Scène]
@@ -533,6 +570,7 @@ graph LR
 ```
 
 **Intégration avec météo**:
+
 ```csharp
 void OnRenderImage(RenderTexture src, RenderTexture dest)
 {
@@ -541,14 +579,14 @@ void OnRenderImage(RenderTexture src, RenderTexture dest)
     if (useWeatherIntensity && weatherSystem != null)
     {
         float weatherIntensity = weatherSystem.weatherIntensity;
-        finalDensity = cloudDensity * 
+        finalDensity = cloudDensity *
             Mathf.Lerp(0.3f, stormDensityMultiplier, weatherIntensity);
     }
-    
+
     // Passer les paramètres au shader
     cloudMaterial.SetFloat("_CloudDensity", finalDensity);
     // ... autres paramètres
-    
+
     Graphics.Blit(src, dest, cloudMaterial);
 }
 ```
@@ -568,24 +606,24 @@ sequenceDiagram
     participant Weather
     participant Mission
     participant Plane
-    
+
     User->>MainMenu: Lance le jeu
     MainMenu->>MainMenu: Afficher UI
     User->>MainMenu: Sélectionne Mission + Avion
     MainMenu->>PlayerPrefs: Sauvegarder choix
     MainMenu->>SceneManager: LoadScene("Flight Demo")
-    
+
     SceneManager->>FlightScene: Charge scène
     FlightScene->>Weather: Awake()
     FlightScene->>Plane: Awake()
-    
+
     Weather->>Weather: Start()
     Weather->>Mission: ActivateMissionManagerDelayed()
-    
+
     Mission->>PlayerPrefs: Lire paramètres mission
     Mission->>Weather: Appliquer météo
     Mission->>Plane: Ready
-    
+
     Plane->>User: Contrôle disponible
 ```
 
@@ -595,23 +633,23 @@ sequenceDiagram
 graph TB
     Start[Frame Start] --> Input[Lecture Input]
     Input --> FixedUpdate[FixedUpdate]
-    
+
     FixedUpdate --> PlanePhysics[Physique Avion]
     PlanePhysics --> Turbulence[Turbulences]
     Turbulence --> Wind[Forces de Vent]
-    
+
     Wind --> Update[Update]
     Update --> Weather[Météo Update]
     Weather --> Camera[Caméra Update]
     Camera --> UI[UI Update]
-    
+
     UI --> LateUpdate[LateUpdate]
     LateUpdate --> Render[Rendu]
-    
+
     Render --> PostProcess[Post-Process]
     PostProcess --> |Si activé| VolumetricClouds[Nuages Volumétriques]
     PostProcess --> Display[Affichage]
-    
+
     Display --> End[Frame End]
     End --> Start
 ```
@@ -619,11 +657,13 @@ graph TB
 ### Communication inter-composants
 
 **Pattern Observer (simplifié)**:
+
 - `DynamicWeatherSystem` notifie les changements de météo
 - `MissionManager` écoute et ajuste les paramètres
 - Composants météo réagissent à `weatherIntensity`
 
 **Pattern Singleton (évité)**:
+
 - Utilisation de `FindObjectOfType<>()` pour les références
 - Assignation manuelle via l'Inspector Unity quand possible
 
@@ -641,15 +681,18 @@ graph TB
 ### Allocation et libération
 
 **Objets persistants**:
+
 - GameObjects de scène (Plane, Camera, Terrain)
 - Systèmes singleton-like (DynamicWeatherSystem)
 
 **Objets dynamiques**:
+
 - Particules (pooling automatique Unity)
 - Chunks de terrain (création/destruction dynamique)
 - UI Canvas (créés/détruits selon besoin)
 
 **Nettoyage**:
+
 ```csharp
 void OnDestroy()
 {
@@ -658,7 +701,7 @@ void OnDestroy()
     {
         DestroyImmediate(cloudMaterial);
     }
-    
+
     // Arrêter les coroutines
     StopAllCoroutines();
 }
@@ -667,14 +710,17 @@ void OnDestroy()
 ### Optimisations mémoire
 
 **Mesh Simplification**:
+
 - Utilisation de Unity Mesh Simplifier
 - Réduction du nombre de vertices pour objets éloignés
 
 **Texture Streaming**:
+
 - Mipmap generation activé
 - Textures chargées selon distance
 
 **Audio**:
+
 - Compression des clips audio
 - `spatialBlend = 0` pour sons 2D (météo, UI)
 
@@ -683,37 +729,43 @@ void OnDestroy()
 
 ### Métriques cibles
 
-| Métrique | Cible | Actuel | Status |
-|----------|-------|--------|--------|
-| FPS (normal) | 60 | 50-60 | Acceptable |
-| FPS (nuages volumétriques) | 60 | 30-45 | À optimiser |
-| Temps de génération terrain | < 100ms | 50-150ms | Variable |
-| Latence input | < 16ms | 5-10ms | OK |
-| Utilisation RAM | < 4GB | 2-3GB | OK |
-| Utilisation VRAM | < 2GB | 1-1.5GB | OK |
+| Métrique                    | Cible   | Actuel   | Status      |
+| --------------------------- | ------- | -------- | ----------- |
+| FPS (normal)                | 60      | 50-60    | Acceptable  |
+| FPS (nuages volumétriques)  | 60      | 30-45    | À optimiser |
+| Temps de génération terrain | < 100ms | 50-150ms | Variable    |
+| Latence input               | < 16ms  | 5-10ms   | OK          |
+| Utilisation RAM             | < 4GB   | 2-3GB    | OK          |
+| Utilisation VRAM            | < 2GB   | 1-1.5GB  | OK          |
 
 
 ### Techniques d'optimisation
 
 #### Culling
+
 - **Frustum Culling** - Automatique Unity
 - **Occlusion Culling** - Non implémenté (à considérer)
 - **Distance Culling** - Implémenté pour terrain
 
 #### LOD (Level of Detail)
+
 - Meshes simplifiés pour objets éloignés
 - Système de LOD Unity automatique
 
 #### Batching
+
 - Static Batching pour éléments statiques
 - Dynamic Batching pour petits objets
 
 #### Shaders
+
 - Shader variants réduits
 - Calculs coûteux déplacés au vertex shader quand possible
 
 #### Ray Marching
+
 **Optimisations du shader volumétrique**:
+
 ```hlsl
 // Sortie anticipée si transmittance faible
 if (transmittance < 0.01) break;
@@ -727,6 +779,7 @@ if (density < 0.01) continue;
 ```
 
 **À optimiser**:
+
 - Réduire `raySteps` dynamiquement selon distance
 - Implémenter adaptive stepping
 - Utiliser compute shader pour calculs parallèles
@@ -734,11 +787,13 @@ if (density < 0.01) continue;
 ### Profiling
 
 **Outils utilisés**:
+
 - Unity Profiler (CPU, GPU, Memory)
 - Frame Debugger
 - Graphics API Debugger
 
 **Zones critiques identifiées**:
+
 1. Ray Marching des nuages volumétriques
 2. Génération de terrain (érosion)
 3. Système de particules (pluie dense)
@@ -752,21 +807,21 @@ if (density < 0.01) continue;
 graph TD
     Plane --> AtmosphericTurbulence
     Plane --> DynamicWeatherSystem
-    
+
     MissionManager --> DynamicWeatherSystem
     MissionManager --> GameMenuController
-    
+
     DynamicWeatherSystem --> CloudMaster
     DynamicWeatherSystem --> MissionManager
-    
+
     GameMenuController --> DynamicWeatherSystem
     GameMenuController --> CameraViewSwitcher
-    
+
     VolumetricCloudsRenderer --> DynamicWeatherSystem
-    
+
     ProceduralWorldManager --> TerrainGenerator
     ProceduralWorldManager --> Plane
-    
+
     MainMenuController --> PlayerPrefs
     MissionManager --> PlayerPrefs
     AircraftColorApplier --> PlayerPrefs
@@ -779,26 +834,31 @@ graph TD
 ### Nomenclature
 
 **Classes**:
+
 - PascalCase: `DynamicWeatherSystem`
 - Suffixe descriptif: `Controller`, `Manager`, `Generator`
 
 **Méthodes**:
+
 - PascalCase: `ApplyMissionSettings()`
 - Verbes d'action: `Get`, `Set`, `Apply`, `Update`
 
 **Variables**:
+
 - camelCase: `weatherIntensity`
-- Préfixes: 
+- Préfixes:
   - `min/max` pour limites
   - `current` pour valeurs courantes
   - `target` pour valeurs cibles
 
 **Constantes**:
+
 - PascalCase: `DefaultWeatherIntensity`
 
 ### Documentation
 
 **Commentaires XML**:
+
 ```csharp
 /// <summary>
 /// Description brève de la méthode
@@ -812,6 +872,7 @@ public ReturnType MethodName(ParamType paramName)
 ```
 
 **Tooltips Unity**:
+
 ```csharp
 [Header("Section Name")]
 [Tooltip("Description du champ visible dans l'Inspector")]
@@ -823,12 +884,14 @@ public float someValue = 1.0f;
 L'architecture de Tiny Flight Simulator repose sur une séparation claire des responsabilités avec des systèmes modulaires communicant via des interfaces définies. La structure permet l'extensibilité tout en maintenant la performance.
 
 **Points forts**:
+
 - Modularité des systèmes
 - Génération procédurale efficace
 - Système de missions flexible
 - Intégration météo complète
 
 **Points à améliorer**:
+
 - Optimisation du rendu volumétrique
 - Réduction des pics de latence
 - Documentation complète des APIs
@@ -838,4 +901,4 @@ Voir les autres documents de documentation pour des détails spécifiques sur ch
 
 ---
 
-*Document mis à jour: Décembre 2025*
+_Document mis à jour: Décembre 2025_

@@ -2,19 +2,18 @@
 title: 6-Configuration Système Requise
 ---
 
-
 ## Système d'exploitation
 
 **Linux uniquement** - Ce projet nécessite un système Linux.
 
 ### Distributions testées et supportées
 
-| Distribution | Version minimale | Statut |
-|--------------|------------------|--------|
-| Ubuntu | 20.04 LTS | Testé |
-| Debian | 11 | Testé |
-| Linux Mint | 20+ | Compatible |
-| Pop!_OS | 20.04+ | Compatible |
+| Distribution | Version minimale | Statut     |
+| ------------ | ---------------- | ---------- |
+| Ubuntu       | 20.04 LTS        | Testé      |
+| Debian       | 11               | Testé      |
+| Linux Mint   | 20+              | Compatible |
+| Pop!\_OS     | 20.04+           | Compatible |
 
 ### Non supporté
 
@@ -32,25 +31,25 @@ Les scripts d'installation automatique gèrent les dépendances suivantes :
 
 Les dépendances suivantes seront installées automatiquement si manquantes :
 
-| Outil | Version | Description |
-|-------|---------|-------------|
-| Docker | Latest | Conteneurisation |
-| kubectl | Latest | Client Kubernetes |
-| Minikube | Latest | Cluster Kubernetes local |
-| Conntrack | Latest | Suivi des connexions |
-| Socat | Latest | Relais de données |
+| Outil     | Version | Description              |
+| --------- | ------- | ------------------------ |
+| Docker    | Latest  | Conteneurisation         |
+| kubectl   | Latest  | Client Kubernetes        |
+| Minikube  | Latest  | Cluster Kubernetes local |
+| Conntrack | Latest  | Suivi des connexions     |
+| Socat     | Latest  | Relais de données        |
 
 ### Pour EKS (Production)
 
 Les dépendances suivantes seront installées automatiquement si manquantes :
 
-| Outil | Version | Description |
-|-------|---------|-------------|
-| AWS CLI | v2 | Interface en ligne de commande AWS |
-| Terraform | Latest | Infrastructure as Code |
-| kubectl | Latest | Client Kubernetes |
-| jq | Latest | Traitement JSON |
-| Docker | - | Doit être pré-installé |
+| Outil     | Version | Description                        |
+| --------- | ------- | ---------------------------------- |
+| AWS CLI   | v2      | Interface en ligne de commande AWS |
+| Terraform | Latest  | Infrastructure as Code             |
+| kubectl   | Latest  | Client Kubernetes                  |
+| jq        | Latest  | Traitement JSON                    |
+| Docker    | -       | Doit être pré-installé             |
 
 ---
 
@@ -78,20 +77,20 @@ Ce projet **n'utilise PAS Docker Hub**. Les images sont gérées localement :
 
 ### Minimum pour Minikube
 
-| Ressource | Minimum | Recommandé |
-|-----------|---------|------------|
-| RAM | 4 GB | 8 GB |
-| CPUs | 2 | 4 |
-| Disque | 20 GB libre | 40 GB libre |
+| Ressource | Minimum         | Recommandé    |
+| --------- | --------------- | ------------- |
+| RAM       | 4 GB            | 8 GB          |
+| CPUs      | 2               | 4             |
+| Disque    | 20 GB libre     | 40 GB libre   |
 | Connexion | Internet requis | Haute vitesse |
 
 ### Minimum pour EKS
 
-| Ressource | Description |
-|-----------|-------------|
-| Connexion Internet | Requise pour AWS API |
-| Disque | 10 GB libre (pour images Docker) |
-| Credentials AWS | Access Key + Secret Key |
+| Ressource          | Description                      |
+| ------------------ | -------------------------------- |
+| Connexion Internet | Requise pour AWS API             |
+| Disque             | 10 GB libre (pour images Docker) |
+| Credentials AWS    | Access Key + Secret Key          |
 
 ---
 
@@ -118,20 +117,20 @@ Ce projet **n'utilise PAS Docker Hub**. Les images sont gérées localement :
 
 ### Ports utilisés (Minikube)
 
-| Port | Service | Protocole |
-|------|---------|-----------|
-| 30500 | Backend API | HTTP |
-| 30080 | Frontend | HTTP |
-| Dynamique | Minikube API | HTTPS |
+| Port      | Service      | Protocole |
+| --------- | ------------ | --------- |
+| 30500     | Backend API  | HTTP      |
+| 30080     | Frontend     | HTTP      |
+| Dynamique | Minikube API | HTTPS     |
 
 ### Ports utilisés (EKS)
 
-| Port | Service | Protocole |
-|------|---------|-----------|
-| 80 | Frontend LoadBalancer | HTTP |
-| 443 | EKS API Server | HTTPS |
-| 5000 | Backend (interne) | HTTP |
-| 8080 | Frontend (interne) | HTTP |
+| Port | Service               | Protocole |
+| ---- | --------------------- | --------- |
+| 80   | Frontend LoadBalancer | HTTP      |
+| 443  | EKS API Server        | HTTPS     |
+| 5000 | Backend (interne)     | HTTP      |
+| 8080 | Frontend (interne)    | HTTP      |
 
 ### Accès Internet requis
 
@@ -238,14 +237,14 @@ docker ps
 
 **Estimation mensuelle** : ~190 EUR/mois
 
-| Composant | Coût mensuel (EUR) |
-|-----------|-------------------|
-| EKS Control Plane | ~73 EUR |
-| EC2 t3.medium (2 instances) | ~60 EUR |
-| NAT Gateway | ~40 EUR |
-| Elastic Load Balancer | ~15 EUR |
-| Transfert de données | ~5 EUR |
-| **Total** | **~190 EUR** |
+| Composant                   | Coût mensuel (EUR) |
+| --------------------------- | ------------------ |
+| EKS Control Plane           | ~73 EUR            |
+| EC2 t3.medium (2 instances) | ~60 EUR            |
+| NAT Gateway                 | ~40 EUR            |
+| Elastic Load Balancer       | ~15 EUR            |
+| Transfert de données        | ~5 EUR             |
+| **Total**                   | **~190 EUR**       |
 
 **IMPORTANT** : N'oubliez pas de détruire l'infrastructure après les tests pour éviter les frais :
 
@@ -260,6 +259,7 @@ docker ps
 ### Problème : Pas assez de RAM pour Minikube
 
 **Solution** :
+
 ```bash
 # Réduire la RAM allouée
 sudo ./deploy-minikube-oneclick.sh --memory 2048
@@ -268,6 +268,7 @@ sudo ./deploy-minikube-oneclick.sh --memory 2048
 ### Problème : Docker daemon non démarré
 
 **Solution** :
+
 ```bash
 sudo systemctl start docker
 sudo systemctl enable docker
@@ -276,6 +277,7 @@ sudo systemctl enable docker
 ### Problème : Permissions insuffisantes
 
 **Solution** :
+
 ```bash
 # Pour Minikube : Utiliser sudo
 sudo ./deploy-minikube-oneclick.sh
@@ -288,6 +290,7 @@ sudo usermod -aG docker $USER
 ### Problème : Pas d'accès Internet
 
 **Solution** :
+
 - Vérifier la connexion réseau
 - Vérifier les paramètres proxy si applicable
 - Tester : `ping google.com`

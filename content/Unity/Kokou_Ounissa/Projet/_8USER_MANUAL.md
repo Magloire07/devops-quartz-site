@@ -1,6 +1,7 @@
 ---
-title: Manuel Utilisateur
+title: 8 - Manuel Utilisateur
 ---
+
 # Manuel Utilisateur - Tiny Flight Simulator
 
 ## Table des matières
@@ -44,6 +45,7 @@ tiny-flight-simulator-beta/
 ### Configuration système requise
 
 **Minimale**:
+
 - OS: Windows 10 64-bit
 - Processeur: Intel Core i5-6600K / AMD Ryzen 5 1600
 - Mémoire: 8 GB RAM
@@ -52,6 +54,7 @@ tiny-flight-simulator-beta/
 - Espace disque: 2 GB
 
 **Recommandée**:
+
 - OS: Windows 11 64-bit
 - Processeur: Intel Core i7-8700K / AMD Ryzen 7 2700X
 - Mémoire: 16 GB RAM
@@ -62,6 +65,7 @@ tiny-flight-simulator-beta/
 ### Procédure d'installation
 
 1. **Télécharger le package**
+
    ```
    Extraire tiny-flight-simulator-beta.zip
    dans un dossier de votre choix
@@ -86,12 +90,12 @@ tiny-flight-simulator-beta/
 
 Le menu principal offre les options suivantes:
 
-| Bouton | Description |
-|--------|-------------|
-| **Start Game** | Démarrer une nouvelle session |
-| **Settings** | Configurer les paramètres (audio, graphiques) |
-| **Credits** | Afficher les crédits |
-| **Quit** | Quitter l'application |
+| Bouton         | Description                                   |
+| -------------- | --------------------------------------------- |
+| **Start Game** | Démarrer une nouvelle session                 |
+| **Settings**   | Configurer les paramètres (audio, graphiques) |
+| **Credits**    | Afficher les crédits                          |
+| **Quit**       | Quitter l'application                         |
 
 ### Sélection de mission
 
@@ -111,6 +115,7 @@ Le menu principal offre les options suivantes:
    - Difficulté: Aucune
 
 **Sélection**:
+
 1. Cliquer sur la mission désirée
 2. Le panneau de sélection d'avion s'affiche
 3. Choisir un avion et une couleur
@@ -120,11 +125,20 @@ Le menu principal offre les options suivantes:
 
 
 **Options**:
+
 - Choix parmi plusieurs modèles d'avion
 - Sélection de la couleur (palette de 8 couleurs)
 - Prévisualisation 3D du modèle
 
 
+<<<<<<< HEAD
+=======
+| Avion   | Vitesse max | Maniabilité | Stabilité   | Usage recommandé |
+| ------- | ----------- | ----------- | ----------- | ---------------- |
+| Avion 1 | 200 km/h    | Moyenne     | Élevée      | Débutants        |
+| Avion 2 | 250 km/h    | Élevée      | Moyenne     | Avancés          |
+| Avion 3 | 180 km/h    | Faible      | Très élevée | Vol lent         |
+>>>>>>> 8b03f82262e4006126099efe8b04256c369d837c
 
 
 
@@ -134,22 +148,23 @@ Le menu principal offre les options suivantes:
 
 #### Clavier et souris (par défaut)
 
-| Commande | Action |
-|----------|--------|
+| Commande   | Action                              |
+| ---------- | ----------------------------------- |
 | **Souris** | Contrôle de l'assiette (pitch/roll) |
-| **W** | Augmenter la puissance moteur |
-| **S** | Réduire la puissance moteur |
-| **A** | Lacet gauche (yaw left) |
-| **D** | Lacet droite (yaw right) |
-| **Q** | Roulis gauche (roll left) |
-| **E** | Roulis droite (roll right) |
-| **Espace** | Frein aérien |
-| **V** | Changer de vue caméra |
+| **W**      | Augmenter la puissance moteur       |
+| **S**      | Réduire la puissance moteur         |
+| **A**      | Lacet gauche (yaw left)             |
+| **D**      | Lacet droite (yaw right)            |
+| **Q**      | Roulis gauche (roll left)           |
+| **E**      | Roulis droite (roll right)          |
+| **Espace** | Frein aérien                        |
+| **V**      | Changer de vue caméra               |
 
 
 #### Sensibilité de la souris
 
 La souris contrôle directement l'assiette de l'avion:
+
 - **Axe vertical**: Pitch (cabrer/piquer)
 - **Axe horizontal**: Roll (roulis)
 
@@ -158,17 +173,20 @@ La souris contrôle directement l'assiette de l'avion:
 #### Gestion de la puissance
 
 **Décollage**:
+
 1. Puissance à 100% (maintenir W)
 2. Vitesse minimale: 30-35 km/h
 3. Tirer doucement vers l'arrière (souris vers le bas)
 4. Maintenir l'angle de montée stable
 
 **Croisière**:
+
 - Puissance: 60-80%
 - Altitude recommandée: 500-1000m
 - Assiette horizontale
 
 **Atterrissage**:
+
 1. Réduire la puissance progressivement
 2. Approche à 40-50 km/h
 3. Descente douce (2-3° vers le bas)
@@ -178,18 +196,20 @@ La souris contrôle directement l'assiette de l'avion:
 
 ### Contrôles de caméra
 
-| Touche | Mode | Description |
-|--------|------|-------------|
-| **V** | Toggle | Basculer cockpit ↔ externe |
+| Touche               | Mode      | Description                     |
+| -------------------- | --------- | ------------------------------- |
+| **V**                | Toggle    | Basculer cockpit ↔ externe      |
 | **Souris** (cockpit) | Free Look | Regarder autour dans le cockpit |
 
 **Mode Cockpit**:
+
 - Vue immersive depuis le poste de pilotage
 - Free look activé automatiquement
 - Instruments visibles (speedomètre, altimètre)
 
 
 **Mode Externe**:
+
 - Vue en suivant l'avion
 - Caméra centrée sur l'avion
 - Idéal pour observer l'environnement
@@ -198,11 +218,11 @@ La souris contrôle directement l'assiette de l'avion:
 
 ### Contrôles de menu
 
-| Touche | Action |
-|--------|--------|
-| **Échap** | Ouvrir/fermer le menu in-game |
-| **M** | Afficher la carte (si disponible) |
-| **F** | Afficher les FPS |
+| Touche    | Action                            |
+| --------- | --------------------------------- |
+| **Échap** | Ouvrir/fermer le menu in-game     |
+| **M**     | Afficher la carte (si disponible) |
+| **F**     | Afficher les FPS                  |
 
 ## Interface utilisateur
 
@@ -228,12 +248,13 @@ Accessible avec **Échap**
 
 #### Onglet Météo
 
-| Contrôle | Fonction | Plage |
-|----------|----------|-------|
+| Contrôle           | Fonction                  | Plage                  |
+| ------------------ | ------------------------- | ---------------------- |
 | **Weather Slider** | Ajuster l'intensité météo | 0 (beau) - 1 (tempête) |
-| **Time Slider** | Ajuster l'heure | 0h - 24h |
+| **Time Slider**    | Ajuster l'heure           | 0h - 24h               |
 
 **Effet des paramètres**:
+
 - **Météo 0.0**: Ciel clair, pas de vent
 - **Météo 0.5**: Nuages, vent modéré
 - **Météo 1.0**: Tempête, pluie, éclairs, vent fort
@@ -250,14 +271,17 @@ Accessible avec **Échap**
 ### Indicateurs visuels
 
 **Décrochage (Stall)**:
+
 - Écran qui vibre
 - Son d'alarme (si implémenté)
 - Perte de contrôle de l'assiette
 
 **Collision imminente**:
+
 - **À vérifier**: Système d'alerte implémenté ou non
 
 **Événements Mission 3**:
+
 - Sons d'horreur aléatoires
 - Image effrayante défilant sur l'écran
 - Conditions météo extrêmes
@@ -271,6 +295,7 @@ Accessible avec **Échap**
 Mission narrative où le joueur doit piloter dans des conditions extrêmes pendant 10 minutes avant la "révélation".
 
 **Conditions initiales**:
+
 - Heure: Minuit (24h)
 - Météo: Tempête maximale (intensité 1.0)
 - Contrôles météo: Verrouillés
@@ -313,20 +338,21 @@ gantt
 
 **Déroulement**:
 
-| Temps | Événement | Description |
-|-------|-----------|-------------|
-| 0:00 | Début | Spawn dans la tempête, minuit |
-| 0:00-10:00 | Phase horrifique | Sons + image + météo extrême |
-| 10:00 | Fin des effets | Arrêt des sons et de l'image |
-| 10:00 | Transition météo | Météo passe à 0 (beau temps) |
-| 10:00 | Transition heure | Heure passe à 12h (midi) |
-| 10:01 | Applaudissement | Son de félicitation |
-| 10:01+ | Vol libre | Contrôles déverrouillés |
+| Temps      | Événement        | Description                   |
+| ---------- | ---------------- | ----------------------------- |
+| 0:00       | Début            | Spawn dans la tempête, minuit |
+| 0:00-10:00 | Phase horrifique | Sons + image + météo extrême  |
+| 10:00      | Fin des effets   | Arrêt des sons et de l'image  |
+| 10:00      | Transition météo | Météo passe à 0 (beau temps)  |
+| 10:00      | Transition heure | Heure passe à 12h (midi)      |
+| 10:01      | Applaudissement  | Son de félicitation           |
+| 10:01+     | Vol libre        | Contrôles déverrouillés       |
 
 **Philosophie**:
 La mission représente une épreuve psychologique où le joueur doit maintenir son calme face à des conditions extrêmes. La "révélation" après 10 minutes symbolise la récompense de la persévérance.
 
 **Conseils de survie**:
+
 - Maintenir une altitude stable (500-800m)
 - Ne pas sur-corriger lors des turbulences
 - Ignorer les distractions visuelles et sonores
@@ -342,6 +368,7 @@ La mission représente une épreuve psychologique où le joueur doit maintenir s
 Mode sandbox permettant l'exploration libre du monde procédural sans contraintes ni objectifs.
 
 **Caractéristiques**:
+
 - Contrôle complet de la météo
 - Ajustement libre de l'heure
 - Aucune limite de temps
@@ -349,6 +376,7 @@ Mode sandbox permettant l'exploration libre du monde procédural sans contrainte
 - Monde entièrement explorable
 
 **Utilisations recommandées**:
+
 - Apprentissage des contrôles de vol
 - Exploration de la génération procédurale
 - Tests de conditions météo
@@ -358,23 +386,27 @@ Mode sandbox permettant l'exploration libre du monde procédural sans contrainte
 #### Réglages météo
 
 **Intensité 0.0 - Beau temps**:
+
 - Ciel dégagé
 - Vent nul
 - Visibilité maximale
 - Idéal pour débutants
 
 **Intensité 0.3 - Nuages**:
+
 - Quelques nuages
 - Vent léger (5-10 km/h)
 - Turbulences faibles
 
 **Intensité 0.7 - Mauvais temps**:
+
 - Nuages denses
 - Pluie modérée
 - Vent moyen (15-25 km/h)
 - Turbulences moyennes
 
 **Intensité 1.0 - Tempête**:
+
 - Orage complet
 - Pluie torrentielle
 - Vent fort (30+ km/h)
@@ -383,17 +415,18 @@ Mode sandbox permettant l'exploration libre du monde procédural sans contrainte
 
 **Tableau des effets**:
 
-| Intensité | Pluie | Vent (km/h) | Visibilité | Turbulences | Éclairs |
-|-----------|-------|-------------|------------|-------------|---------|
-| 0.0 | Aucune | 0 | Excellente | Nulles | Non |
-| 0.2 | Légère | 5 | Très bonne | Faibles | Non |
-| 0.5 | Modérée | 15 | Bonne | Moyennes | Rares |
-| 0.8 | Forte | 25 | Réduite | Élevées | Fréquents |
-| 1.0 | Torrentielle | 35+ | Très réduite | Très élevées | Très fréquents |
+| Intensité | Pluie        | Vent (km/h) | Visibilité   | Turbulences  | Éclairs        |
+| --------- | ------------ | ----------- | ------------ | ------------ | -------------- |
+| 0.0       | Aucune       | 0           | Excellente   | Nulles       | Non            |
+| 0.2       | Légère       | 5           | Très bonne   | Faibles      | Non            |
+| 0.5       | Modérée      | 15          | Bonne        | Moyennes     | Rares          |
+| 0.8       | Forte        | 25          | Réduite      | Élevées      | Fréquents      |
+| 1.0       | Torrentielle | 35+         | Très réduite | Très élevées | Très fréquents |
 
 #### Réglages temporels
 
 **Cycle jour/nuit**:
+
 - **0h-6h**: Nuit profonde
 - **6h-8h**: Aube
 - **8h-18h**: Jour
@@ -401,6 +434,7 @@ Mode sandbox permettant l'exploration libre du monde procédural sans contrainte
 - **20h-24h**: Nuit
 
 **Effets de l'heure**:
+
 - Éclairage dynamique
 - Couleur du ciel
 - Intensité des ombres
@@ -415,6 +449,7 @@ Mode sandbox permettant l'exploration libre du monde procédural sans contrainte
 **À compléter**: Détails des options graphiques disponibles
 
 Paramètres typiques:
+
 - Qualité des textures
 - Distance de vue
 - Anti-aliasing
@@ -425,6 +460,7 @@ Paramètres typiques:
 ### Options audio
 
 **Volumes ajustables**:
+
 - Volume général
 - Musique
 - Effets sonores
@@ -436,6 +472,7 @@ Paramètres typiques:
 
 **Couleurs disponibles**:
 Palette de 8 couleurs pour chaque avion:
+
 1. Blanc
 2. Noir
 3. Rouge
@@ -453,12 +490,14 @@ La couleur sélectionnée est sauvegardée et appliquée automatiquement lors du
 ### Pour débutants
 
 **Premiers pas**:
+
 1. Commencer en mode "Free Ride"
 2. Régler la météo sur 0.0 (beau temps)
 3. S'entraîner au décollage et atterrissage
 4. Pratiquer les virages coordonnés
 
 **Décollage sûr**:
+
 ```
 1. Aligner l'avion sur la piste
 2. Puissance à 100% (maintenir W)
@@ -469,6 +508,7 @@ La couleur sélectionnée est sauvegardée et appliquée automatiquement lors du
 ```
 
 **Atterrissage sûr**:
+
 ```
 1. Approcher à 500m d'altitude
 2. Réduire la puissance progressivement
@@ -483,27 +523,31 @@ La couleur sélectionnée est sauvegardée et appliquée automatiquement lors du
 ### Vol avancé
 
 **Gestion du décrochage**:
+
 - Apparaît si l'angle d'attaque est trop élevé
 - Reconnaissable à la perte de contrôle
-- **Récupération**: 
+- **Récupération**:
   1. Pousser le manche (souris vers le haut)
   2. Puissance à 100%
   3. Garder les ailes horizontales
   4. Reprendre de la vitesse avant de redresser
 
 **Vol dans la tempête**:
+
 - Maintenir une puissance élevée (80-90%)
 - Ne pas sur-corriger les turbulences
 - Privilégier l'altitude (plus stable au-dessus de 800m)
 - Surveiller constamment la vitesse
 
 **Virages serrés**:
+
 - Incliner à 30-45° maximum
 - Augmenter légèrement la puissance
 - Tirer doucement sur la souris pour maintenir l'altitude
 - Coordonner avec le lacet (A/D)
 
 **Navigation**:
+
 - Utiliser les aéroports comme points de repère
 - Se repérer par rapport au soleil (est le matin, ouest le soir)
 - Altitude de sécurité: toujours au-dessus de 300m
@@ -511,6 +555,7 @@ La couleur sélectionnée est sauvegardée et appliquée automatiquement lors du
 ### Optimisation des performances
 
 **Si le jeu rame**:
+
 1. Réduire la qualité graphique
 2. Désactiver les nuages volumétriques
 3. Réduire la distance de vue
@@ -518,6 +563,7 @@ La couleur sélectionnée est sauvegardée et appliquée automatiquement lors du
 5. Fermer les autres applications
 
 **Améliorer la fluidité**:
+
 - Activer VSync pour limiter à 60 FPS
 - Mettre à jour les drivers graphiques
 - Jouer en mode plein écran
@@ -530,6 +576,7 @@ La couleur sélectionnée est sauvegardée et appliquée automatiquement lors du
 #### Le jeu ne démarre pas
 
 **Solutions**:
+
 1. Vérifier la configuration système minimale
 2. Mettre à jour les drivers graphiques
 3. Installer DirectX Runtime
@@ -542,6 +589,7 @@ La couleur sélectionnée est sauvegardée et appliquée automatiquement lors du
 **Cause**: Bug connu (rare)
 
 **Solution**:
+
 1. Retourner au menu principal (Échap → Return to Menu)
 2. Relancer la mission
 3. Si le problème persiste, relancer l'application
@@ -549,6 +597,7 @@ La couleur sélectionnée est sauvegardée et appliquée automatiquement lors du
 #### Les contrôles ne répondent pas
 
 **Solutions**:
+
 1. Vérifier que le jeu a le focus (cliquer dans la fenêtre)
 2. Débrancher les contrôleurs USB non utilisés
 3. Redémarrer le jeu
@@ -557,10 +606,12 @@ La couleur sélectionnée est sauvegardée et appliquée automatiquement lors du
 #### Performance faible
 
 **Diagnostic**:
+
 - Appuyer sur F pour afficher les FPS
 - Objectif: 30 FPS minimum, 60 FPS idéal
 
 **Solutions**:
+
 1. Réduire les paramètres graphiques
 2. Réduire la résolution
 3. Désactiver les nuages volumétriques
@@ -572,12 +623,14 @@ La couleur sélectionnée est sauvegardée et appliquée automatiquement lors du
 **Cause**: Bug corrigé dans la version actuelle
 
 **Solution**:
+
 - Vérifier que vous avez la dernière version
 - Si le problème persiste, redémarrer la scène
 
 #### Les sons sont décalés ou absents
 
 **Solutions**:
+
 1. Vérifier le volume général dans les options
 2. Vérifier le volume système Windows
 3. Tester avec différents périphériques audio
@@ -586,11 +639,13 @@ La couleur sélectionnée est sauvegardée et appliquée automatiquement lors du
 ### Fichiers de log
 
 **Emplacement des logs**:
+
 ```
 %APPDATA%\..\LocalLow\[CompanyName]\tiny-flight-simulator-beta\Player.log
 ```
 
 **Utilisation**:
+
 - Ouvrir avec un éditeur de texte
 - Rechercher les lignes contenant "Error" ou "Exception"
 - Fournir le log lors du rapport de bug
@@ -598,6 +653,7 @@ La couleur sélectionnée est sauvegardée et appliquée automatiquement lors du
 ### Rapporter un bug
 
 **Informations à fournir**:
+
 1. Description détaillée du problème
 2. Étapes de reproduction
 3. Configuration système (CPU, GPU, RAM, OS)
@@ -605,6 +661,7 @@ La couleur sélectionnée est sauvegardée et appliquée automatiquement lors du
 5. Captures d'écran ou vidéo si possible
 
 **Format de rapport**:
+
 ```
 Titre: [Bug] Description courte
 
@@ -624,9 +681,9 @@ Ce qui se passe réellement
 
 Système:
 - OS: Windows 10/11
-- CPU: 
-- GPU: 
-- RAM: 
+- CPU:
+- GPU:
+- RAM:
 
 Fichiers joints:
 - Player.log
@@ -637,38 +694,38 @@ Fichiers joints:
 
 ### Raccourcis clavier complets
 
-| Touche | Action | Contexte |
-|--------|--------|----------|
-| W | Augmenter puissance | Vol |
-| S | Réduire puissance | Vol |
-| A | Lacet gauche | Vol |
-| D | Lacet droite | Vol |
-| Q | Roulis gauche | Vol |
-| E | Roulis droite | Vol |
-| Espace | Frein aérien | Vol |
-| V | Changer vue | Vol |
-| Échap | Menu in-game | Vol |
-| M | Carte | Vol (si disponible) |
-| F | FPS | Partout |
-| F11 | Plein écran | Partout |
+| Touche | Action              | Contexte            |
+| ------ | ------------------- | ------------------- |
+| W      | Augmenter puissance | Vol                 |
+| S      | Réduire puissance   | Vol                 |
+| A      | Lacet gauche        | Vol                 |
+| D      | Lacet droite        | Vol                 |
+| Q      | Roulis gauche       | Vol                 |
+| E      | Roulis droite       | Vol                 |
+| Espace | Frein aérien        | Vol                 |
+| V      | Changer vue         | Vol                 |
+| Échap  | Menu in-game        | Vol                 |
+| M      | Carte               | Vol (si disponible) |
+| F      | FPS                 | Partout             |
+| F11    | Plein écran         | Partout             |
 
 ### Glossaire aéronautique
 
-| Terme | Définition |
-|-------|------------|
-| **Pitch** | Mouvement de tangage (nez haut/bas) |
-| **Roll** | Mouvement de roulis (inclinaison latérale) |
-| **Yaw** | Mouvement de lacet (rotation horizontale) |
-| **Stall** | Décrochage - perte de portance |
-| **Angle of Attack** | Angle entre l'aile et le flux d'air |
-| **Ground Effect** | Effet de sol - portance accrue près du sol |
-| **Turbulence** | Mouvements d'air irréguliers |
-| **Drag** | Traînée - résistance de l'air |
-| **Lift** | Portance - force qui maintient l'avion en l'air |
-| **Airspeed** | Vitesse de l'air relatif à l'avion |
+| Terme               | Définition                                      |
+| ------------------- | ----------------------------------------------- |
+| **Pitch**           | Mouvement de tangage (nez haut/bas)             |
+| **Roll**            | Mouvement de roulis (inclinaison latérale)      |
+| **Yaw**             | Mouvement de lacet (rotation horizontale)       |
+| **Stall**           | Décrochage - perte de portance                  |
+| **Angle of Attack** | Angle entre l'aile et le flux d'air             |
+| **Ground Effect**   | Effet de sol - portance accrue près du sol      |
+| **Turbulence**      | Mouvements d'air irréguliers                    |
+| **Drag**            | Traînée - résistance de l'air                   |
+| **Lift**            | Portance - force qui maintient l'avion en l'air |
+| **Airspeed**        | Vitesse de l'air relatif à l'avion              |
 
 
 
 ---
 
-*Manuel utilisateur - Version Beta 0.9 - Décembre 2025*
+_Manuel utilisateur - Version Beta 0.9 - Décembre 2025_
