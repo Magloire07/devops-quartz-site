@@ -28,6 +28,7 @@ export AWS_SECRET_ACCESS_KEY="votre_secret"
 ```
 
 Le script gère automatiquement :
+
 - Vérification des credentials AWS
 - Installation des outils (AWS CLI, Terraform, kubectl)
 - Provisionnement de l'infrastructure (EKS, ECR, VPC, IAM)
@@ -62,32 +63,32 @@ Pour plus de détails, consultez **ONECLICK_GUIDE.md**.
 
 ### Infrastructure provisionnée
 
-| Ressource | Type | Description |
-|-----------|------|-------------|
-| EKS Cluster | Kubernetes 1.28 | Cluster managé |
-| ECR | Repositories | 2 repos (backend/frontend) |
-| VPC | Network | VPC dédiée avec subnets |
-| NAT Gateway | Network | Accès Internet pour private subnets |
-| IAM Roles | Security | Rôles pour EKS et nodes |
-| Security Groups | Security | Contrôle du trafic |
-| Load Balancer | Network | ALB pour frontend |
+| Ressource       | Type            | Description                         |
+| --------------- | --------------- | ----------------------------------- |
+| EKS Cluster     | Kubernetes 1.28 | Cluster managé                      |
+| ECR             | Repositories    | 2 repos (backend/frontend)          |
+| VPC             | Network         | VPC dédiée avec subnets             |
+| NAT Gateway     | Network         | Accès Internet pour private subnets |
+| IAM Roles       | Security        | Rôles pour EKS et nodes             |
+| Security Groups | Security        | Contrôle du trafic                  |
+| Load Balancer   | Network         | ALB pour frontend                   |
 
 ### Composants Kubernetes déployés
 
-| Composant | Type | Replicas | Port |
-|-----------|------|----------|------|
-| Backend | Deployment | 1 | 5000 |
-| Frontend | Deployment | 2 | 8080 |
-| SQLite PVC | PersistentVolume | - | 1Gi |
-| Backend Service | ClusterIP | - | 5000 |
-| Frontend Service | LoadBalancer | - | 80 |
+| Composant        | Type             | Replicas | Port |
+| ---------------- | ---------------- | -------- | ---- |
+| Backend          | Deployment       | 1        | 5000 |
+| Frontend         | Deployment       | 2        | 8080 |
+| SQLite PVC       | PersistentVolume | -        | 1Gi  |
+| Backend Service  | ClusterIP        | -        | 5000 |
+| Frontend Service | LoadBalancer     | -        | 80   |
 
 ### Images Docker
 
-| Image | Registre | Tag |
-|-------|----------|-----|
-| msg-devops-backend | ECR | latest |
-| msg-devops-frontend | ECR | latest |
+| Image               | Registre | Tag    |
+| ------------------- | -------- | ------ |
+| msg-devops-backend  | ECR      | latest |
+| msg-devops-frontend | ECR      | latest |
 
 **Note** : Les images sont buildées localement puis poussées vers Amazon ECR (pas de Docker Hub).
 
@@ -110,6 +111,7 @@ Pour plus de détails, consultez **ONECLICK_GUIDE.md**.
 ### Logiciels
 
 Les outils suivants seront installés automatiquement par le script si manquants :
+
 - AWS CLI v2
 - Terraform
 - kubectl
@@ -148,11 +150,12 @@ aws sts get-caller-identity
 ```
 
 Résultat attendu :
+
 ```json
 {
-    "UserId": "AIDAI...",
-    "Account": "123456789012",
-    "Arn": "arn:aws:iam::123456789012:user/your-username"
+  "UserId": "AIDAI...",
+  "Account": "123456789012",
+  "Arn": "arn:aws:iam::123456789012:user/your-username"
 }
 ```
 
@@ -160,14 +163,14 @@ Résultat attendu :
 
 Votre utilisateur AWS doit avoir les permissions suivantes :
 
-| Service | Permissions |
-|---------|-------------|
-| EKS | `AmazonEKSClusterPolicy` |
-| EC2 | `AmazonEC2FullAccess` |
-| VPC | `AmazonVPCFullAccess` |
-| IAM | `IAMFullAccess` (ou créer des rôles manuellement) |
-| ECR | `AmazonEC2ContainerRegistryFullAccess` |
-| ELB | `ElasticLoadBalancingFullAccess` |
+| Service | Permissions                                       |
+| ------- | ------------------------------------------------- |
+| EKS     | `AmazonEKSClusterPolicy`                          |
+| EC2     | `AmazonEC2FullAccess`                             |
+| VPC     | `AmazonVPCFullAccess`                             |
+| IAM     | `IAMFullAccess` (ou créer des rôles manuellement) |
+| ECR     | `AmazonEC2ContainerRegistryFullAccess`            |
+| ELB     | `ElasticLoadBalancingFullAccess`                  |
 
 **Note** : Pour la production, utilisez des permissions plus restrictives.
 
@@ -212,6 +215,7 @@ terraform apply
 ```
 
 Ressources créées :
+
 - Cluster EKS
 - 2 repositories ECR
 - VPC avec subnets publics/privés
@@ -250,6 +254,7 @@ docker push $AWS_ACCOUNT_ID.dkr.ecr.eu-west-3.amazonaws.com/msg-devops-frontend:
 ### 5. Mettre à jour les manifests
 
 Remplacer `<AWS_ACCOUNT_ID>` dans les fichiers :
+
 - `k8s/backend-deployment.yaml`
 - `k8s/frontend-deployment.yaml`
 
@@ -330,9 +335,9 @@ Naviguez vers : `https://github.com/YOUR_USERNAME/msg_devops/settings/secrets/ac
 
 Ajoutez les secrets suivants :
 
-| Secret | Valeur |
-|--------|--------|
-| `AWS_ACCESS_KEY_ID` | Votre AWS Access Key |
+| Secret                  | Valeur               |
+| ----------------------- | -------------------- |
+| `AWS_ACCESS_KEY_ID`     | Votre AWS Access Key |
 | `AWS_SECRET_ACCESS_KEY` | Votre AWS Secret Key |
 
 ### 2. Workflow GitHub Actions
@@ -342,6 +347,7 @@ Le workflow est déjà configuré dans `.github/workflows/ci-cd.yaml` :
 **Déclenchement** : À chaque push sur `main`
 
 **Étapes** :
+
 1. Checkout du code
 2. Configuration AWS
 3. Login à ECR
@@ -353,6 +359,7 @@ Le workflow est déjà configuré dans `.github/workflows/ci-cd.yaml` :
 ### 3. Vérifier le workflow
 
 Après un push sur `main` :
+
 1. Aller dans l'onglet **Actions** de votre repository GitHub
 2. Vérifier que le workflow s'exécute correctement
 3. Consulter les logs en cas d'erreur
@@ -430,19 +437,20 @@ kubectl get deployments
 
 ### Estimation mensuelle
 
-| Ressource | Configuration | Coût mensuel (EUR) |
-|-----------|---------------|-------------------|
-| EKS Control Plane | - | ~73 EUR |
-| EC2 Instances | 2x t3.medium | ~60 EUR |
-| NAT Gateway | 1 instance | ~40 EUR |
-| Load Balancer | ALB | ~15 EUR |
-| EBS Volumes | 20 GB per node | ~4 EUR |
-| Data Transfer | ~100 GB | ~5 EUR |
-| **Total** | - | **~190 EUR** |
+| Ressource         | Configuration  | Coût mensuel (EUR) |
+| ----------------- | -------------- | ------------------ |
+| EKS Control Plane | -              | ~73 EUR            |
+| EC2 Instances     | 2x t3.medium   | ~60 EUR            |
+| NAT Gateway       | 1 instance     | ~40 EUR            |
+| Load Balancer     | ALB            | ~15 EUR            |
+| EBS Volumes       | 20 GB per node | ~4 EUR             |
+| Data Transfer     | ~100 GB        | ~5 EUR             |
+| **Total**         | -              | **~190 EUR**       |
 
 ### Optimisation des coûts
 
 **Pour réduire les coûts** :
+
 1. Utiliser des instances Spot pour les nodes (~70% moins cher)
 2. Arrêter le cluster pendant les périodes d'inactivité
 3. Utiliser une seule instance t3.small au lieu de 2x t3.medium
@@ -597,10 +605,10 @@ terraform destroy
 
 ### Limites actuelles
 
-| Composant | Limitation | Raison |
-|-----------|------------|--------|
-| Backend | 1 replica | SQLite (accès concurrent limité) |
-| Database | PVC local | Pas de réplication |
+| Composant | Limitation | Raison                           |
+| --------- | ---------- | -------------------------------- |
+| Backend   | 1 replica  | SQLite (accès concurrent limité) |
+| Database  | PVC local  | Pas de réplication               |
 
 ### Recommandations pour la production
 
@@ -616,6 +624,7 @@ Pour une véritable production haute disponibilité :
    - Après migration vers RDS : `replicas: 3`
 
 3. **Configurer l'autoscaling**
+
    ```bash
    kubectl autoscale deployment frontend --cpu-percent=70 --min=2 --max=10
    ```
@@ -631,16 +640,16 @@ Consultez **SQLITE_NOTES.md** pour plus de détails sur la migration.
 
 ## Comparaison avec Minikube
 
-| Aspect | Minikube | EKS |
-|--------|----------|-----|
-| Coût | Gratuit | ~190 EUR/mois |
-| Durée setup | ~5 minutes | ~20-30 minutes |
-| Environnement | Local | Cloud AWS |
-| Scaling | Limité | Illimité |
-| Haute disponibilité | Non | Oui (avec RDS) |
-| Usage | Développement | Production |
-| Internet requis | Oui | Oui |
-| CI/CD | Non | GitHub Actions |
+| Aspect              | Minikube      | EKS            |
+| ------------------- | ------------- | -------------- |
+| Coût                | Gratuit       | ~190 EUR/mois  |
+| Durée setup         | ~5 minutes    | ~20-30 minutes |
+| Environnement       | Local         | Cloud AWS      |
+| Scaling             | Limité        | Illimité       |
+| Haute disponibilité | Non           | Oui (avec RDS) |
+| Usage               | Développement | Production     |
+| Internet requis     | Oui           | Oui            |
+| CI/CD               | Non           | GitHub Actions |
 
 Pour plus de détails, consultez **DEPLOYMENT_COMPARISON.md**.
 
