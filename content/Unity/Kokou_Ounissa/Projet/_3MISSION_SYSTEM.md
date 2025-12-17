@@ -74,8 +74,6 @@ graph TB
     SkipMM --> Gameplay
 ```
 
-![Flux du système de missions](images/mission_system_flow.png)
-
 ### État et transitions
 
 ```mermaid
@@ -314,7 +312,6 @@ IEnumerator PlayHalloweenSoundsRoutine()
 - Thématique horrifique (cris, gémissements, ambiances)
 - Format: WAV ou OGG (compression)
 
-**À compléter**: Liste des sons Halloween utilisés et leurs sources
 
 ### Effets visuels
 
@@ -478,7 +475,6 @@ IEnumerator ShowScaryImageRoutine()
 - Thématique horrifique cohérente avec les sons
 - Contraste élevé pour visibilité
 
-**À compléter**: Description de l'image scary utilisée et sa source
 
 ### Fin de mission
 
@@ -621,25 +617,7 @@ else  // Free Ride ou autre mission
 - Météo ajustable en temps réel
 - Heure ajustable en temps réel
 
-### Utilisation recommandée
 
-**Pour débutants**:
-1. Démarrer avec météo à 0.0
-2. Heure de jour (10h-14h)
-3. Pratiquer décollage/atterrissage
-4. Augmenter progressivement la difficulté
-
-**Pour avancés**:
-- Tester limites de vol (décrochage, vitesse max)
-- Explorer les effets météo extrêmes
-- Découvrir la génération procédurale
-- Pratiquer le vol de nuit
-
-**Pour créatifs**:
-- Créer des scénarios personnalisés
-- Capturer des screenshots/vidéos
-- Tester des techniques de vol
-- Explorer les aéroports générés
 
 ## Gestion des paramètres
 
@@ -738,7 +716,6 @@ public void SetTimeValue(float value)
 }
 ```
 
-**À vérifier**: Existence et implémentation du TimeOfDaySystem
 
 ## Système audio
 

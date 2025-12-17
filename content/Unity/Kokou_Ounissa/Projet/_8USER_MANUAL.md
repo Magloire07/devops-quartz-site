@@ -79,15 +79,10 @@ tiny-flight-simulator-beta/
 
 ## Démarrage
 
-### Lancement du jeu
-
-![Écran de lancement](images/splash_screen.png)
-
-**Vidéo**: `startup_sequence.mp4` - Séquence de démarrage complète
 
 ### Menu principal
 
-![Menu principal](images/main_menu.png)
+
 
 Le menu principal offre les options suivantes:
 
@@ -100,9 +95,8 @@ Le menu principal offre les options suivantes:
 
 ### Sélection de mission
 
-![Sélection de mission](images/mission_selection.png)
 
-Deux modes disponibles:
+
 
 1. **Escape the Hell**
    - Mission narrative avec atmosphère horrifique
@@ -124,22 +118,15 @@ Deux modes disponibles:
 
 ### Sélection d'avion
 
-![Sélection d'avion](images/aircraft_selection.png)
 
 **Options**:
 - Choix parmi plusieurs modèles d'avion
 - Sélection de la couleur (palette de 8 couleurs)
 - Prévisualisation 3D du modèle
 
-**Caractéristiques par avion**:
 
-| Avion | Vitesse max | Maniabilité | Stabilité | Usage recommandé |
-|-------|-------------|-------------|-----------|------------------|
-| Avion 1 | 200 km/h | Moyenne | Élevée | Débutants |
-| Avion 2 | 250 km/h | Élevée | Moyenne | Avancés |
-| Avion 3 | 180 km/h | Faible | Très élevée | Vol lent |
 
-**À compléter**: Noms et caractéristiques exactes des avions
+
 
 ## Contrôles
 
@@ -159,7 +146,6 @@ Deux modes disponibles:
 | **Espace** | Frein aérien |
 | **V** | Changer de vue caméra |
 
-**Vidéo**: `flight_controls_tutorial.mp4` - Démonstration des contrôles
 
 #### Sensibilité de la souris
 
@@ -189,7 +175,6 @@ La souris contrôle directement l'assiette de l'avion:
 4. Arrondir juste avant le contact
 5. Couper les gaz au toucher des roues
 
-**Vidéo**: `takeoff_landing_guide.mp4` - Guide complet décollage/atterrissage
 
 ### Contrôles de caméra
 
@@ -203,16 +188,13 @@ La souris contrôle directement l'assiette de l'avion:
 - Free look activé automatiquement
 - Instruments visibles (speedomètre, altimètre)
 
-![Vue cockpit](images/cockpit_view.png)
 
 **Mode Externe**:
 - Vue en suivant l'avion
 - Caméra centrée sur l'avion
 - Idéal pour observer l'environnement
 
-![Vue externe](images/external_view.png)
 
-**Vidéo**: `camera_modes.mp4` - Démonstration des vues caméra
 
 ### Contrôles de menu
 
@@ -226,7 +208,6 @@ La souris contrôle directement l'assiette de l'avion:
 
 ### HUD (Head-Up Display)
 
-![HUD in-game](images/hud_ingame.png)
 
 **Éléments affichés**:
 
@@ -237,13 +218,11 @@ La souris contrôle directement l'assiette de l'avion:
 5. **Météo** - Conditions actuelles
 6. **Position** - Coordonnées (si activé)
 
-**À vérifier**: Liste exacte des éléments du HUD
 
 ### Menu in-game
 
 Accessible avec **Échap**
 
-![Menu in-game](images/ingame_menu.png)
 
 **Options disponibles**:
 
@@ -287,7 +266,6 @@ Accessible avec **Échap**
 
 ### Mode "Escape the Hell"
 
-![Mission Escape the Hell](images/mission_escape_hell_start.png)
 
 **Synopsis**:
 Mission narrative où le joueur doit piloter dans des conditions extrêmes pendant 10 minutes avant la "révélation".
@@ -354,11 +332,11 @@ La mission représente une épreuve psychologique où le joueur doit maintenir s
 - Ignorer les distractions visuelles et sonores
 - Se concentrer sur les instruments de vol
 
-![Mission Escape the Hell - Phase finale](images/mission_escape_hell_end.png)
+
 
 ### Mode "Free Ride"
 
-![Mode Free Ride](images/mode_free_ride.png)
+
 
 **Description**:
 Mode sandbox permettant l'exploration libre du monde procédural sans contraintes ni objectifs.
@@ -376,7 +354,6 @@ Mode sandbox permettant l'exploration libre du monde procédural sans contrainte
 - Tests de conditions météo
 - Vol de détente
 
-**Vidéo**: `free_ride_exploration.mp4` - Exploration du monde (5 minutes)
 
 #### Réglages météo
 
@@ -502,7 +479,6 @@ La couleur sélectionnée est sauvegardée et appliquée automatiquement lors du
 7. Laisser l'avion rouler
 ```
 
-**Vidéo**: `beginner_tutorial.mp4` - Tutoriel complet débutant (15 minutes)
 
 ### Vol avancé
 
@@ -691,29 +667,7 @@ Fichiers joints:
 | **Lift** | Portance - force qui maintient l'avion en l'air |
 | **Airspeed** | Vitesse de l'air relatif à l'avion |
 
-### FAQ
 
-**Q: Peut-on sauvegarder sa progression?**
-**À vérifier**: Système de sauvegarde implémenté ou non
-
-**Q: Y a-t-il d'autres missions prévues?**
-Actuellement, seules "Escape the Hell" et "Free Ride" sont disponibles. D'autres missions sont prévues en développement.
-
-**Q: Le multijoueur est-il disponible?**
-Non, le multijoueur n'est pas implémenté dans cette version.
-
-**Q: Peut-on personnaliser les contrôles?**
-**À vérifier**: Interface de personnalisation des contrôles
-
-**Q: Quelle est la taille de la carte?**
-Le monde est généré procéduralement. La zone explorable est théoriquement illimitée, mais optimisée dans un rayon de 10 km autour du joueur.
-
-**Q: Les nuages volumétriques sont-ils obligatoires?**
-Non, ils peuvent être désactivés pour améliorer les performances.
-
-## Contact et support
-
-**À compléter**: Informations de contact et support
 
 ---
 

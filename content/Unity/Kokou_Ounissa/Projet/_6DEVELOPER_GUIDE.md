@@ -26,7 +26,6 @@ title: Guide dev
 | **Git** | 2.30+ | Contrôle de version |
 | **.NET SDK** | .NET Standard 2.1 | Runtime C# |
 
-**À compléter**: Versions exactes utilisées dans le projet
 
 ### Installation Unity
 
@@ -85,7 +84,6 @@ title: Guide dev
 Thumbs.db
 ```
 
-**À compléter**: Fichier .gitignore complet si le projet utilise Git
 
 ## Structure du projet
 
@@ -331,7 +329,6 @@ main (ou master)        - Code stable, releases
 │   └── hotfix/xxx      - Corrections urgentes
 ```
 
-**À compléter**: Workflow Git si le projet l'utilise
 
 ### Processus de développement
 
@@ -586,7 +583,7 @@ public class DynamicWeatherSystem : MonoBehaviour
 
 ### Ajouter une nouvelle mission
 
-**Voir**: [MISSION_SYSTEM.md](./MISSION_SYSTEM.md) - Section "Extension du système"
+**Voir**: [MISSION_SYSTEM.md](./_3MISSION_SYSTEM.md) - Section "Extension du système"
 
 **Résumé**:
 1. Définir paramètres dans `MissionManager.cs`

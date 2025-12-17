@@ -2,22 +2,8 @@
 title: Vue d'ensemble
 ---
 
-# Tiny Flight Simulator - Documentation Technique
 
-## Vue d'ensemble
-
-Tiny Flight Simulator est un simulateur de vol développé sous Unity, offrant une expérience de vol immersive avec génération procédurale de terrain, système météorologique dynamique, et système de missions narratives.
-
-### Informations du projet
-
-| Propriété | Valeur |
-|-----------|--------|
-| **Nom du projet** | Tiny Flight Simulator Beta |
-| **Moteur** | Unity 2022.3+ |
-| **Langage** | C# (.NET Standard 2.1) |
-| **Plateforme cible** | Windows (x64) |
-| **Version** | Beta 0.9 |
-| **Date de dernière mise à jour** | Décembre 2025 |
+Tiny Flight Simulator est un simulateur de vol développé sous Unity, offrant une expérience de vol immersive avec génération procédurale de l'univers, système météorologique dynamique, et système de missions narratives.
 
 ### Objectifs du projet
 
@@ -34,13 +20,13 @@ Cette documentation est organisée en plusieurs fichiers pour faciliter la navig
 
 | Document | Description |
 |----------|-------------|
-| [USER_MANUAL.md](./USER_MANUAL.md) | Manuel utilisateur complet avec guide de prise en main |
-| [ARCHITECTURE.md](./ARCHITECTURE.md) | Architecture technique du système |
-| [MISSION_SYSTEM.md](./MISSION_SYSTEM.md) | Documentation du système de missions |
-| [WEATHER_SYSTEM.md](./WEATHER_SYSTEM.md) | Système météorologique dynamique |
-| [RENDERING.md](./RENDERING.md) | Systèmes de rendu avancés (Ray Marching, nuages volumétriques) |
-| [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) | Guide pour les développeurs |
-| [TESTING.md](./TESTING.md) | Procédures de test et validation |
+| [USER_MANUAL.md](./_8USER_MANUAL.md) | Manuel utilisateur complet avec guide de prise en main |
+| [ARCHITECTURE.md](./_2ARCHITECTURE.md) | Architecture technique du système |
+| [MISSION_SYSTEM.md](./_3MISSION_SYSTEM.md) | Documentation du système de missions |
+| [WEATHER_SYSTEM.md](./_5WEATHER_SYSTEM.md) | Système météorologique dynamique |
+| [RENDERING.md](./_4RENDERING.md) | Systèmes de rendu avancés (Ray Marching, nuages volumétriques) |
+| [DEVELOPER_GUIDE.md](./_8DEVELOPER_GUIDE.md) | Guide pour les développeurs |
+| [TESTING.md](./_7TESTING.md) | Procédures de test et validation |
 
 ## Fonctionnalités principales
 
@@ -66,8 +52,7 @@ Cette documentation est organisée en plusieurs fichiers pour faciliter la navig
 - Système de vent avec turbulences
 - Sons ambiants adaptatifs
 - Éclairage dynamique jour/nuit
-
-**À vérifier**: Intégration complète du système de nuages volumétriques
+- Système de nuages volumétriques
 
 ### Système de missions
 
@@ -76,26 +61,16 @@ Deux modes de jeu disponibles:
 1. **Escape the Hell** - Mission narrative avec atmosphère horrifique
 2. **Free Ride** - Mode libre sans contraintes
 
-Voir [MISSION_SYSTEM.md](./MISSION_SYSTEM.md) pour plus de détails.
+Voir [MISSION_SYSTEM.md](./_6MISSION_SYSTEM.md) pour plus de détails.
 
-## Technologies utilisées
 
-### Moteur et frameworks
 
-- **Unity 2022.3 LTS** - Moteur de jeu principal
-- **Unity UI** - Interface utilisateur
-- **Unity Audio** - Système audio
-- **Unity Particle System** - Effets visuels
+### Assets de Unity asset store
 
-### Packages Unity
+| Package | Utilisation |
+|---------|-------------|
+| Pandazole_ultimate_pack | villes et champs |
 
-| Package | Version | Utilisation |
-|---------|---------|-------------|
-| com.unity.textmeshpro | 3.0+ | Texte amélioré pour l'UI |
-| com.unity.render-pipelines.universal | 14.0+ | Pipeline de rendu URP |
-| Unity Mesh Simplifier | Custom | Optimisation des meshes |
-
-**À compléter**: Liste complète des packages et versions exactes
 
 ### Algorithmes clés
 
@@ -122,33 +97,9 @@ Assets/
 └── Shaders/           # Shaders personnalisés
 ```
 
-Voir [ARCHITECTURE.md](./ARCHITECTURE.md) pour une description détaillée.
+Voir [ARCHITECTURE.md](./_2ARCHITECTURE.md) pour une description détaillée.
 
-## Prérequis système
 
-### Configuration minimale
-
-| Composant | Spécification |
-|-----------|---------------|
-| **OS** | Windows 10 64-bit |
-| **Processeur** | Intel Core i5-6600K / AMD Ryzen 5 1600 |
-| **Mémoire** | 8 GB RAM |
-| **Carte graphique** | NVIDIA GTX 1060 / AMD RX 580 |
-| **DirectX** | Version 11 |
-| **Espace disque** | 2 GB disponible |
-
-### Configuration recommandée
-
-| Composant | Spécification |
-|-----------|---------------|
-| **OS** | Windows 11 64-bit |
-| **Processeur** | Intel Core i7-8700K / AMD Ryzen 7 2700X |
-| **Mémoire** | 16 GB RAM |
-| **Carte graphique** | NVIDIA RTX 2060 / AMD RX 5700 XT |
-| **DirectX** | Version 12 |
-| **Espace disque** | 4 GB disponible |
-
-**À vérifier**: Tests de performance sur configurations minimales
 
 ## Démarrage rapide
 
@@ -156,7 +107,7 @@ Voir [ARCHITECTURE.md](./ARCHITECTURE.md) pour une description détaillée.
 
 ```powershell
 # Cloner le dépôt (si applicable)
-git clone <repository-url> tiny-flight-simulator-beta
+git clone https://github.com/Magloire07/tiny-flight-simulator-beta
 cd tiny-flight-simulator-beta
 
 # Ouvrir le projet dans Unity Hub
@@ -169,41 +120,34 @@ cd tiny-flight-simulator-beta
 2. Charger la scène `MainMenu` dans `Assets/_Scenes/`
 3. Cliquer sur Play
 4. Sélectionner une mission et un avion
-5. Cliquer sur "Start Game"
+5. Cliquer sur "JOUER"
 
-Voir [USER_MANUAL.md](./USER_MANUAL.md) pour les contrôles détaillés.
+Voir [USER_MANUAL.md](./_8USER_MANUAL.md) pour les contrôles détaillés.
 
 ## Captures d'écran
 
 ### Menu principal
 ![Menu principal](images/main_menu.png)
 
+
+### Menu Avions
+![Menu principal](images/avion1.png)
+![Menu principal](images/avion2.png)
+![Menu principal](images/avion3.png)
+
+
 ### Vol en conditions normales
 ![Vol normal](images/normal_flight.png)
 
 ### Mission "Escape the Hell"
-![Mission Escape the Hell](images/mission_escape_hell.png)
+![Mission Escape the Hell](images/mission_escape_hell1.png)
+![Mission Escape the Hell](images/mission_escape_hell2.png)
 
-### Système météorologique
-![Orage](images/weather_storm.png)
 
-### Nuages volumétriques
-![Nuages volumétriques](images/volumetric_clouds.png)
-
-**Note**: Les images doivent être placées dans le dossier `Docs/images/`
 
 ## Vidéos de démonstration
 
-Les vidéos suivantes illustrent les fonctionnalités principales:
 
-| Vidéo | Description | Durée |
-|-------|-------------|-------|
-| `demo_flight_controls.mp4` | Contrôles et maniabilité | ~2 min |
-| `demo_mission_escape.mp4` | Mission "Escape the Hell" complète | ~12 min |
-| `demo_weather_system.mp4` | Transitions météorologiques | ~3 min |
-| `demo_procedural_world.mp4` | Génération de terrain en temps réel | ~2 min |
-
-**Note**: Placer les vidéos dans `Docs/videos/` et référencer avec le chemin relatif
 
 ## État d'implémentation
 
@@ -225,15 +169,7 @@ Les vidéos suivantes illustrent les fonctionnalités principales:
 - [ ] Système d'aéroports (génération fonctionnelle, interactions limitées)
 - [ ] Turbulences atmosphériques (modèle simplifié)
 
-**À compléter**: État précis de chaque fonctionnalité
 
-### Fonctionnalités en développement
-
-- [ ] Collision avec le terrain
-- [ ] Système de dommages
-- [ ] Missions additionnelles
-- [ ] Multijoueur
-- [ ] Replay de vol
 
 ## Problèmes connus
 
@@ -243,26 +179,9 @@ Les vidéos suivantes illustrent les fonctionnalités principales:
 | BUG-002 | Turbulences parfois trop prononcées à basse altitude | Faible | À corriger |
 | BUG-003 | Génération de terrain peut causer des pics de latence | Moyenne | À optimiser |
 
-Voir [TESTING.md](./TESTING.md) pour la liste complète et les procédures de reproduction.
+Voir [TESTING.md](./_7TESTING.md) pour la liste complète et les procédures de reproduction.
 
-## Support et contribution
 
-### Rapporter un bug
-
-Pour rapporter un bug, fournir:
-- Description détaillée du problème
-- Étapes de reproduction
-- Configuration système
-- Logs Unity (`%APPDATA%\..\LocalLow\<Company>\<Product>\Player.log`)
-- Captures d'écran ou vidéos si applicable
-
-### Contribuer au projet
-
-Consulter [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) pour:
-- Standards de code
-- Architecture des composants
-- Processus de développement
-- Guidelines de commit
 
 ## Licence
 
@@ -270,9 +189,9 @@ Consulter [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) pour:
 
 ## Crédits
 
-### Développement
-- **Équipe principale**: [À compléter]
-- **Moteur**: Unity Technologies
+### Développement escape hell 
+- **Auteur principale**: [Kokou]
+- **Copilot**
 
 ### Bibliothèques tierces
 - **Mouse Flight Controller** - Contrôles de vol
@@ -280,9 +199,8 @@ Consulter [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) pour:
 - **Hydraulic Erosion** - Sebastian Lague (adapté)
 
 ### Assets
-- **Sons**: [À compléter - sources des assets audio]
-- **Modèles 3D**: [À compléter - sources des modèles]
-- **Textures**: [À compléter - sources des textures]
+- **Sons**: [(https://pixabay.com/)]
+- **Modèles 3D**: [unity asset Store, + TDs + Projet de base]
 
 ## Références
 
@@ -291,9 +209,6 @@ Consulter [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) pour:
 - [Real-Time Rendering Resources](http://www.realtimerendering.com/)
 - [GPU Gems - Cloud Rendering](https://developer.nvidia.com/gpugems/gpugems2/part-ii-shading-lighting-and-shadows/chapter-16-accurate-atmospheric-scattering)
 
-## Contact
-
-**À compléter**: Informations de contact du projet
 
 ---
 

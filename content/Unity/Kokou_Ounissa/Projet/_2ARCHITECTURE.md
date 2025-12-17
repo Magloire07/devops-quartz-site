@@ -55,7 +55,6 @@ graph TB
     WorldGen --> Airports[Aéroports]
 ```
 
-![Architecture globale](images/architecture_global.png)
 
 ## Architecture logicielle
 
@@ -166,7 +165,7 @@ public float stallAngle = 15f;           // Angle de décrochage
 public float takeoffMinSpeed = 30f;      // Vitesse minimale de décollage
 ```
 
-**À vérifier**: Valeurs exactes des paramètres de vol
+**À vérifier**: Valeurs exactes des paramètres de vol qui peuvent varié selon le besoin
 
 #### PlaneGroundStability.cs
 Gère la stabilité de l'avion au sol.
@@ -554,7 +553,6 @@ void OnRenderImage(RenderTexture src, RenderTexture dest)
 }
 ```
 
-**À vérifier**: Impact sur les performances, nécessite optimisation
 
 ## Flux de données
 
@@ -680,7 +678,6 @@ void OnDestroy()
 - Compression des clips audio
 - `spatialBlend = 0` pour sons 2D (météo, UI)
 
-**À optimiser**: Gestion du garbage collector (réduire allocations)
 
 ## Performance et optimisation
 
@@ -695,7 +692,6 @@ void OnDestroy()
 | Utilisation RAM | < 4GB | 2-3GB | OK |
 | Utilisation VRAM | < 2GB | 1-1.5GB | OK |
 
-**À vérifier**: Tests sur configurations minimales
 
 ### Techniques d'optimisation
 
@@ -747,7 +743,6 @@ if (density < 0.01) continue;
 2. Génération de terrain (érosion)
 3. Système de particules (pluie dense)
 
-**À compléter**: Rapports de profiling détaillés
 
 ## Diagrammes de composants
 
@@ -777,7 +772,7 @@ graph TD
     AircraftColorApplier --> PlayerPrefs
 ```
 
-![Diagramme de dépendances](images/architecture_dependencies.png)
+
 
 ## Conventions de code
 

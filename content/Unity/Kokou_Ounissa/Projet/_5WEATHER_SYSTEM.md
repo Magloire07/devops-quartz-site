@@ -66,7 +66,7 @@ graph TB
     DWS --> CloudMaster[Système Nuages]
 ```
 
-![Architecture du système météo](images/weather_system_architecture.png)
+
 
 ### Cycle de vie
 
@@ -673,7 +673,7 @@ void UpdateWeather()
 }
 ```
 
-Voir [RENDERING.md](./RENDERING.md) pour détails sur les nuages volumétriques.
+Voir [RENDERING.md](./_4RENDERING.md) pour détails sur les nuages volumétriques.
 
 ## Système de vent
 
@@ -744,9 +744,8 @@ public float GetWindIntensity()
 
 ### Intégration avec AtmosphericTurbulence
 
-**À vérifier**: Implémentation exacte de AtmosphericTurbulence.cs
 
-**Utilisation supposée**:
+**Utilisation**:
 ```csharp
 // Dans Plane.cs ou système de vol
 void FixedUpdate()

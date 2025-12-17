@@ -55,7 +55,6 @@ title: Tests et Validation
 - RAM: 32 GB
 - GPU: NVIDIA RTX 3070
 
-**À compléter**: Résultats de tests sur chaque configuration
 
 ## Tests fonctionnels
 
@@ -77,7 +76,6 @@ title: Tests et Validation
 - Menu principal affiché correctement
 - Aucune erreur console
 
-**Statut**: À tester
 
 #### TC-MENU-002: Sélection de mission
 
@@ -95,7 +93,6 @@ title: Tests et Validation
 - Informations de la mission visibles
 - Prévisualisation 3D fonctionnelle
 
-**Statut**: À tester
 
 #### TC-MENU-003: Sélection d'avion et couleur
 
@@ -114,7 +111,6 @@ title: Tests et Validation
 - Transition vers scène de vol fluide
 - Avion sélectionné spawne avec la couleur choisie
 
-**Statut**: À tester
 
 **Vidéo**: `test_aircraft_selection.mp4`
 
@@ -137,7 +133,6 @@ title: Tests et Validation
 - Caméra positionnée correctement
 - Météo appliquée selon mission
 
-**Statut**: À tester
 
 #### TC-FLIGHT-002: Contrôles de vol de base
 
@@ -158,7 +153,6 @@ title: Tests et Validation
 - Assiette change selon input
 - Réduction de puissance audible
 
-**Statut**: À tester
 
 **Vidéo**: `test_flight_controls.mp4`
 
@@ -181,7 +175,7 @@ title: Tests et Validation
 - Montée stable sans décrochage
 - Maintien d'altitude possible
 
-**Statut**: À tester
+ 
 
 **Vidéo**: `test_takeoff.mp4`
 
@@ -203,7 +197,7 @@ title: Tests et Validation
 - Turbulences gérables
 - FPS stable
 
-**Statut**: À tester
+ 
 
 #### TC-FLIGHT-005: Atterrissage
 
@@ -224,7 +218,7 @@ title: Tests et Validation
 - Pas de rebond excessif
 - Arrêt progressif
 
-**Statut**: À tester
+ 
 
 **Vidéo**: `test_landing.mp4`
 
@@ -247,7 +241,7 @@ title: Tests et Validation
 - Récupération possible
 - Son d'alarme (si implémenté)
 
-**Statut**: À tester
+ 
 
 #### TC-FLIGHT-007: Changement de vue caméra
 
@@ -293,7 +287,7 @@ title: Tests et Validation
 - Transitions fluides (pas de changement brusque)
 - Audio s'adapte à l'intensité
 
-**Statut**: À tester
+ 
 
 **Vidéo**: `test_weather_transitions.mp4`
 
@@ -335,7 +329,7 @@ title: Tests et Validation
 - Intervalle 3-10 secondes
 - Sons variés
 
-**Statut**: À tester
+ 
 
 **Vidéo**: `test_lightning_thunder.mp4`
 
@@ -356,7 +350,7 @@ title: Tests et Validation
 - Météo 1.0: Visibilité 200m
 - Transition fluide
 
-**Statut**: À tester
+ 
 
 ### Mission "Escape the Hell"
 
@@ -378,7 +372,7 @@ title: Tests et Validation
 - Sliders météo/heure désactivés (grisés)
 - Obscurité complète
 
-**Statut**: À tester
+ 
 
 #### TC-MISSION3-002: Effets d'horreur
 
@@ -398,7 +392,7 @@ title: Tests et Validation
 - 4 directions possibles (haut, bas, gauche, droite)
 - Volume audible mais pas écrasant
 
-**Statut**: À tester
+ 
 
 **Vidéo**: `test_mission3_horror_effects.mp4`
 
@@ -425,7 +419,7 @@ title: Tests et Validation
 - Sliders déverrouillés
 - Contrôles utilisables
 
-**Statut**: À tester
+ 
 
 **Vidéo**: `test_mission3_complete.mp4` (durée: 12 minutes)
 
@@ -449,7 +443,7 @@ title: Tests et Validation
 - Tous les boutons fonctionnels
 - Resume reprend le jeu
 
-**Statut**: À tester
+ 
 
 #### TC-UI-002: HUD informations
 
@@ -490,7 +484,7 @@ title: Tests et Validation
 - Pas de pics de latence majeurs
 - LOD fonctionne correctement
 
-**Statut**: À tester
+ 
 
 **À optimiser**: Pics de latence signalés
 
@@ -659,7 +653,7 @@ title: Tests et Validation
 - Boutons accessibles
 - Performance dégradée proportionnellement
 
-**Statut**: À tester
+ 
 
 ### Modes d'affichage
 
@@ -677,7 +671,7 @@ title: Tests et Validation
 - Performance optimale en Fullscreen
 - Alt+Tab fonctionne
 
-**Statut**: À tester
+ 
 
 ### Périphériques d'entrée
 
@@ -695,7 +689,7 @@ title: Tests et Validation
 - Sensibilité acceptable
 - Pas de comportement erratique
 
-**Statut**: À tester
+ 
 
 ### Systèmes d'exploitation
 
@@ -710,7 +704,7 @@ title: Tests et Validation
 - Fonctionnement identique
 - Aucune erreur spécifique à l'OS
 
-**Statut**: À tester
+ 
 
 ## Tests de régression
 
