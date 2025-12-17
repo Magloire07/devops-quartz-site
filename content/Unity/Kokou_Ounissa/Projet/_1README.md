@@ -36,7 +36,6 @@ Le projet vise à créer un simulateur de vol accessible combinant:
 
 Cette documentation est organisée en plusieurs fichiers pour faciliter la navigation:
 
-<<<<<<< HEAD
 | Document | Description |
 |----------|-------------|
 | [USER_MANUAL.md](./_8USER_MANUAL.md) | Manuel utilisateur complet avec guide de prise en main |
@@ -46,17 +45,6 @@ Cette documentation est organisée en plusieurs fichiers pour faciliter la navig
 | [RENDERING.md](./_4RENDERING.md) | Systèmes de rendu avancés (Ray Marching, nuages volumétriques) |
 | [DEVELOPER_GUIDE.md](./_8DEVELOPER_GUIDE.md) | Guide pour les développeurs |
 | [TESTING.md](./_7TESTING.md) | Procédures de test et validation |
-=======
-| Document                                   | Description                                                    |
-| ------------------------------------------ | -------------------------------------------------------------- |
-| [USER_MANUAL.md](./USER_MANUAL.md)         | Manuel utilisateur complet avec guide de prise en main         |
-| [ARCHITECTURE.md](./ARCHITECTURE.md)       | Architecture technique du système                              |
-| [MISSION_SYSTEM.md](./MISSION_SYSTEM.md)   | Documentation du système de missions                           |
-| [WEATHER_SYSTEM.md](./WEATHER_SYSTEM.md)   | Système météorologique dynamique                               |
-| [RENDERING.md](./RENDERING.md)             | Systèmes de rendu avancés (Ray Marching, nuages volumétriques) |
-| [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) | Guide pour les développeurs                                    |
-| [TESTING.md](./TESTING.md)                 | Procédures de test et validation                               |
->>>>>>> 8b03f82262e4006126099efe8b04256c369d837c
 
 ## Fonctionnalités principales
 
@@ -101,17 +89,6 @@ Voir [MISSION_SYSTEM.md](./_6MISSION_SYSTEM.md) pour plus de détails.
 |---------|-------------|
 | Pandazole_ultimate_pack | villes et champs |
 
-<<<<<<< HEAD
-=======
-| Package                              | Version | Utilisation              |
-| ------------------------------------ | ------- | ------------------------ |
-| com.unity.textmeshpro                | 3.0+    | Texte amélioré pour l'UI |
-| com.unity.render-pipelines.universal | 14.0+   | Pipeline de rendu URP    |
-| Unity Mesh Simplifier                | Custom  | Optimisation des meshes  |
-
-**À compléter**: Liste complète des packages et versions exactes
->>>>>>> 8b03f82262e4006126099efe8b04256c369d837c
-
 ### Algorithmes clés
 
 - **Perlin Noise** - Génération de terrain
@@ -139,33 +116,6 @@ Assets/
 
 Voir [ARCHITECTURE.md](./_2ARCHITECTURE.md) pour une description détaillée.
 
-
-<<<<<<< HEAD
-=======
-### Configuration minimale
-
-| Composant           | Spécification                          |
-| ------------------- | -------------------------------------- |
-| **OS**              | Windows 10 64-bit                      |
-| **Processeur**      | Intel Core i5-6600K / AMD Ryzen 5 1600 |
-| **Mémoire**         | 8 GB RAM                               |
-| **Carte graphique** | NVIDIA GTX 1060 / AMD RX 580           |
-| **DirectX**         | Version 11                             |
-| **Espace disque**   | 2 GB disponible                        |
-
-### Configuration recommandée
-
-| Composant           | Spécification                           |
-| ------------------- | --------------------------------------- |
-| **OS**              | Windows 11 64-bit                       |
-| **Processeur**      | Intel Core i7-8700K / AMD Ryzen 7 2700X |
-| **Mémoire**         | 16 GB RAM                               |
-| **Carte graphique** | NVIDIA RTX 2060 / AMD RX 5700 XT        |
-| **DirectX**         | Version 12                              |
-| **Espace disque**   | 4 GB disponible                         |
-
-**À vérifier**: Tests de performance sur configurations minimales
->>>>>>> 8b03f82262e4006126099efe8b04256c369d837c
 
 ## Démarrage rapide
 
@@ -208,40 +158,14 @@ Voir [USER_MANUAL.md](./_8USER_MANUAL.md) pour les contrôles détaillés.
 ![Vol normal](images/normal_flight.png)
 
 ### Mission "Escape the Hell"
-<<<<<<< HEAD
+
 ![Mission Escape the Hell](images/mission_escape_hell1.png)
 ![Mission Escape the Hell](images/mission_escape_hell2.png)
 
 
-=======
-
-![Mission Escape the Hell](images/mission_escape_hell.png)
-
-### Système météorologique
-
-![Orage](images/weather_storm.png)
-
-### Nuages volumétriques
-
-![Nuages volumétriques](images/volumetric_clouds.png)
-
-**Note**: Les images doivent être placées dans le dossier `Docs/images/`
->>>>>>> 8b03f82262e4006126099efe8b04256c369d837c
-
 ## Vidéos de démonstration
 
 
-<<<<<<< HEAD
-=======
-| Vidéo                       | Description                         | Durée   |
-| --------------------------- | ----------------------------------- | ------- |
-| `demo_flight_controls.mp4`  | Contrôles et maniabilité            | ~2 min  |
-| `demo_mission_escape.mp4`   | Mission "Escape the Hell" complète  | ~12 min |
-| `demo_weather_system.mp4`   | Transitions météorologiques         | ~3 min  |
-| `demo_procedural_world.mp4` | Génération de terrain en temps réel | ~2 min  |
-
-**Note**: Placer les vidéos dans `Docs/videos/` et référencer avec le chemin relatif
->>>>>>> 8b03f82262e4006126099efe8b04256c369d837c
 
 ## État d'implémentation
 
@@ -276,27 +200,6 @@ Voir [USER_MANUAL.md](./_8USER_MANUAL.md) pour les contrôles détaillés.
 Voir [TESTING.md](./_7TESTING.md) pour la liste complète et les procédures de reproduction.
 
 
-<<<<<<< HEAD
-=======
-### Rapporter un bug
-
-Pour rapporter un bug, fournir:
-
-- Description détaillée du problème
-- Étapes de reproduction
-- Configuration système
-- Logs Unity (`%APPDATA%\..\LocalLow\<Company>\<Product>\Player.log`)
-- Captures d'écran ou vidéos si applicable
-
-### Contribuer au projet
-
-Consulter [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) pour:
-
-- Standards de code
-- Architecture des composants
-- Processus de développement
-- Guidelines de commit
->>>>>>> 8b03f82262e4006126099efe8b04256c369d837c
 
 ## Licence
 
@@ -304,16 +207,10 @@ Consulter [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) pour:
 
 ## Crédits
 
-<<<<<<< HEAD
+
 ### Développement escape hell 
 - **Auteur principale**: [Kokou]
 - **Copilot**
-=======
-### Développement
-
-- **Équipe principale**: [À compléter]
-- **Moteur**: Unity Technologies
->>>>>>> 8b03f82262e4006126099efe8b04256c369d837c
 
 ### Bibliothèques tierces
 
@@ -322,15 +219,9 @@ Consulter [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) pour:
 - **Hydraulic Erosion** - Sebastian Lague (adapté)
 
 ### Assets
-<<<<<<< HEAD
+
 - **Sons**: [(https://pixabay.com/)]
 - **Modèles 3D**: [unity asset Store, + TDs + Projet de base]
-=======
-
-- **Sons**: [À compléter - sources des assets audio]
-- **Modèles 3D**: [À compléter - sources des modèles]
-- **Textures**: [À compléter - sources des textures]
->>>>>>> 8b03f82262e4006126099efe8b04256c369d837c
 
 ## Références
 

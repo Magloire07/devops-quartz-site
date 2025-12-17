@@ -131,17 +131,6 @@ Le menu principal offre les options suivantes:
 - Prévisualisation 3D du modèle
 
 
-<<<<<<< HEAD
-=======
-| Avion   | Vitesse max | Maniabilité | Stabilité   | Usage recommandé |
-| ------- | ----------- | ----------- | ----------- | ---------------- |
-| Avion 1 | 200 km/h    | Moyenne     | Élevée      | Débutants        |
-| Avion 2 | 250 km/h    | Élevée      | Moyenne     | Avancés          |
-| Avion 3 | 180 km/h    | Faible      | Très élevée | Vol lent         |
->>>>>>> 8b03f82262e4006126099efe8b04256c369d837c
-
-
-
 ## Contrôles
 
 ### Contrôles de vol

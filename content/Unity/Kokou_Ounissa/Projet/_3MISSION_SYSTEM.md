@@ -635,30 +635,6 @@ else  // Free Ride ou autre mission
 - Heure ajustable en temps réel
 
 
-<<<<<<< HEAD
-=======
-**Pour débutants**:
-
-1. Démarrer avec météo à 0.0
-2. Heure de jour (10h-14h)
-3. Pratiquer décollage/atterrissage
-4. Augmenter progressivement la difficulté
-
-**Pour avancés**:
-
-- Tester limites de vol (décrochage, vitesse max)
-- Explorer les effets météo extrêmes
-- Découvrir la génération procédurale
-- Pratiquer le vol de nuit
-
-**Pour créatifs**:
-
-- Créer des scénarios personnalisés
-- Capturer des screenshots/vidéos
-- Tester des techniques de vol
-- Explorer les aéroports générés
->>>>>>> 8b03f82262e4006126099efe8b04256c369d837c
-
 ## Gestion des paramètres
 
 ### PlayerPrefs utilisées

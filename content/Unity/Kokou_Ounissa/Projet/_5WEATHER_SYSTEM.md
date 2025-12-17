@@ -770,13 +770,8 @@ public float GetWindIntensity()
 
 ### Intégration avec AtmosphericTurbulence
 
-
-<<<<<<< HEAD
 **Utilisation**:
-=======
-**Utilisation supposée**:
 
->>>>>>> 8b03f82262e4006126099efe8b04256c369d837c
 ```csharp
 // Dans Plane.cs ou système de vol
 void FixedUpdate()
