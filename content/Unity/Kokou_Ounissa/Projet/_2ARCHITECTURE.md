@@ -55,7 +55,6 @@ graph TB
     WorldGen --> Airports[Aéroports]
 ```
 
-
 ## Architecture logicielle
 
 ### Organisation des couches
@@ -591,7 +590,6 @@ void OnRenderImage(RenderTexture src, RenderTexture dest)
 }
 ```
 
-
 ## Flux de données
 
 ### Initialisation du jeu
@@ -724,7 +722,6 @@ void OnDestroy()
 - Compression des clips audio
 - `spatialBlend = 0` pour sons 2D (météo, UI)
 
-
 ## Performance et optimisation
 
 ### Métriques cibles
@@ -737,7 +734,6 @@ void OnDestroy()
 | Latence input               | < 16ms  | 5-10ms   | OK          |
 | Utilisation RAM             | < 4GB   | 2-3GB    | OK          |
 | Utilisation VRAM            | < 2GB   | 1-1.5GB  | OK          |
-
 
 ### Techniques d'optimisation
 
@@ -798,7 +794,6 @@ if (density < 0.01) continue;
 2. Génération de terrain (érosion)
 3. Système de particules (pluie dense)
 
-
 ## Diagrammes de composants
 
 ### Diagramme de dépendances
@@ -826,8 +821,6 @@ graph TD
     MissionManager --> PlayerPrefs
     AircraftColorApplier --> PlayerPrefs
 ```
-
-
 
 ## Conventions de code
 

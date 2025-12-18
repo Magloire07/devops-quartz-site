@@ -26,7 +26,6 @@ title: 6 - Guide dev
 | **Git**           | 2.30+             | Contrôle de version     |
 | **.NET SDK**      | .NET Standard 2.1 | Runtime C#              |
 
-
 ### Installation Unity
 
 ```powershell
@@ -86,7 +85,6 @@ title: 6 - Guide dev
 .DS_Store
 Thumbs.db
 ```
-
 
 ## Structure du projet
 
@@ -343,7 +341,6 @@ main (ou master)        - Code stable, releases
 │   ├── bugfix/xxx      - Corrections de bugs
 │   └── hotfix/xxx      - Corrections urgentes
 ```
-
 
 ### Processus de développement
 

@@ -1,13 +1,13 @@
 ---
 title: 1 - Vue d'ensemble
 ---
+
 ##Demo
 
 <video width="640" controls>
   <source src="../../../../videos/demov1.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-
 
 Tiny Flight Simulator est un simulateur de vol développé sous Unity, offrant une expérience de vol immersive avec génération procédurale de l'univers, système météorologique dynamique, et système de missions narratives.
 
@@ -25,15 +25,15 @@ Le projet vise à créer un simulateur de vol accessible combinant:
 
 Cette documentation est organisée en plusieurs fichiers pour faciliter la navigation:
 
-| Document | Description |
-|----------|-------------|
-| [USER_MANUAL.md](./_8USER_MANUAL.md) | Manuel utilisateur complet avec guide de prise en main |
-| [ARCHITECTURE.md](./_2ARCHITECTURE.md) | Architecture technique du système |
-| [MISSION_SYSTEM.md](./_3MISSION_SYSTEM.md) | Documentation du système de missions |
-| [WEATHER_SYSTEM.md](./_5WEATHER_SYSTEM.md) | Système météorologique dynamique |
-| [RENDERING.md](./_4RENDERING.md) | Systèmes de rendu avancés (Ray Marching, nuages volumétriques) |
-| [DEVELOPER_GUIDE.md](./_8DEVELOPER_GUIDE.md) | Guide pour les développeurs |
-| [TESTING.md](./_7TESTING.md) | Procédures de test et validation |
+| Document                                     | Description                                                    |
+| -------------------------------------------- | -------------------------------------------------------------- |
+| [USER_MANUAL.md](./_8USER_MANUAL.md)         | Manuel utilisateur complet avec guide de prise en main         |
+| [ARCHITECTURE.md](./_2ARCHITECTURE.md)       | Architecture technique du système                              |
+| [MISSION_SYSTEM.md](./_3MISSION_SYSTEM.md)   | Documentation du système de missions                           |
+| [WEATHER_SYSTEM.md](./_5WEATHER_SYSTEM.md)   | Système météorologique dynamique                               |
+| [RENDERING.md](./_4RENDERING.md)             | Systèmes de rendu avancés (Ray Marching, nuages volumétriques) |
+| [DEVELOPER_GUIDE.md](./_8DEVELOPER_GUIDE.md) | Guide pour les développeurs                                    |
+| [TESTING.md](./_7TESTING.md)                 | Procédures de test et validation                               |
 
 ## Fonctionnalités principales
 
@@ -70,12 +70,10 @@ Deux modes de jeu disponibles:
 
 Voir [MISSION_SYSTEM.md](./_6MISSION_SYSTEM.md) pour plus de détails.
 
-
-
 ### Assets de Unity asset store
 
-| Package | Utilisation |
-|---------|-------------|
+| Package                 | Utilisation      |
+| ----------------------- | ---------------- |
 | Pandazole_ultimate_pack | villes et champs |
 
 ### Algorithmes clés
@@ -104,7 +102,6 @@ Assets/
 ```
 
 Voir [ARCHITECTURE.md](./_2ARCHITECTURE.md) pour une description détaillée.
-
 
 ## Démarrage rapide
 
@@ -135,12 +132,11 @@ Voir [USER_MANUAL.md](./_8USER_MANUAL.md) pour les contrôles détaillés.
 
 ![Menu principal](images/main_menu.png)
 
-
 ### Menu Avions
+
 ![Menu principal](images/avion1.png)
 ![Menu principal](images/avion2.png)
 ![Menu principal](images/avion3.png)
-
 
 ### Vol en conditions normales
 
@@ -151,10 +147,7 @@ Voir [USER_MANUAL.md](./_8USER_MANUAL.md) pour les contrôles détaillés.
 ![Mission Escape the Hell](images/mission_escape_hell1.png)
 ![Mission Escape the Hell](images/mission_escape_hell2.png)
 
-
 ## Vidéos de démonstration
-
-
 
 ## État d'implémentation
 
@@ -176,8 +169,6 @@ Voir [USER_MANUAL.md](./_8USER_MANUAL.md) pour les contrôles détaillés.
 - [ ] Système d'aéroports (génération fonctionnelle, interactions limitées)
 - [ ] Turbulences atmosphériques (modèle simplifié)
 
-
-
 ## Problèmes connus
 
 | ID      | Description                                           | Sévérité | Status      |
@@ -188,16 +179,14 @@ Voir [USER_MANUAL.md](./_8USER_MANUAL.md) pour les contrôles détaillés.
 
 Voir [TESTING.md](./_7TESTING.md) pour la liste complète et les procédures de reproduction.
 
-
-
 ## Licence
 
 **À compléter**: Informations de licence du projet
 
 ## Crédits
 
+### Développement escape hell
 
-### Développement escape hell 
 - **Auteur principale**: [Kokou]
 - **Copilot**
 
@@ -218,7 +207,6 @@ Voir [TESTING.md](./_7TESTING.md) pour la liste complète et les procédures de 
 - [C# Programming Guide](https://learn.microsoft.com/en-us/dotnet/csharp/)
 - [Real-Time Rendering Resources](http://www.realtimerendering.com/)
 - [GPU Gems - Cloud Rendering](https://developer.nvidia.com/gpugems/gpugems2/part-ii-shading-lighting-and-shadows/chapter-16-accurate-atmospheric-scattering)
-
 
 ---
 

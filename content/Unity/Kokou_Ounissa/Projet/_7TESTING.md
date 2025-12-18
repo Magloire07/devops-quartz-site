@@ -59,7 +59,6 @@ title: 7 - Tests et Validation
 - RAM: 32 GB
 - GPU: NVIDIA RTX 3070
 
-
 ## Tests fonctionnels
 
 ### Menu principal
@@ -82,7 +81,6 @@ title: 7 - Tests et Validation
 - Menu principal affiché correctement
 - Aucune erreur console
 
-
 #### TC-MENU-002: Sélection de mission
 
 **Objectif**: Vérifier la sélection d'une mission
@@ -100,7 +98,6 @@ title: 7 - Tests et Validation
 - Panneau de sélection d'avion affiché
 - Informations de la mission visibles
 - Prévisualisation 3D fonctionnelle
-
 
 #### TC-MENU-003: Sélection d'avion et couleur
 
@@ -120,7 +117,6 @@ title: 7 - Tests et Validation
 - Prévisualisation met à jour la couleur
 - Transition vers scène de vol fluide
 - Avion sélectionné spawne avec la couleur choisie
-
 
 **Vidéo**: `test_aircraft_selection.mp4`
 
@@ -145,7 +141,6 @@ title: 7 - Tests et Validation
 - Caméra positionnée correctement
 - Météo appliquée selon mission
 
-
 #### TC-FLIGHT-002: Contrôles de vol de base
 
 **Objectif**: Vérifier les contrôles de l'avion
@@ -166,7 +161,6 @@ title: 7 - Tests et Validation
 - Avion répond aux mouvements de souris
 - Assiette change selon input
 - Réduction de puissance audible
-
 
 **Vidéo**: `test_flight_controls.mp4`
 
@@ -191,8 +185,6 @@ title: 7 - Tests et Validation
 - Montée stable sans décrochage
 - Maintien d'altitude possible
 
- 
-
 **Vidéo**: `test_takeoff.mp4`
 
 #### TC-FLIGHT-004: Vol en croisière
@@ -215,8 +207,6 @@ title: 7 - Tests et Validation
 - Turbulences gérables
 - FPS stable
 
- 
-
 #### TC-FLIGHT-005: Atterrissage
 
 **Objectif**: Vérifier l'atterrissage
@@ -237,8 +227,6 @@ title: 7 - Tests et Validation
 - Atterrissage sur les roues
 - Pas de rebond excessif
 - Arrêt progressif
-
- 
 
 **Vidéo**: `test_landing.mp4`
 
@@ -262,8 +250,6 @@ title: 7 - Tests et Validation
 - Perte de contrôle perceptible
 - Récupération possible
 - Son d'alarme (si implémenté)
-
- 
 
 #### TC-FLIGHT-007: Changement de vue caméra
 
@@ -313,8 +299,6 @@ title: 7 - Tests et Validation
 - Transitions fluides (pas de changement brusque)
 - Audio s'adapte à l'intensité
 
- 
-
 **Vidéo**: `test_weather_transitions.mp4`
 
 #### TC-WEATHER-002: Pluie suit l'avion
@@ -359,8 +343,6 @@ title: 7 - Tests et Validation
 - Intervalle 3-10 secondes
 - Sons variés
 
- 
-
 **Vidéo**: `test_lightning_thunder.mp4`
 
 #### TC-WEATHER-004: Brouillard dynamique
@@ -381,8 +363,6 @@ title: 7 - Tests et Validation
 - Météo 0.5: Visibilité ~1000m
 - Météo 1.0: Visibilité 200m
 - Transition fluide
-
- 
 
 ### Mission "Escape the Hell"
 
@@ -406,8 +386,6 @@ title: 7 - Tests et Validation
 - Sliders météo/heure désactivés (grisés)
 - Obscurité complète
 
- 
-
 #### TC-MISSION3-002: Effets d'horreur
 
 **Objectif**: Vérifier les sons et images effrayants
@@ -427,8 +405,6 @@ title: 7 - Tests et Validation
 - Image effrayante défile (10-120s)
 - 4 directions possibles (haut, bas, gauche, droite)
 - Volume audible mais pas écrasant
-
- 
 
 **Vidéo**: `test_mission3_horror_effects.mp4`
 
@@ -457,8 +433,6 @@ title: 7 - Tests et Validation
 - Sliders déverrouillés
 - Contrôles utilisables
 
- 
-
 **Vidéo**: `test_mission3_complete.mp4` (durée: 12 minutes)
 
 ### UI In-Game
@@ -482,8 +456,6 @@ title: 7 - Tests et Validation
 - Jeu en pause
 - Tous les boutons fonctionnels
 - Resume reprend le jeu
-
- 
 
 #### TC-UI-002: HUD informations
 
@@ -527,8 +499,6 @@ title: 7 - Tests et Validation
 - Pas de trous dans le mesh
 - Pas de pics de latence majeurs
 - LOD fonctionne correctement
-
- 
 
 **À optimiser**: Pics de latence signalés
 
@@ -713,8 +683,6 @@ title: 7 - Tests et Validation
 - Boutons accessibles
 - Performance dégradée proportionnellement
 
- 
-
 ### Modes d'affichage
 
 #### COMPAT-002: Fullscreen vs Windowed
@@ -732,8 +700,6 @@ title: 7 - Tests et Validation
 - Tous les modes fonctionnels
 - Performance optimale en Fullscreen
 - Alt+Tab fonctionne
-
- 
 
 ### Périphériques d'entrée
 
@@ -753,8 +719,6 @@ title: 7 - Tests et Validation
 - Sensibilité acceptable
 - Pas de comportement erratique
 
- 
-
 ### Systèmes d'exploitation
 
 #### COMPAT-004: Windows 10 vs Windows 11
@@ -769,8 +733,6 @@ title: 7 - Tests et Validation
 
 - Fonctionnement identique
 - Aucune erreur spécifique à l'OS
-
- 
 
 ## Tests de régression
 

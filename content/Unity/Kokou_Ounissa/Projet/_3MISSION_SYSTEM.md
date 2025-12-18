@@ -320,7 +320,6 @@ IEnumerator PlayHalloweenSoundsRoutine()
 - Thématique horrifique (cris, gémissements, ambiances)
 - Format: WAV ou OGG (compression)
 
-
 ### Effets visuels
 
 #### Canvas et configuration
@@ -488,7 +487,6 @@ IEnumerator ShowScaryImageRoutine()
 - Thématique horrifique cohérente avec les sons
 - Contraste élevé pour visibilité
 
-
 ### Fin de mission
 
 #### Séquence de transition
@@ -634,7 +632,6 @@ else  // Free Ride ou autre mission
 - Météo ajustable en temps réel
 - Heure ajustable en temps réel
 
-
 ## Gestion des paramètres
 
 ### PlayerPrefs utilisées
@@ -732,7 +729,6 @@ public void SetTimeValue(float value)
     }
 }
 ```
-
 
 ## Système audio
 

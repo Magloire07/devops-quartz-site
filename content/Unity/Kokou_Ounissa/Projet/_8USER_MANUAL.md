@@ -83,10 +83,7 @@ tiny-flight-simulator-beta/
 
 ## Démarrage
 
-
 ### Menu principal
-
-
 
 Le menu principal offre les options suivantes:
 
@@ -98,9 +95,6 @@ Le menu principal offre les options suivantes:
 | **Quit**       | Quitter l'application                         |
 
 ### Sélection de mission
-
-
-
 
 1. **Escape the Hell**
    - Mission narrative avec atmosphère horrifique
@@ -123,13 +117,11 @@ Le menu principal offre les options suivantes:
 
 ### Sélection d'avion
 
-
 **Options**:
 
 - Choix parmi plusieurs modèles d'avion
 - Sélection de la couleur (palette de 8 couleurs)
 - Prévisualisation 3D du modèle
-
 
 ## Contrôles
 
@@ -148,7 +140,6 @@ Le menu principal offre les options suivantes:
 | **E**      | Roulis droite (roll right)          |
 | **Espace** | Frein aérien                        |
 | **V**      | Changer de vue caméra               |
-
 
 #### Sensibilité de la souris
 
@@ -182,7 +173,6 @@ La souris contrôle directement l'assiette de l'avion:
 4. Arrondir juste avant le contact
 5. Couper les gaz au toucher des roues
 
-
 ### Contrôles de caméra
 
 | Touche               | Mode      | Description                     |
@@ -196,14 +186,11 @@ La souris contrôle directement l'assiette de l'avion:
 - Free look activé automatiquement
 - Instruments visibles (speedomètre, altimètre)
 
-
 **Mode Externe**:
 
 - Vue en suivant l'avion
 - Caméra centrée sur l'avion
 - Idéal pour observer l'environnement
-
-
 
 ### Contrôles de menu
 
@@ -217,7 +204,6 @@ La souris contrôle directement l'assiette de l'avion:
 
 ### HUD (Head-Up Display)
 
-
 **Éléments affichés**:
 
 1. **Vitesse** - Vitesse actuelle en km/h
@@ -227,11 +213,9 @@ La souris contrôle directement l'assiette de l'avion:
 5. **Météo** - Conditions actuelles
 6. **Position** - Coordonnées (si activé)
 
-
 ### Menu in-game
 
 Accessible avec **Échap**
-
 
 **Options disponibles**:
 
@@ -278,7 +262,6 @@ Accessible avec **Échap**
 ## Modes de jeu
 
 ### Mode "Escape the Hell"
-
 
 **Synopsis**:
 Mission narrative où le joueur doit piloter dans des conditions extrêmes pendant 10 minutes avant la "révélation".
@@ -347,11 +330,7 @@ La mission représente une épreuve psychologique où le joueur doit maintenir s
 - Ignorer les distractions visuelles et sonores
 - Se concentrer sur les instruments de vol
 
-
-
 ### Mode "Free Ride"
-
-
 
 **Description**:
 Mode sandbox permettant l'exploration libre du monde procédural sans contraintes ni objectifs.
@@ -370,7 +349,6 @@ Mode sandbox permettant l'exploration libre du monde procédural sans contrainte
 - Exploration de la génération procédurale
 - Tests de conditions météo
 - Vol de détente
-
 
 #### Réglages météo
 
@@ -507,7 +485,6 @@ La couleur sélectionnée est sauvegardée et appliquée automatiquement lors du
 6. Couper les gaz au toucher des roues
 7. Laisser l'avion rouler
 ```
-
 
 ### Vol avancé
 
@@ -712,8 +689,6 @@ Fichiers joints:
 | **Drag**            | Traînée - résistance de l'air                   |
 | **Lift**            | Portance - force qui maintient l'avion en l'air |
 | **Airspeed**        | Vitesse de l'air relatif à l'avion              |
-
-
 
 ---
 

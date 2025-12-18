@@ -67,8 +67,6 @@ graph TB
     DWS --> CloudMaster[Système Nuages]
 ```
 
-
-
 ### Cycle de vie
 
 ```mermaid
