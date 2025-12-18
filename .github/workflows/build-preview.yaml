@@ -35,6 +35,14 @@ jobs:
       - name: Build Quartz
         run: npx quartz build -v
 
+      - name: Remove oversized assets (Cloudflare limit 25MiB)
+        run: |
+          if [ -f "public/videos/demov1.mp4" ]; then
+            echo "Removing public/videos/demov1.mp4 (too large for Pages)"
+            rm -f "public/videos/demov1.mp4"
+          fi
+          find public -type f -size +25M -print -delete
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v5
         with:

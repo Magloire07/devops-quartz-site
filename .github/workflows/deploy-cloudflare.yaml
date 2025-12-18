@@ -38,9 +38,18 @@ jobs:
       - name: Build Quartz
         run: npx quartz build
 
+      - name: Remove oversized assets (Cloudflare limit 25MiB)
+        run: |
+          if [ -f "public/videos/demov1.mp4" ]; then
+            echo "Removing public/videos/demov1.mp4 (too large for Pages)"
+            rm -f "public/videos/demov1.mp4"
+          fi
+          # Cloudflare Pages rejects any file > 25 MiB
+          find public -type f -size +25M -print -delete
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy public --project-name=devops-quartz-pages
+          command: pages deploy public --project-name=devops-quartz-pages --commit-dirty=true
