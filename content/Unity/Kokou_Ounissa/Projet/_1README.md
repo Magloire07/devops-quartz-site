@@ -1,26 +1,15 @@
 ---
 title: 1 - Vue d'ensemble
 ---
+##Demo
+
+<video width="640" controls>
+  <source src="../../../../videos/demov1.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 
-<<<<<<< HEAD
 Tiny Flight Simulator est un simulateur de vol développé sous Unity, offrant une expérience de vol immersive avec génération procédurale de l'univers, système météorologique dynamique, et système de missions narratives.
-=======
-## Vue d'ensemble
-
-Tiny Flight Simulator est un simulateur de vol développé sous Unity, offrant une expérience de vol immersive avec génération procédurale de terrain, système météorologique dynamique, et système de missions narratives.
-
-### Informations du projet
-
-| Propriété                        | Valeur                     |
-| -------------------------------- | -------------------------- |
-| **Nom du projet**                | Tiny Flight Simulator Beta |
-| **Moteur**                       | Unity 2022.3+              |
-| **Langage**                      | C# (.NET Standard 2.1)     |
-| **Plateforme cible**             | Windows (x64)              |
-| **Version**                      | Beta 0.9                   |
-| **Date de dernière mise à jour** | Décembre 2025              |
->>>>>>> 8b03f82262e4006126099efe8b04256c369d837c
 
 ### Objectifs du projet
 
