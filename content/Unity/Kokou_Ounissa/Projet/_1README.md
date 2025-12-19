@@ -2,12 +2,19 @@
 title: 1 - Vue d'ensemble
 ---
 
-##Demo
+## Demo
 
-<video width="640" controls>
-  <source src="../../../../videos/demov1.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[Démo (YouTube)](https://youtu.be/ed-O2t_aOVM)
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube-nocookie.com/embed/ed-O2t_aOVM"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowfullscreen
+></iframe>
 
 Tiny Flight Simulator est un simulateur de vol développé sous Unity, offrant une expérience de vol immersive avec génération procédurale de l'univers, système météorologique dynamique, et système de missions narratives.
 
