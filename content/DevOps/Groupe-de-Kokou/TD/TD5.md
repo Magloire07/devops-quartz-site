@@ -38,7 +38,3 @@ title: TD5
 
 </aside>
 
-Questions au prof :
-
-- Est ce que tous les TDs sont à rendre
-- Est ce que tous les membres doivent faire tous les tds à livrer
