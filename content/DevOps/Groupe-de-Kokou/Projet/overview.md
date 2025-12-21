@@ -8,7 +8,6 @@ title: 1-Project overview
 
 [https://github.com/Magloire07/msg_devops](https://github.com/Magloire07/msg_devops.git)
 
-
 ## Demo
 
 [Démo déploiement minikube](https://youtu.be/C6MEJuCEjIw)
@@ -26,8 +25,6 @@ title: 1-Project overview
 **Cahier des charges**
 
 [final-project-devops-for-swe-2025.pdf](images/final-project-devops-for-swe-2025.pdf)
-
-
 
 ### Partie Front: (OUNISSA)
 

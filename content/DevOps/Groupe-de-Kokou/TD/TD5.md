@@ -35,5 +35,3 @@ title: TD5
   ![Screenshot from 2025-11-02 20-03-18.png](images/Screenshot_from_2025-11-02_20-03-18.png)
   Lien vers le repos
   [GitHub - Magloire07/td5](https://github.com/Magloire07/td5.git)
-
-
