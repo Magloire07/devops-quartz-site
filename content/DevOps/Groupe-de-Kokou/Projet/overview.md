@@ -6,17 +6,28 @@ title: 1-Project overview
 
 **Repos**
 
-[](https://github.com/Secr3ts/msg_devops.git)
+[https://github.com/Magloire07/msg_devops](https://github.com/Magloire07/msg_devops.git)
+
+
+## Demo
+
+[Démo déploiement minikube](https://youtu.be/C6MEJuCEjIw)
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube-nocookie.com/embed/C6MEJuCEjIw"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowfullscreen
+></iframe>
 
 **Cahier des charges**
 
 [final-project-devops-for-swe-2025.pdf](images/final-project-devops-for-swe-2025.pdf)
 
-<aside>
 
-# Résumé du service
-
-</aside>
 
 ### Partie Front: (OUNISSA)
 
