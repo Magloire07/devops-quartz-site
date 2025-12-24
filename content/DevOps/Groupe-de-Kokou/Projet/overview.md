@@ -22,6 +22,18 @@ title: 1-Project overview
   allowfullscreen
 ></iframe>
 
+[Démo déploiement eks](https://youtu.be/1JwTWzLf12E)
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube-nocookie.com/embed/1JwTWzLf12E"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowfullscreen
+></iframe>
+
 **Cahier des charges**
 
 [final-project-devops-for-swe-2025.pdf](images/final-project-devops-for-swe-2025.pdf)
