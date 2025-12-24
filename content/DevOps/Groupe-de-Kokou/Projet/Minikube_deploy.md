@@ -20,6 +20,9 @@ Ce guide décrit le déploiement de l'application msg-devops sur un cluster Kube
 
 ```bash
 sudo ./deploy-minikube-oneclick.sh
+
+# Undeploy (supprimer le déploiement)
+sudo ./deploy-minikube-oneclick.sh --undeploy
 ```
 
 Le script gère automatiquement :
@@ -42,8 +45,21 @@ sudo ./deploy-minikube-oneclick.sh --skip-install
 # Mode verbose pour débogage
 sudo ./deploy-minikube-oneclick.sh --verbose
 
-# Désinstaller
-sudo ./deploy-minikube-oneclick.sh --uninstall
+# Mettre à jour après modification du code
+sudo ./deploy-minikube-oneclick.sh --update backend   # Backend uniquement
+
+sudo ./deploy-minikube-oneclick.sh --update frontend  # Frontend uniquement
+
+sudo ./deploy-minikube-oneclick.sh --update all       # Les deux
+
+# Voir les pods backend avec leurs logs
+sudo ./deploy-minikube-oneclick.sh --pods backend
+
+# Voir les pods frontend avec leurs logs
+sudo ./deploy-minikube-oneclick.sh --pods frontend
+
+# Voir tous les pods
+sudo ./deploy-minikube-oneclick.sh --pods all
 ```
 
 Pour plus de détails, consultez **ONECLICK_GUIDE.md**.
@@ -527,7 +543,7 @@ docker rmi msg-devops-frontend:latest
 
 ```bash
 # Utiliser le script ONE-CLICK
-sudo ./deploy-minikube-oneclick.sh --uninstall
+sudo ./deploy-minikube-oneclick.sh --undeploy
 ```
 
 ---

@@ -254,7 +254,7 @@ kubectl logs <pod-name>
 minikube service frontend --url
 
 # Désinstaller
-sudo ./deploy-minikube-oneclick.sh --uninstall
+sudo ./deploy-minikube-oneclick.sh --undeploy
 ```
 
 ### EKS
