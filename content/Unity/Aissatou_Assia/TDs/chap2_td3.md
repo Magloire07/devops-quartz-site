@@ -61,15 +61,15 @@ Principe :
 - Chaque cellule mur (1) est représentée par un cube 3D.
 - Les cubes sont instanciés à partir d’un prefab.
 
-![image.png](attachment:c3dfb5ea-5d67-4250-9741-0f467d27f04a:image.png)
+![génération pull request](../../../images/unity/chap2_td3_1.png)
 
 - La grotte est centrée dans la scène pour une meilleure visualisation.
     
-    ![image.png](attachment:d11721b7-ecbf-402d-85fa-274b8b5da51b:image.png)
+   ![génération pull request](../../../images/unity/chap2_td3_2.png)
     
-    ![image.png](attachment:082466f9-3e9e-4abe-bc36-bebc64889690:image.png)
+    ![génération pull request](../../../images/unity/chap2_td3_3.png)
     
-    ![image.png](attachment:207188cd-d895-4a2c-8e16-30465b1efa93:image.png)
+    ![génération pull request](../../../images/unity/chap2_td3_4.png)
     
 
 ## **6. Optimisation (MergeCubes) + correction du problème de matériau (modification finale)**
@@ -102,9 +102,9 @@ Lors de la fusion :
 
 Un champ wallMaterial a été ajouté à WallGenerator, et ce matériau est assigné au MeshRenderer de l’objet principal avant la fusion des meshes.
 
-![image.png](attachment:21304266-4010-461f-839b-986f467326ab:image.png)
+![génération pull request](../../../images/unity/chap2_td3_5.png)
 
-![image.png](attachment:f47a8dcb-3587-48ea-ad43-a113bc87136a:image.png)
+![génération pull request](../../../images/unity/chap2_td3_6.png)
 
 ```jsx
 using System.Collections;

@@ -1,5 +1,5 @@
 ---
-title: Bruit de Perlin
+title: chap2_TD2
 tags:
   - unity
   - infographie
