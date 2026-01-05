@@ -13,7 +13,7 @@ ecole: ESIEE
 **Année universitaire :** 2025–2026  
 **École :** ESIEE  
 
-🎥 **Vidéo du projet :**  
+🎥 **Vidéo du jeu :**  
 https://drive.google.com/file/d/1yztImPr_P3YZUTY-GAGN_MoU1i4dsKQV/view?usp=sharing
 
 ---
