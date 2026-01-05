@@ -1,4 +1,4 @@
-## Réponses aux questions – Systèmes de particules dans Unity
+## Systèmes de particules dans Unity
 
 ---
 
